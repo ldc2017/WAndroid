@@ -34,6 +34,9 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
     @Override
     protected void init_view() {
+        mBinding.topBar.lineBack.setVisibility(View.GONE);
+        mBinding.topBar.tvTitle.setText(getString(R.string.str_login));
+        mBinding.topBar.lineMore.setVisibility(View.GONE);
         mBinding.setEvents(new Events());
     }
 
