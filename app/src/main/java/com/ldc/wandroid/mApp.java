@@ -9,6 +9,8 @@ import androidx.room.Room;
 import com.blankj.utilcode.util.Utils;
 import com.ldc.wandroid.db.AppDatabase;
 
+import me.yokeyword.fragmentation.Fragmentation;
+
 
 public class mApp extends Application {
 
@@ -28,8 +30,14 @@ public class mApp extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
+        //数据库
         database = Room.databaseBuilder(this, AppDatabase.class, "wandroid.db")
                 .allowMainThreadQueries()//主线程可查
                 .build();
+        //
+        Fragmentation.builder()
+                .debug(BuildConfig.DEBUG)
+                .stackViewMode(Fragmentation.BUBBLE)
+                .install();
     }
 }

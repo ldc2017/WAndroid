@@ -7,17 +7,28 @@ import android.os.Handler;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.contracts.MainContract;
+import com.ldc.wandroid.contracts.SecondContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityMainBinding;
+import com.ldc.wandroid.fragments.FourthFragment;
+import com.ldc.wandroid.fragments.HomeFragment;
+import com.ldc.wandroid.fragments.SecondFragment;
+import com.ldc.wandroid.fragments.ThirFragment;
 import com.ldc.wandroid.presenters.MainPresenter;
+
+import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresenter> implements MainContract.V {
 
 
+    //
     private final Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -25,6 +36,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         }
     });
 
+    //
+    private volatile SupportFragment curr_fragment = null;
+    private volatile int curr_selected_position = 0;
+    private SupportFragment[] fragments = new SupportFragment[4];
+    //
+    public static final int fragment_page0 = 0;
+    public static final int fragment_page1 = 1;
+    public static final int fragment_page2 = 2;
+    public static final int fragment_page3 = 3;
+    //
+    //
 
     @Override
     protected void onDestroy() {
@@ -52,7 +74,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     @Override
     protected void init_view() {
-
+        init_fragment();
+        init_bottom_bar();
     }
 
     @Override
@@ -74,5 +97,86 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     @Override
     public void hide_loading() {
 
+    }
+
+
+    //
+    private void init_bottom_bar() {
+        mBinding.bottomBar
+                .setMode(BottomNavigationBar.MODE_FIXED)
+                .addItem(new BottomNavigationItem(R.drawable.icon_icon, getResources().getString(R.string.str_home)))
+                .addItem(new BottomNavigationItem(R.drawable.icon_icon, "刘"))
+                .addItem(new BottomNavigationItem(R.drawable.icon_icon, "定"))
+                .addItem(new BottomNavigationItem(R.drawable.icon_icon, "成"))
+                .setFirstSelectedPosition(curr_selected_position)
+                .setTabSelectedListener(onTabSelectedListener)
+                .initialise();
+
+
+    }
+
+    // 选择事件
+    private BottomNavigationBar.OnTabSelectedListener onTabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(int position) {
+            switch_fragment(position);
+
+        }
+
+        @Override
+        public void onTabUnselected(int position) {
+            // 未选择
+
+        }
+
+        @Override
+        public void onTabReselected(int position) {
+            // 重新选择
+        }
+    };
+
+    //加载fragment
+    private void init_fragment() {
+        curr_fragment = findFragment(HomeFragment.class);
+        if (null == curr_fragment) {
+            fragments[fragment_page0] = HomeFragment.newInstance(null);
+            fragments[fragment_page1] = SecondFragment.newInstance(null);
+            fragments[fragment_page2] = ThirFragment.newInstance(null);
+            fragments[fragment_page3] = FourthFragment.newInstance(null);
+            loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
+                    fragments[fragment_page0],
+                    fragments[fragment_page1],
+                    fragments[fragment_page2],
+                    fragments[fragment_page3]);
+        } else {
+
+            fragments[fragment_page0] = curr_fragment;
+            fragments[fragment_page1] = findFragment(SecondFragment.class);
+            fragments[fragment_page2] = findFragment(ThirFragment.class);
+            fragments[fragment_page3] = findFragment(FourthFragment.class);
+
+            showHideFragment(curr_fragment);
+        }
+    }
+
+    // 切换fragment
+    public void switch_fragment(int position) {
+        if (position < 0 || position > fragments.length - 1) {
+            return;
+        }
+
+        SupportFragment oldFragment = fragments[curr_selected_position];
+        SupportFragment newFragment = fragments[position];
+        showHideFragment(newFragment, oldFragment);
+        curr_selected_position = position;
+        curr_fragment = newFragment;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (null != curr_fragment) {
+            curr_fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

@@ -84,7 +84,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
         //登录
         public void _login(View view) {
-            mPresenter.login_req(mBinding.etUserName.getText().toString(), mBinding.etUserPassword.getText().toString());
+           // mPresenter.login_req(mBinding.etUserName.getText().toString(), mBinding.etUserPassword.getText().toString());
+            mPresenter.login_req("ldc_2019","123456");
 
         }
 

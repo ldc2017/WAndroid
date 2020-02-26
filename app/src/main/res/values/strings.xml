@@ -11,4 +11,5 @@
     <string name="str_hello_world">hello world!!</string>
     <string name="str_please_enter_password">请输入密码</string>
     <string name="str_please_enter_username">请输入用户名</string>
+    <string name="str_home">首页</string>
 </resources>

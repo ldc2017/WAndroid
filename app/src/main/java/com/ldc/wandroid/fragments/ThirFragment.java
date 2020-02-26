@@ -9,23 +9,56 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.contracts.ThirContract;
+import com.ldc.wandroid.core.BaseFragment;
+import com.ldc.wandroid.databinding.FragmentThirBinding;
+import com.ldc.wandroid.presenters.ThirPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThirFragment extends Fragment {
+public class ThirFragment extends BaseFragment<FragmentThirBinding, ThirPresenter> implements ThirContract.V {
 
-
-    public ThirFragment() {
-        // Required empty public constructor
+    public static ThirFragment newInstance(Bundle args) {
+        ThirFragment fragment = new ThirFragment();
+        if (null != args) {
+            fragment.setArguments(args);
+        }
+        return fragment;
     }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_thir, container, false);
+    protected int ui() {
+        return R.layout.fragment_thir;
     }
 
+    @Override
+    protected ThirPresenter init_presenter() {
+        return new ThirPresenter();
+    }
+
+    @Override
+    protected void init_view() {
+
+    }
+
+    @Override
+    protected void init_data() {
+
+    }
+
+    @Override
+    public void show_toast(String message) {
+
+    }
+
+    @Override
+    public void show_loading(String message) {
+
+    }
+
+    @Override
+    public void hide_loading() {
+
+    }
 }

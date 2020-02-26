@@ -9,23 +9,58 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.contracts.FourthContract;
+import com.ldc.wandroid.core.BaseFragment;
+import com.ldc.wandroid.databinding.FragmentFourthBinding;
+import com.ldc.wandroid.presenters.FourthPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FourthFragment extends Fragment {
+public class FourthFragment extends BaseFragment<FragmentFourthBinding, FourthPresenter> implements FourthContract.V {
 
 
-    public FourthFragment() {
-        // Required empty public constructor
+    public static FourthFragment newInstance(Bundle args) {
+
+        FourthFragment fragment = new FourthFragment();
+        if (null != args) {
+            fragment.setArguments(args);
+        }
+        return fragment;
     }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fourth, container, false);
+    protected int ui() {
+        return R.layout.fragment_fourth;
     }
 
+    @Override
+    protected FourthPresenter init_presenter() {
+        return new FourthPresenter();
+    }
+
+    @Override
+    protected void init_view() {
+
+    }
+
+    @Override
+    protected void init_data() {
+
+    }
+
+    @Override
+    public void show_toast(String message) {
+
+    }
+
+    @Override
+    public void show_loading(String message) {
+
+    }
+
+    @Override
+    public void hide_loading() {
+
+    }
 }
