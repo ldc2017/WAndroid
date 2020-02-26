@@ -3,6 +3,7 @@ package com.ldc.wandroid.net;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -11,6 +12,7 @@ public class Api2Request {
 
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
+    private HttpLoggingInterceptor loggingInterceptor;
 
 
     public static Api2Request getInstance() {
@@ -53,9 +55,26 @@ public class Api2Request {
                     .connectTimeout(30000, TimeUnit.SECONDS)
                     .readTimeout(35000, TimeUnit.SECONDS)
                     .writeTimeout(35000, TimeUnit.SECONDS)
+                    .addInterceptor(getLoggingInterceptor())
                     .build();
         }
 
         return okHttpClient;
+    }
+
+
+    /**
+     * 日志
+     *
+     * @return
+     */
+    private HttpLoggingInterceptor getLoggingInterceptor() {
+        // Log信息拦截器
+        if (null == loggingInterceptor) {
+            loggingInterceptor = new HttpLoggingInterceptor(new RequestLogging());
+        }
+        //设置日志打印级别
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return loggingInterceptor;
     }
 }
