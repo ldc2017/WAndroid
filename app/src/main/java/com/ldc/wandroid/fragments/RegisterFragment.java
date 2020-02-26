@@ -70,6 +70,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding, Regi
         if (null != data) {
             if (0 == data.getErrorCode()) {
                 Navigation.findNavController(getActivity(), R.id.btn_register).navigateUp();
+                show_toast("注册成功");
             } else {
                 show_toast(data.getErrorMsg());
             }
@@ -82,14 +83,13 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding, Regi
 
     //注册事件
     public class Events {
-
+        //注册
         public void btn_register(View view) {
             try {
-
                 mPresenter.register_req(mBinding.etUserName.getText().toString(),
                         mBinding.etUserPassword.getText().toString(),
                         mBinding.etUserPasswordAgain.getText().toString());
-            }catch (Exception e){
+            } catch (Exception e) {
                 show_toast(e.getMessage());
             }
 

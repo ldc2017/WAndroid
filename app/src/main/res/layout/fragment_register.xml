@@ -2,12 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
     <data>
+
         <variable
             name="events"
             type="com.ldc.wandroid.fragments.RegisterFragment.Events" />
     </data>
+
     <RelativeLayout
 
         xmlns:tools="http://schemas.android.com/tools"
@@ -40,7 +41,8 @@
                 android:minHeight="@dimen/dp_50"
                 android:paddingStart="@dimen/dp_5"
                 android:paddingLeft="@dimen/dp_5"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textSize="@dimen/sp_15" />
 
             <EditText
                 android:id="@+id/et_user_password"
@@ -49,10 +51,12 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:background="@drawable/input_edit_bg"
                 android:hint="@string/str_please_enter_password"
+                android:inputType="textVisiblePassword"
                 android:minHeight="@dimen/dp_50"
                 android:paddingStart="@dimen/dp_5"
                 android:paddingLeft="@dimen/dp_5"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textSize="@dimen/sp_15" />
 
             <EditText
                 android:id="@+id/et_user_password_again"
@@ -61,10 +65,12 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:background="@drawable/input_edit_bg"
                 android:hint="@string/str_please_enter_password"
+                android:inputType="textVisiblePassword"
                 android:minHeight="@dimen/dp_50"
                 android:paddingStart="@dimen/dp_5"
                 android:paddingLeft="@dimen/dp_5"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textSize="@dimen/sp_15" />
 
             <Button
                 android:id="@+id/btn_register"

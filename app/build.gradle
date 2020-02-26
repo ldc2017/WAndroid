@@ -12,6 +12,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true
+
+        //room
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
     }
     buildTypes {
         release {
@@ -47,6 +57,8 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: '2.7.1'
     //
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    //
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
 
     //
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -57,15 +69,18 @@ dependencies {
     //
     implementation 'com.blankj:utilcodex:1.26.0'
     //
-    implementation "androidx.navigation:navigation-fragment:2.3.0-alpha02"
-    implementation "androidx.navigation:navigation-ui:2.3.0-alpha02"
+    implementation "androidx.navigation:navigation-fragment:2.2.1"
+    implementation "androidx.navigation:navigation-ui:2.2.1"
+    //
+    implementation "androidx.room:room-runtime:2.2.4"
+    annotationProcessor "androidx.room:room-compiler:2.2.4"
     //
     implementation 'com.android.support:multidex:1.0.3'
     //
-    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'      //核心必须依赖
-    implementation  'com.scwang.smart:refresh-header-classics:2.0.0-alpha-1'    //经典刷新头
-    implementation  'com.scwang.smart:refresh-header-material:2.0.0-alpha-1'    //谷歌刷新头
-    implementation  'com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1'    //经典加载
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'      //核心必须依赖
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.0-alpha-1'    //经典刷新头
+    implementation 'com.scwang.smart:refresh-header-material:2.0.0-alpha-1'    //谷歌刷新头
+    implementation 'com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1'    //经典加载
     //
     implementation 'com.just.agentweb:agentweb:4.1.2' // (必选)
 

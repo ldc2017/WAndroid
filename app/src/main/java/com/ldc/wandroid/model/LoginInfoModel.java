@@ -21,123 +21,123 @@ public class LoginInfoModel {
      */
 
     @SerializedName("admin")
-    private boolean nullAdmin;
+    private boolean admin;
     @SerializedName("email")
-    private String nullEmail;
+    private String email;
     @SerializedName("icon")
-    private String nullIcon;
+    private String icon;
     @SerializedName("id")
-    private int nullId;
+    private int id;
     @SerializedName("nickname")
-    private String nullNickname;
+    private String nickname;
     @SerializedName("password")
-    private String nullPassword;
+    private String password;
     @SerializedName("publicName")
-    private String nullPublicName;
+    private String publicName;
     @SerializedName("token")
-    private String nullToken;
+    private String token;
     @SerializedName("type")
-    private int nullType;
+    private int type;
     @SerializedName("username")
-    private String nullUsername;
+    private String username;
     @SerializedName("chapterTops")
-    private List<?> nullChapterTops;
+    private List<String> chapterTops;
     @SerializedName("collectIds")
-    private List<Integer> nullCollectIds;
+    private List<Integer> collectIds;
 
     public boolean isAdmin() {
-        return nullAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        nullAdmin = admin;
+        this.admin = admin;
     }
 
     public String getEmail() {
-        return nullEmail;
+        return email;
     }
 
     public void setEmail(String email) {
-        nullEmail = email;
+        this.email = email;
     }
 
     public String getIcon() {
-        return nullIcon;
+        return icon;
     }
 
     public void setIcon(String icon) {
-        nullIcon = icon;
+        this.icon = icon;
     }
 
     public int getId() {
-        return nullId;
+        return id;
     }
 
     public void setId(int id) {
-        nullId = id;
+        this.id = id;
     }
 
     public String getNickname() {
-        return nullNickname;
+        return nickname;
     }
 
     public void setNickname(String nickname) {
-        nullNickname = nickname;
+        this.nickname = nickname;
     }
 
     public String getPassword() {
-        return nullPassword;
+        return password;
     }
 
     public void setPassword(String password) {
-        nullPassword = password;
+        this.password = password;
     }
 
     public String getPublicName() {
-        return nullPublicName;
+        return publicName;
     }
 
     public void setPublicName(String publicName) {
-        nullPublicName = publicName;
+        this.publicName = publicName;
     }
 
     public String getToken() {
-        return nullToken;
+        return token;
     }
 
     public void setToken(String token) {
-        nullToken = token;
+        this.token = token;
     }
 
     public int getType() {
-        return nullType;
+        return type;
     }
 
     public void setType(int type) {
-        nullType = type;
+        this.type = type;
     }
 
     public String getUsername() {
-        return nullUsername;
+        return username;
     }
 
     public void setUsername(String username) {
-        nullUsername = username;
+        this.username = username;
     }
 
-    public List<?> getChapterTops() {
-        return nullChapterTops;
+    public List<String> getChapterTops() {
+        return chapterTops;
     }
 
-    public void setChapterTops(List<?> chapterTops) {
-        nullChapterTops = chapterTops;
+    public void setChapterTops(List<String> chapterTops) {
+        this.chapterTops = chapterTops;
     }
 
     public List<Integer> getCollectIds() {
-        return nullCollectIds;
+        return collectIds;
     }
 
     public void setCollectIds(List<Integer> collectIds) {
-        nullCollectIds = collectIds;
+        this.collectIds = collectIds;
     }
 }

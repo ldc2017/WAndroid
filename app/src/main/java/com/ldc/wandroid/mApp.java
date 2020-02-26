@@ -4,11 +4,19 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.multidex.MultiDex;
+import androidx.room.Room;
 
 import com.blankj.utilcode.util.Utils;
+import com.ldc.wandroid.db.AppDatabase;
 
 
 public class mApp extends Application {
+
+    private static AppDatabase database;
+
+    public static AppDatabase getDatabase() {
+        return database;
+    }
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -20,5 +28,8 @@ public class mApp extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
+        database = Room.databaseBuilder(this, AppDatabase.class, "wandroid.db")
+                .allowMainThreadQueries()//主线程可查
+                .build();
     }
 }
