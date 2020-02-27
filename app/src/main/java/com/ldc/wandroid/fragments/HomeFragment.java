@@ -45,7 +45,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     //
     private HomeArticleAdapter article_adapter = new HomeArticleAdapter(R.layout.home_article_layout_item);
     private RecyclerView.LayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-    private volatile int article_index = 0;
+    private volatile int curr_article_index = 0;
 
     //
     static final int refresh_data_code = 0x000;
@@ -56,8 +56,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                 case refresh_data_code:
                     List<HomeArticleModel.DatasBean> dts = (List<HomeArticleModel.DatasBean>) msg.obj;
                     if (null != dts || null != article_adapter) {
-                        article_adapter.setNewData(
-                                dts);
+                        if (0 == curr_article_index) {
+                            article_adapter.setNewData(dts);
+                        } else {
+                            article_adapter.addData(dts);
+                        }
                     }
                     return true;
             }
@@ -86,7 +89,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            mPresenter.get_article_req(article_index);
+            mPresenter.get_article_req(curr_article_index);
         }
     }
 
@@ -120,7 +123,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     protected void init_data() {
         mPresenter.get_top_article_req();
         mPresenter.get_banner_req();
-        mPresenter.get_article_req(article_index);
+        mPresenter.get_article_req(curr_article_index);
         //适配器
         init_article_adapter();
     }
@@ -208,6 +211,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                 }
             }
         });
+        article_adapter.setEmptyView(R.layout.no_data_layout_item);
+        article_adapter.setAnimationEnable(true);
     }
 
     //刷新事件
@@ -215,15 +220,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
             refreshLayout.finishLoadMore(CM.refresh_time);
-            article_index = article_index + 1;
-            mPresenter.get_article_req(article_index);
+            curr_article_index += 1;
+            mPresenter.get_article_req(curr_article_index);
         }
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
             refreshLayout.finishRefresh(CM.refresh_time);
-            article_index = 0;
-            mPresenter.get_article_req(article_index);
+            curr_article_index = 0;
+            mPresenter.get_article_req(curr_article_index);
 
         }
     };

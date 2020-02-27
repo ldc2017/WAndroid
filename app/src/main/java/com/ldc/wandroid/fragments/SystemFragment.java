@@ -7,19 +7,19 @@ import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.contracts.SecondContract;
+import com.ldc.wandroid.contracts.SystemContract;
 import com.ldc.wandroid.core.BaseFragment;
-import com.ldc.wandroid.databinding.FragmentSecondBinding;
-import com.ldc.wandroid.presenters.SecondPresenter;
+import com.ldc.wandroid.databinding.FragmentSystemBinding;
+import com.ldc.wandroid.presenters.SystemPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SecondFragment extends BaseFragment<FragmentSecondBinding, SecondPresenter> implements SecondContract.V {
+public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPresenter> implements SystemContract.V {
 
 
-    public static SecondFragment newInstance( Bundle args) {
-        SecondFragment fragment = new SecondFragment();
+    public static SystemFragment newInstance(Bundle args) {
+        SystemFragment fragment = new SystemFragment();
         if (null!=args) {
             fragment.setArguments(args);
         }
@@ -27,12 +27,12 @@ public class SecondFragment extends BaseFragment<FragmentSecondBinding, SecondPr
     }
     @Override
     protected int ui() {
-        return R.layout.fragment_second;
+        return R.layout.fragment_system;
     }
 
     @Override
-    protected SecondPresenter init_presenter() {
-        return new SecondPresenter();
+    protected SystemPresenter init_presenter() {
+        return new SystemPresenter();
     }
 
     @Override

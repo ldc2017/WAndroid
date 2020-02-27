@@ -4,11 +4,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.ldc.wandroid.contracts.HomeContract;
-import com.ldc.wandroid.contracts.SecondContract;
+import com.ldc.wandroid.contracts.SystemContract;
 import com.ldc.wandroid.core.BasePresenter;
 
-public class SecondPresenter extends BasePresenter<SecondContract.V> implements SecondContract.P {
+public class SystemPresenter extends BasePresenter<SystemContract.V> implements SystemContract.P {
     @Override
     protected void onStart() {
 

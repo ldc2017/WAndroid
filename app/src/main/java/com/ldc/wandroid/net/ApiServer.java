@@ -5,6 +5,7 @@ import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
+import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.model.TopArticleModel;
 
 import java.util.List;
@@ -43,5 +44,9 @@ public interface ApiServer {
     //首页文章
     @GET(value = "/article/list/{index}/json")
     Observable<BaseModel<HomeArticleModel>> get_home_article(@Path(value = "index") int index);
+
+
+    @GET(value = "/tree/json")
+    Observable<BaseModel<List<SystemModel>>> get_system();
 
 }
