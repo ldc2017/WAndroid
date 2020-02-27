@@ -1,16 +1,18 @@
 package com.ldc.wandroid.net;
 
+import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
+import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
 import com.ldc.wandroid.model.TopArticleModel;
 
-import java.time.temporal.ValueRange;
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiServer {
@@ -31,5 +33,15 @@ public interface ApiServer {
     // 获取置顶文章
     @GET(value = "/article/top/json")
     Observable<BaseModel<List<TopArticleModel>>> getTopArticle();
+
+
+    //banner
+    @GET(value = "/banner/json")
+    Observable<BaseModel<List<BannerModel>>> get_banner();
+
+
+    //首页文章
+    @GET(value = "/article/list/{index}/json")
+    Observable<BaseModel<HomeArticleModel>> get_home_article(@Path(value = "index") int index);
 
 }

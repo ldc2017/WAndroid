@@ -7,6 +7,7 @@ import androidx.multidex.MultiDex;
 import androidx.room.Room;
 
 import com.blankj.utilcode.util.Utils;
+import com.ldc.wandroid.common.ErrorCatch;
 import com.ldc.wandroid.db.AppDatabase;
 
 import me.yokeyword.fragmentation.Fragmentation;
@@ -39,5 +40,7 @@ public class mApp extends Application {
                 .debug(BuildConfig.DEBUG)
                 .stackViewMode(Fragmentation.BUBBLE)
                 .install();
+        //
+        Thread.setDefaultUncaughtExceptionHandler(new ErrorCatch());
     }
 }
