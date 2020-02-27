@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.SystemFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_00574b"
+            app:tabGravity="center"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/color_ffffff" />
+
+        <LinearLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="2222222222222222222222222" />
-
-    </FrameLayout>
+            android:layout_below="@id/tab_layout"
+            android:orientation="vertical" />
+    </RelativeLayout>
 </layout>

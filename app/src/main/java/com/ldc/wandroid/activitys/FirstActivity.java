@@ -23,7 +23,6 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
 
     @Override
     protected void init_view() {
-        show_toast("12312312");
     }
 
     @Override

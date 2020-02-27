@@ -85,6 +85,7 @@ public class HomePresenter extends BasePresenter<HomeContract.V> implements Home
 
     @Override
     public void get_article_req(int index) {
+        getView().show_loading("加载中···");
         apiServer.get_home_article(index)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -103,11 +104,13 @@ public class HomePresenter extends BasePresenter<HomeContract.V> implements Home
 
                     @Override
                     public void onError(Throwable e) {
+                        getView().hide_loading();
                         release_disposable(disposable);
                     }
 
                     @Override
                     public void onComplete() {
+                        getView().hide_loading();
                         release_disposable(disposable);
                     }
                 });

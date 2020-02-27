@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             intent.putExtras(args);
         }
         activity.startActivity(intent);
+        activity.finish();
     }
 
     @Override

@@ -136,12 +136,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     public void show_loading(String message) {
+        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
+        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
 
     }
 
     @Override
     public void hide_loading() {
-
+        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
     }
 
     @Override
@@ -211,7 +213,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                 }
             }
         });
-        article_adapter.setEmptyView(R.layout.no_data_layout_item);
+        article_adapter.setEmptyView(R.layout.layout_no_data);
         article_adapter.setAnimationEnable(true);
     }
 
@@ -235,6 +237,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     // 轮播信息
     private void init_banner(List<BannerModel> datas) {
+        mBinding.banner.setDelayTime(5000);
         mBinding.banner.setAdapter(new HomeBannerAdapter(datas));
         mBinding.banner.setIndicator(new CircleIndicator(getActivity()));
         mBinding.banner.setIndicatorSelectedColorRes(R.color.color_008577);
