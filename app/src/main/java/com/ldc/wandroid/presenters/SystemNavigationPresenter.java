@@ -54,7 +54,7 @@ public class SystemNavigationPresenter extends BasePresenter<SystemNavigationCon
     public void get_navigation_req() {
         getView().show_loading("加载中···");
         apiServer.get_navigation()
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<BaseModel<List<NavigationModel>>>() {
                     Disposable disposable;
