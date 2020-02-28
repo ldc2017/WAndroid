@@ -19,7 +19,7 @@ import com.ldc.wandroid.contracts.SystemNavigationContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentSystemNavigationBinding;
 import com.ldc.wandroid.model.BaseModel;
-import com.ldc.wandroid.model.NavigationModel;
+import com.ldc.wandroid.model.NetNavigationModel;
 import com.ldc.wandroid.presenters.SystemNavigationPresenter;
 
 import java.util.List;
@@ -104,7 +104,7 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
     }
 
     @Override
-    public void get_navigation_resp(BaseModel<List<NavigationModel>> dts) {
+    public void get_navigation_resp(BaseModel<List<NetNavigationModel>> dts) {
         if (null != dts) {
             if (0 == dts.getErrorCode()) {
                 mHandler.post(new Runnable() {
@@ -123,7 +123,7 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
 
     //初始化
-    private void init_adapter(List<NavigationModel> dts) {
+    private void init_adapter(List<NetNavigationModel> dts) {
         system_navigation_adapter.setNewData(dts);
         mBinding.dataList.setAdapter(system_navigation_adapter);
         mBinding.dataList.setHasFixedSize(true);
@@ -134,9 +134,9 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
         system_navigation_adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
-                List<NavigationModel> system_model = adapter.getData();
+                List<NetNavigationModel> system_model = adapter.getData();
                 if (null != system_model) {
-                    NavigationModel s = system_model.get(position);
+                    NetNavigationModel s = system_model.get(position);
                     if (null != s) {
                         show_toast(s.getName());
                     }

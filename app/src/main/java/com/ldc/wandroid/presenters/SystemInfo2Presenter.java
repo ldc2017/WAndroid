@@ -4,24 +4,22 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.ldc.wandroid.contracts.SystemNavigationContract;
+import com.ldc.wandroid.contracts.SystemInfo2Contract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
-import com.ldc.wandroid.model.NetNavigationModel;
+import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.net.Api2Request;
 import com.ldc.wandroid.net.ApiServer;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SystemNavigationPresenter extends BasePresenter<SystemNavigationContract.V> implements SystemNavigationContract.P {
+public class SystemInfo2Presenter extends BasePresenter<SystemInfo2Contract.V> implements SystemInfo2Contract.P {
     ApiServer apiServer;
 
-    public SystemNavigationPresenter() {
+    public SystemInfo2Presenter() {
         apiServer = Api2Request.getInstance().createServer(ApiServer.class);
     }
 
@@ -51,12 +49,12 @@ public class SystemNavigationPresenter extends BasePresenter<SystemNavigationCon
     }
 
     @Override
-    public void get_navigation_req() {
+    public void get_system_info_req(int index, String cid) {
         getView().show_loading("加载中···");
-        apiServer.get_navigation()
+        apiServer.get_system_info(index, cid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<BaseModel<List<NetNavigationModel>>>() {
+                .subscribe(new Observer<BaseModel<SystemInfoModel>>() {
                     Disposable disposable;
 
                     @Override
@@ -65,9 +63,8 @@ public class SystemNavigationPresenter extends BasePresenter<SystemNavigationCon
                     }
 
                     @Override
-                    public void onNext(BaseModel<List<NetNavigationModel>> listBaseModel) {
-                        getView().get_navigation_resp(listBaseModel);
-
+                    public void onNext(BaseModel<SystemInfoModel> systemInfoModelBaseModel) {
+                        getView().get_system_info_resp(systemInfoModelBaseModel);
                     }
 
                     @Override

@@ -25,7 +25,7 @@ public class HomeBannerAdapter extends BannerAdapter<BannerModel, HomeBannerAdap
 
     @Override
     public BannerViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_banner_layout_item, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_home_banner, parent, false);
         return new BannerViewHolder(view);
     }
 

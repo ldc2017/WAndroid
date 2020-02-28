@@ -1,6 +1,7 @@
 package com.ldc.wandroid.core;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -79,6 +80,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
             if (null != mPresenter) {
                 mPresenter.onBinding(this);
             }
+            handleIntent(getIntent());
             init_view();
             init_data();
         } catch (Exception e) {
@@ -94,6 +96,9 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
     protected abstract void init_view();
 
     protected abstract void init_data();
+
+    protected void handleIntent(Intent it) {
+    }
 
     protected void show_error(Exception e) {
         Log.d(TAG, String.format("show_error: %s", e.getMessage()));

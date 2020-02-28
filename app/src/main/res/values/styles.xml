@@ -23,4 +23,20 @@
         <item name="android:textColor"><![CDATA[#FFFFFF ]]></item>
         <item name="android:textSize"><![CDATA[17sp]]></item>
     </style>
+
+
+    <!--    tablayout 主题-->
+    <style name="StockTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/StockTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/color_ffffff</item>
+        <item name="android:background">@color/color_00574b</item>
+        <item name="tabIndicatorColor">#F25058</item>
+        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <style name="StockTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

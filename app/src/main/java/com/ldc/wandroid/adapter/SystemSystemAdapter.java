@@ -8,7 +8,7 @@ import com.ldc.wandroid.model.SystemModel;
 public class SystemSystemAdapter extends BaseQuickAdapter<SystemModel, BaseViewHolder> {
 
     public SystemSystemAdapter() {
-        super(R.layout.system_system_layout_item);
+        super(R.layout.layout_item_system_system);
     }
 
     @Override

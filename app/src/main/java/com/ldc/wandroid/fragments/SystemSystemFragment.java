@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.SystemInfoActivity;
 import com.ldc.wandroid.adapter.SystemSystemAdapter;
 import com.ldc.wandroid.contracts.SystemSystemContract;
 import com.ldc.wandroid.core.BaseFragment;
@@ -131,15 +132,15 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                 List<SystemModel> system_model = adapter.getData();
-                if (null != system_model) {
-                    SystemModel s = system_model.get(position);
-                    if (null != s) {
-                        show_toast(s.getName());
-                    }
+                if (null == system_model) {
+                    return;
+                }
+                SystemModel s = system_model.get(position);
+                if (null != s) {
+                    SystemInfoActivity.actionStart(getActivity(), s.getChildren());
                 }
 
             }
         });
-
     }
 }

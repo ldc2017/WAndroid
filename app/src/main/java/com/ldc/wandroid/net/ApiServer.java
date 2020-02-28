@@ -4,8 +4,9 @@ import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.LoginInfoModel;
-import com.ldc.wandroid.model.NavigationModel;
+import com.ldc.wandroid.model.NetNavigationModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
+import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.model.TopArticleModel;
 
@@ -53,6 +54,15 @@ public interface ApiServer {
 
     //导航
     @GET(value = "/friend/json")
-    Observable<BaseModel<List<NavigationModel>>> get_navigation();
+    Observable<BaseModel<List<NetNavigationModel>>> get_navigation();
+
+
+    //体系下文章
+    @GET(value = "/article/list/{index}/json")
+    Observable<BaseModel<SystemInfoModel>> get_system_info(
+            @Path(value = "index") int index,
+            @Query(value = "cid") String cid
+
+    );
 
 }
