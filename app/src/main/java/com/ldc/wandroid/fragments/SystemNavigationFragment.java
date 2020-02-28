@@ -91,12 +91,16 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
     @Override
     public void show_loading(String message) {
+        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
+        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
+        mBinding.dataList.setVisibility(View.GONE);
 
     }
 
     @Override
     public void hide_loading() {
-
+        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        mBinding.dataList.setVisibility(View.VISIBLE);
     }
 
     @Override

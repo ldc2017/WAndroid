@@ -52,15 +52,16 @@ public class SystemNavigationPresenter extends BasePresenter<SystemNavigationCon
 
     @Override
     public void get_navigation_req() {
-        getView().show_loading("夹杂中···");
+        getView().show_loading("加载中···");
         apiServer.get_navigation()
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<BaseModel<List<NavigationModel>>>() {
                     Disposable disposable;
+
                     @Override
                     public void onSubscribe(Disposable d) {
-                        disposable =d;
+                        disposable = d;
                     }
 
                     @Override
@@ -71,7 +72,6 @@ public class SystemNavigationPresenter extends BasePresenter<SystemNavigationCon
 
                     @Override
                     public void onError(Throwable e) {
-
                         getView().hide_loading();
                         release_disposable(disposable);
                     }

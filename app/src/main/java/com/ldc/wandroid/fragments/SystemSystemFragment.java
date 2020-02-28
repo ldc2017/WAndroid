@@ -92,12 +92,15 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
 
     @Override
     public void show_loading(String message) {
-
+        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
+        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
+        mBinding.dataList.setVisibility(View.GONE);
     }
 
     @Override
     public void hide_loading() {
-
+        mBinding.dataList.setVisibility(View.VISIBLE);
+        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
     }
 
     @Override
