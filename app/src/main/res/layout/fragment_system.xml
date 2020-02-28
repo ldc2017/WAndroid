@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
@@ -10,13 +9,10 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
+            style="@style/StockTabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
-            android:layout_alignParentTop="true"
-            android:background="@color/color_00574b"
-            app:tabGravity="center"
-            app:tabMode="fixed"
-            app:tabTextColor="@color/color_ffffff" />
+            android:layout_alignParentTop="true" />
 
         <LinearLayout
             android:id="@+id/fragment_container"

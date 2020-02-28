@@ -27,7 +27,8 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
 
 
     private static volatile List<SystemModel.ChildrenBean> curr_dts;
-    private static volatile List<SupportFragment> cache_fragments = new ArrayList<>();
+    private static volatile List<SupportFragment> cache_fragments = new ArrayList<>(16);
+    private static volatile List<String> cache_tabs = new ArrayList<>(16);
     private SystemInfoAdapter system_info_adapter = null;
 
 
@@ -43,6 +44,7 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
     protected void onDestroy() {
         super.onDestroy();
         cache_fragments.clear();
+        cache_tabs.clear();
         mHandler.removeCallbacksAndMessages(null);
     }
 
@@ -103,13 +105,14 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
                             continue;
                         }
                         cache_fragments.add(SystemInfo2Fragment.newInstance(String.format("%s", dt.getId())));
+                        cache_tabs.add(String.format("%s", dt.getName()));
                         mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(dt.getName()));
                     }
                     //
                     if (null == system_info_adapter) {
                         system_info_adapter = new SystemInfoAdapter(getSupportFragmentManager(),
                                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-                                cache_fragments);
+                                cache_fragments, cache_tabs);
                     }
 
                     mBinding.fragmentContainer.setOffscreenPageLimit(curr_dts.size() - 1);

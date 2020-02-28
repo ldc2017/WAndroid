@@ -29,9 +29,11 @@
     <style name="StockTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/StockTextAppearance</item>
         <item name="tabSelectedTextColor">@color/color_ffffff</item>
+        <item name="tabTextColor">@color/color_f5f5f5</item>
         <item name="android:background">@color/color_00574b</item>
         <item name="tabIndicatorColor">#F25058</item>
-        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabGravity">center</item>
         <item name="tabMode">fixed</item>
     </style>
 

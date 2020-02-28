@@ -11,10 +11,12 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class SystemInfoAdapter extends FragmentStatePagerAdapter {
     private List<SupportFragment> dts;
+    private List<String> tabs;
 
-    public SystemInfoAdapter(@NonNull FragmentManager fm, int behavior, List<SupportFragment> ds) {
+    public SystemInfoAdapter(@NonNull FragmentManager fm, int behavior, List<SupportFragment> ds, List<String> tabs) {
         super(fm, behavior);
         this.dts = ds;
+        this.tabs = tabs;
     }
 
     @NonNull
@@ -27,4 +29,10 @@ public class SystemInfoAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return null == dts ? 0 : dts.size();
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabs.get(position);
+    }
+
 }
