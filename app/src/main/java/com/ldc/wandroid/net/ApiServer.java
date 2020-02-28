@@ -4,6 +4,7 @@ import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.LoginInfoModel;
+import com.ldc.wandroid.model.NavigationModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.model.TopArticleModel;
@@ -46,7 +47,12 @@ public interface ApiServer {
     Observable<BaseModel<HomeArticleModel>> get_home_article(@Path(value = "index") int index);
 
 
+    //体系
     @GET(value = "/tree/json")
     Observable<BaseModel<List<SystemModel>>> get_system();
+
+    //导航
+    @GET(value = "/friend/json")
+    Observable<BaseModel<List<NavigationModel>>> get_navigation();
 
 }

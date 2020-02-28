@@ -139,9 +139,8 @@ public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPr
                     fragments[fragment_page0],
                     fragments[fragment_page1]);
         } else {
-
             fragments[fragment_page0] = curr_fragment;
-            fragments[fragment_page1] = findFragment(SystemSystemFragment.class);
+            fragments[fragment_page1] = findFragment(SystemNavigationFragment.class);
 
             showHideFragment(curr_fragment);
         }

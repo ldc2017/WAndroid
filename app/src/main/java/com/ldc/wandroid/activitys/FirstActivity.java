@@ -46,7 +46,6 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
 
     }
 
-
     @Override
     public void onBackPressedSupport() {
 

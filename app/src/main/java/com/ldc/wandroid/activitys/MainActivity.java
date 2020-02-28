@@ -48,6 +48,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private static final String[] tabs = {"首页", "体系", "顶", "陈"};
 
     //
+    private final Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            return false;
+        }
+    });
     //
 
     @Override
@@ -77,6 +83,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     @Override
     protected void init_view() {
+        setResult(RESULT_OK);
         init_fragment();
         init_bottom_bar();
     }

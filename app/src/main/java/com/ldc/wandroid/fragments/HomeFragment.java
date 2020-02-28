@@ -121,9 +121,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     protected void init_data() {
-        mPresenter.get_top_article_req();
-        mPresenter.get_banner_req();
-        mPresenter.get_article_req(curr_article_index);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPresenter.get_top_article_req();
+                mPresenter.get_banner_req();
+                mPresenter.get_article_req(curr_article_index);
+            }
+        }, 500);
         //适配器
         init_article_adapter();
     }

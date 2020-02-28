@@ -58,6 +58,13 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            mPresenter.get_system_req();
+        }
+    }
+
+    @Override
     protected int ui() {
         return R.layout.fragment_system_system;
     }

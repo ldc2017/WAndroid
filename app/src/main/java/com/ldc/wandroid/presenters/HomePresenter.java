@@ -55,8 +55,8 @@ public class HomePresenter extends BasePresenter<HomeContract.V> implements Home
     @Override
     public void get_top_article_req() {
         apiServer.getTopArticle()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<BaseModel<List<TopArticleModel>>>() {
                     Disposable disposable;
 
