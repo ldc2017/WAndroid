@@ -114,7 +114,7 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
                                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
                                 cache_fragments, cache_tabs);
                     }
-
+                    mBinding.fragmentContainer.setCurrentItem(0);
                     mBinding.fragmentContainer.setOffscreenPageLimit(curr_dts.size() - 1);
                     mBinding.fragmentContainer.setAdapter(system_info_adapter);
                     mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);

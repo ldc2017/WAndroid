@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.ldc.wandroid.contracts.ProjectContract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
+import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.net.Api2Request;
 import com.ldc.wandroid.net.ApiServer;
@@ -78,6 +79,39 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.V> implement
                     public void onComplete() {
                         release_disposable(disposable);
 
+                    }
+                });
+    }
+
+    @Override
+    public void get_projects_article_req(int index, String cid) {
+        getView().show_loading("加载中···");
+        apiServer.get_projects_article(index, cid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<BaseModel<ProjectsArticleModel>>() {
+                    Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<ProjectsArticleModel> projectsArticleModelBaseModel) {
+                        getView().get_projects_article_resp(projectsArticleModelBaseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().hide_loading();
+                        release_disposable(disposable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hide_loading();
+                        release_disposable(disposable);
                     }
                 });
     }
