@@ -44,7 +44,6 @@
                     android:id="@+id/project_article_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dp_10"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <com.scwang.smart.refresh.footer.ClassicsFooter

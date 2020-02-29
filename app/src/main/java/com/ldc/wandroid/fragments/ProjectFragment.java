@@ -179,6 +179,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                         mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(dt.getName()));
                     }
                     mBinding.tabLayout.addOnTabSelectedListener(onTabSelectedListener);
+                    mBinding.tabLayout.getTabAt(0).select();//默认第一个
 
                 } catch (Exception e) {
                     e.printStackTrace();
