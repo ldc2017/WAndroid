@@ -5,6 +5,8 @@ import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.model.NetNavigationModel;
+import com.ldc.wandroid.model.ProjectsArticleModel;
+import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
 import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.model.SystemModel;
@@ -64,5 +66,15 @@ public interface ApiServer {
             @Query(value = "cid") String cid
 
     );
+    
+    //项目
+    @GET(value = "/project/tree/json")
+    Observable<BaseModel<List<ProjectsModel>>> get_projects();
 
+    //项目列表
+    @GET(value = "/project/list/{index}/json")
+    Observable<BaseModel<ProjectsArticleModel>> get_projects_article(
+            @Path(value = "index") int index,
+            @Query(value = "cid") String cid
+    );
 }

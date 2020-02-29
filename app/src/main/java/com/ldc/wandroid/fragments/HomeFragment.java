@@ -43,7 +43,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
 
     //
-    private HomeArticleAdapter article_adapter = new HomeArticleAdapter(R.layout.home_article_layout_item);
+    private HomeArticleAdapter article_adapter = new HomeArticleAdapter();
     private RecyclerView.LayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
     private volatile int curr_article_index = 0;
 
@@ -160,7 +160,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             public void run() {
                 if (null != data) {
                     if (0 == data.getErrorCode()) {
-                        show_toast(data.getData().get(0).getChapterName());
+                       // show_toast(data.getData().get(0).getChapterName());
                     } else {
                         show_toast(data.getErrorMsg());
                     }
