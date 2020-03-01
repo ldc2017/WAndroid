@@ -218,12 +218,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         if (null == model) {
             return;
         }
-        IntegralEntity entity = new IntegralEntity(System.currentTimeMillis(),
-                model.getCoinCount(),
-                model.getLevel(),
-                model.getRank(), model.getUserId(), model.getUsername()
-        );
-
-        mApp.getDatabase().integralDao().insert(entity);
+        try {
+            IntegralEntity entity = new IntegralEntity(System.currentTimeMillis(),
+                    model.getCoinCount(),
+                    model.getLevel(),
+                    model.getRank(), model.getUserId(), model.getUsername()
+            );
+            //
+            mApp.getDatabase().integralDao().insert(entity);
+            //
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -6,6 +6,7 @@ import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.model.NetNavigationModel;
+import com.ldc.wandroid.model.PersonalCoinModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
@@ -83,4 +84,9 @@ public interface ApiServer {
     //获取积分
     @GET(value = "/lg/coin/userinfo/json")
     Observable<BaseModel<IntegralModel>> get_integral();
+
+
+    //获取个人积分获取列表
+    @GET(value = "/lg/coin/list/{index}/json")
+    Observable<BaseModel<PersonalCoinModel>> get_coinCount(@Path(value = "index") int index);
 }

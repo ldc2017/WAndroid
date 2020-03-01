@@ -75,7 +75,7 @@ public class Api2Request {
             loggingInterceptor = new HttpLoggingInterceptor(new RequestLogging());
         }
         //设置日志打印级别
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         return loggingInterceptor;
     }
 }

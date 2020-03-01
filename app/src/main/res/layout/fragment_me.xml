@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.MeFragment">
 
         <RelativeLayout
+            android:id="@+id/rl_head"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
+            android:layout_height="@dimen/dp_250"
             android:layout_alignParentTop="true"
             android:background="@color/color_00574b">
 
@@ -44,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/icon_user_pic"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_10"
                 android:padding="3dp"
                 android:text="小可爱"
                 android:textColor="@color/color_ffffff"
@@ -59,9 +61,21 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_user_pic"
                 app:civ_border_color="@color/color_00adef"
+                app:civ_border_width="@dimen/dp_3"
                 app:civ_circle_background_color="@color/color_ffffff" />
         </RelativeLayout>
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/personal_items_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_head"
+            android:background="@color/color_f5f5f5"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 </layout>

@@ -28,6 +28,8 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
     @Override
     protected void init_data() {
 
+
+
     }
 
     @Override

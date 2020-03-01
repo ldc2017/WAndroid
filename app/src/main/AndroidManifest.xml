@@ -4,6 +4,8 @@
     package="com.ldc.wandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".mApp"
@@ -14,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activitys.SystemInfoActivity"></activity>
+        <activity android:name=".activitys.PersonalCoinActivity"></activity>
+        <activity android:name=".activitys.SystemInfoActivity" />
         <activity android:name=".activitys.MainActivity" />
         <activity android:name=".activitys.FirstActivity">
             <intent-filter>

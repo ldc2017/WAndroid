@@ -17,4 +17,6 @@
     <string name="str_author">作者?</string>
     <string name="str_no_data">没有数据</string>
     <string name="str_loading">加载中</string>
+    <string name="str_personal_integral">个人积分</string>
+    <string name="str_my_shard">我的分享</string>
 </resources>

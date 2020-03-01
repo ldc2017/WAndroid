@@ -90,7 +90,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
                     public void run() {
                         MainActivity.actionStart(getActivity(), null);
                     }
-                }, 800);
+                }, 300);
             } else {
                 show_toast(data.getErrorMsg());
             }
