@@ -3,6 +3,7 @@ package com.ldc.wandroid.net;
 import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
+import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.model.NetNavigationModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
@@ -66,7 +67,7 @@ public interface ApiServer {
             @Query(value = "cid") String cid
 
     );
-    
+
     //项目
     @GET(value = "/project/tree/json")
     Observable<BaseModel<List<ProjectsModel>>> get_projects();
@@ -77,4 +78,9 @@ public interface ApiServer {
             @Path(value = "index") int index,
             @Query(value = "cid") String cid
     );
+
+
+    //获取积分
+    @GET(value = "/lg/coin/userinfo/json")
+    Observable<BaseModel<IntegralModel>> get_integral();
 }

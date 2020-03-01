@@ -16,10 +16,14 @@ import com.ldc.wandroid.R;
 import com.ldc.wandroid.contracts.MainContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityMainBinding;
-import com.ldc.wandroid.fragments.FourthFragment;
+import com.ldc.wandroid.db.entitis.IntegralEntity;
 import com.ldc.wandroid.fragments.HomeFragment;
+import com.ldc.wandroid.fragments.MeFragment;
 import com.ldc.wandroid.fragments.ProjectFragment;
 import com.ldc.wandroid.fragments.SystemFragment;
+import com.ldc.wandroid.mApp;
+import com.ldc.wandroid.model.BaseModel;
+import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.presenters.MainPresenter;
 
 import me.yokeyword.fragmentation.SupportFragment;
@@ -45,7 +49,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private static final int fragment_page2 = 2;
     private static final int fragment_page3 = 3;
     //
-    private static final String[] tabs = {"首页", "体系", "项目", "陈"};
+    private static final String[] tabs = {"首页", "体系", "项目", "我的"};
 
     //
     private final Handler mHandler = new Handler(new Handler.Callback() {
@@ -90,6 +94,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     @Override
     protected void init_data() {
+        mPresenter.get_integral_req();
 
     }
 
@@ -152,7 +157,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             fragments[fragment_page0] = HomeFragment.newInstance(null);
             fragments[fragment_page1] = SystemFragment.newInstance(null);
             fragments[fragment_page2] = ProjectFragment.newInstance(null);
-            fragments[fragment_page3] = FourthFragment.newInstance(null);
+            fragments[fragment_page3] = MeFragment.newInstance(null);
             loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
                     fragments[fragment_page0],
                     fragments[fragment_page1],
@@ -163,7 +168,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             fragments[fragment_page0] = curr_fragment;
             fragments[fragment_page1] = findFragment(SystemFragment.class);
             fragments[fragment_page2] = findFragment(ProjectFragment.class);
-            fragments[fragment_page3] = findFragment(FourthFragment.class);
+            fragments[fragment_page3] = findFragment(MeFragment.class);
 
             showHideFragment(curr_fragment);
         }
@@ -188,5 +193,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         if (null != curr_fragment) {
             curr_fragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void get_integral_resp(BaseModel<IntegralModel> dt) {
+        if (null == dt) {
+            return;
+        }
+        if (0 == dt.getErrorCode()) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    save_integral_data(dt.getData());
+                }
+            });
+        } else {
+            show_toast(dt.getErrorMsg());
+        }
+    }
+
+
+    //保存用户积分信息
+    private void save_integral_data(IntegralModel model) {
+        if (null == model) {
+            return;
+        }
+        IntegralEntity entity = new IntegralEntity(System.currentTimeMillis(),
+                model.getCoinCount(),
+                model.getLevel(),
+                model.getRank(), model.getUserId(), model.getUsername()
+        );
+
+        mApp.getDatabase().integralDao().insert(entity);
     }
 }

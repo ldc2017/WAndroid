@@ -210,6 +210,18 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                     show_toast(dt.getTitle());
                 }
             });
+            mBinding.projectArticleDataList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    // super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        projects_article_adapter.setScroll(false);
+                        projects_article_adapter.notifyDataSetChanged();
+                    } else {
+                        projects_article_adapter.setScroll(true);
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -223,6 +235,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
             if (null == projectsModel) {
                 return;
             }
+            curr_index = 0;
             mPresenter.get_projects_article_req(curr_index, String.format("%s", projectsModel.getId()));
         }
 

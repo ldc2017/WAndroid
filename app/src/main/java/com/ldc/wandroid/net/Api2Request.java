@@ -56,6 +56,7 @@ public class Api2Request {
                     .readTimeout(35000, TimeUnit.SECONDS)
                     .writeTimeout(35000, TimeUnit.SECONDS)
                     .addInterceptor(getLoggingInterceptor())
+                    .cookieJar(new ApiCookie()) //保存配置登录信息
                     .build();
         }
 
@@ -74,7 +75,7 @@ public class Api2Request {
             loggingInterceptor = new HttpLoggingInterceptor(new RequestLogging());
         }
         //设置日志打印级别
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         return loggingInterceptor;
     }
 }

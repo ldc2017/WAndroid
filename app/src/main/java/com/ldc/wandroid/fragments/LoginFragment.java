@@ -1,14 +1,19 @@
 package com.ldc.wandroid.fragments;
 
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.MainActivity;
+import com.ldc.wandroid.common.CM;
 import com.ldc.wandroid.contracts.LoginContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentLoginBinding;
@@ -21,6 +26,20 @@ import com.ldc.wandroid.presenters.LoginPresenter;
  */
 public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPresenter> implements LoginContract.V {
 
+
+    private final Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            return false;
+        }
+    });
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
 
     @Override
     protected int ui() {
@@ -65,7 +84,13 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
     public void login_resp(BaseModel<LoginInfoModel> data) {
         if (null != data) {
             if (0 == data.getErrorCode()) {
-                MainActivity.actionStart(getActivity(), null);
+                SPUtils.getInstance().put(CM.user_id_key, String.format("%s", data.getData().getId()));
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainActivity.actionStart(getActivity(), null);
+                    }
+                }, 800);
             } else {
                 show_toast(data.getErrorMsg());
             }
