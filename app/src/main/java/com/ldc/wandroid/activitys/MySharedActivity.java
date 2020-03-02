@@ -11,52 +11,59 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.adapter.PersoanlRankAdapter;
+import com.ldc.wandroid.adapter.MySharedAdapter;
 import com.ldc.wandroid.common.CM;
-import com.ldc.wandroid.contracts.PersonalRankContract;
+import com.ldc.wandroid.contracts.MySharedContract;
 import com.ldc.wandroid.core.BaseActivity;
-import com.ldc.wandroid.databinding.ActivityPersonalRankBinding;
+import com.ldc.wandroid.databinding.ActivityMySharedBinding;
 import com.ldc.wandroid.model.BaseModel;
-import com.ldc.wandroid.model.PersonalRankModel;
-import com.ldc.wandroid.presenters.PersonalRankPresenter;
+import com.ldc.wandroid.model.MySharedModel;
+import com.ldc.wandroid.presenters.MySharedPresenter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 
 import java.util.List;
 
-public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBinding, PersonalRankPresenter> implements PersonalRankContract.V {
+public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySharedPresenter> implements MySharedContract.V {
 
 
+    //
     public static void actionStart(Activity activity) {
-        PersonalRankActivity.curr_index = 1;
-        Intent intent = new Intent(activity, PersonalRankActivity.class);
+        MySharedActivity.curr_index = 1;
+        Intent intent = new Intent(activity, MySharedActivity.class);
         activity.startActivity(intent);
     }
 
-    //
-    private final PersoanlRankAdapter persoanl_rank_adapter = new PersoanlRankAdapter();
-    private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-    //
     static volatile int curr_index = 1;
     //
-    static final int refresh_dt_code = 0x000;
+    private final MySharedAdapter my_shared_adapter = new MySharedAdapter();
+    private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
+
+    //
+    private static final int refresh_dt_code = 0x000;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case refresh_dt_code:
-                    PersonalRankModel dt = (PersonalRankModel) msg.obj;
+                    MySharedModel dt = (MySharedModel) msg.obj;
                     if (null == dt) {
                         return false;
                     }
-                    List<PersonalRankModel.DatasBean> dtt = dt.getDatas();
-                    if (0 == curr_index) {
-                        persoanl_rank_adapter.setNewData(dtt);
-                    } else {
-                        persoanl_rank_adapter.addData(dtt);
+                    MySharedModel.ShareArticlesBean dtt = dt.getShareArticles();
+                    if (null == dtt) {
+                        return false;
                     }
-                    return true;
+                    List<MySharedModel.ShareArticlesBean.DatasBean> dttt = dtt.getDatas();
+                    if (0 == curr_index) {
+                        my_shared_adapter.setNewData(dttt);
+                    } else {
+                        my_shared_adapter.addData(dttt);
+                    }
+                    break;
             }
             return false;
         }
@@ -68,42 +75,46 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
         mHandler.removeCallbacksAndMessages(null);
     }
 
+    //
     @Override
     protected int ui() {
-        return R.layout.activity_personal_rank;
+        return R.layout.activity_my_shared;
     }
 
     @Override
-    protected PersonalRankPresenter init_presenter() {
-        return new PersonalRankPresenter();
+    protected MySharedPresenter init_presenter() {
+        return new MySharedPresenter();
     }
 
     @Override
     protected void init_view() {
-        mBinding.topBar.tvTitle.setText(String.format("%s", "积分排行榜"));
-        mBinding.topBar.lineMore.setVisibility(View.GONE);
         mBinding.topBar.lineBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        mBinding.topBar.tvTitle.setText("我的分享");
+        mBinding.topBar.lineMore.setVisibility(View.GONE);
+        //
+        mBinding.refreshView.setEnableRefresh(false);
+        mBinding.refreshView.setOnLoadMoreListener(onLoadMoreListener);
         //
         init_adapter();
-        //
-        mBinding.refreshView.setOnLoadMoreListener(onLoadMoreListener);
-        mBinding.refreshView.setEnableRefresh(false);
+
 
     }
 
     @Override
     protected void init_data() {
-        mPresenter.get_coin_rank_req(curr_index);
+        mPresenter.get_my_shared_req(curr_index);
+
     }
 
     @Override
     public void show_toast(String message) {
         ToastUtils.showShort(message);
+
     }
 
     @Override
@@ -114,12 +125,11 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
 
     @Override
     public void hide_loading() {
-
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
     }
 
     @Override
-    public void get_coin_rank_resp(BaseModel<PersonalRankModel> dt) {
+    public void get_my_shared_resp(BaseModel<MySharedModel> dt) {
         if (null == dt) {
             return;
         }
@@ -133,23 +143,40 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
     }
 
 
-    // 初始化适配器
+    // 适配器
     private void init_adapter() {
         mBinding.dataList.setHasFixedSize(true);
         mBinding.dataList.setItemViewCacheSize(10);
         mBinding.dataList.setLayoutManager(layoutManager);
-        mBinding.dataList.setAdapter(persoanl_rank_adapter);
-        persoanl_rank_adapter.setEmptyView(R.layout.layout_no_data);
+        mBinding.dataList.setAdapter(my_shared_adapter);
+        //
+        my_shared_adapter.setEmptyView(R.layout.layout_no_data);
+        my_shared_adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                List<MySharedModel.ShareArticlesBean.DatasBean> dts = adapter.getData();
+                if (null == dts) {
+                    return;
+                }
+                MySharedModel.ShareArticlesBean.DatasBean dt = dts.get(position);
+                if (null == dt) {
+                    return;
+                }
+                show_toast(dt.getTitle());
+
+            }
+        });
 
     }
 
-    //下拉刷新事件
+    //上拉刷新
     private OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
             refreshLayout.finishLoadMore(CM.refresh_time);
             curr_index += 1;
-            mPresenter.get_coin_rank_req(curr_index);
+            mPresenter.get_my_shared_req(curr_index);
+
         }
     };
 }

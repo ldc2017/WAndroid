@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activitys.PersonalRankActivity"></activity>
+        <activity android:name=".activitys.MySharedActivity" />
+        <activity android:name=".activitys.PersonalRankActivity" />
         <activity android:name=".activitys.ShowArticleWebActivity" />
         <activity android:name=".activitys.PersonalCoinActivity" />
         <activity android:name=".activitys.SystemInfoActivity" />
@@ -31,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitys.MyCollectActivity" />
     </application>
 
 </manifest>

@@ -17,6 +17,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.MyCollectActivity;
+import com.ldc.wandroid.activitys.MySharedActivity;
 import com.ldc.wandroid.activitys.PersonalCoinActivity;
 import com.ldc.wandroid.activitys.PersonalRankActivity;
 import com.ldc.wandroid.adapter.MePersonalItemsAdapter;
@@ -53,8 +55,8 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     static final MePersonalModel[] dt_items = {
             new MePersonalModel("个人积分", R.drawable.icon_integral),
             new MePersonalModel("积分排名", R.drawable.icon_integral),
+            new MePersonalModel("我的分享", R.drawable.icon_integral),
             new MePersonalModel("我的收藏", R.drawable.icon_integral),
-            new MePersonalModel("稍后阅读", R.drawable.icon_integral),
             new MePersonalModel("作者", R.drawable.icon_integral),
             new MePersonalModel("关于", R.drawable.icon_integral)
     };
@@ -77,9 +79,15 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                     mBinding.tvRank.setText(String.format("当前排名:\t%s", dt.getRank()));
                     curr_coin = dt.getCoinCount();
                     try {
-                        TextView tv = (TextView) me_personal_items_adapter.getViewByPosition(0, R.id.tv_info);
-                        if (null != tv) {
-                            tv.setText(String.format("当前积分:\t%s", dt.getCoinCount()));
+                        //积分
+                        TextView coinCountTv = (TextView) me_personal_items_adapter.getViewByPosition(0, R.id.tv_info);
+                        if (null != coinCountTv) {
+                            coinCountTv.setText(String.format("当前积分:\t%s", dt.getCoinCount()));
+                        }
+                        //排名
+                        TextView rankTv = (TextView) me_personal_items_adapter.getViewByPosition(1, R.id.tv_info);
+                        if (null != rankTv) {
+                            rankTv.setText(String.format("当前排名:\t%s", dt.getRank()));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -177,6 +185,12 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 break;
             case 1:
                 PersonalRankActivity.actionStart(getActivity());
+                break;
+            case 2:
+                MySharedActivity.actionStart(getActivity());
+                break;
+            case 3:
+                MyCollectActivity.actionStart(getActivity());
                 break;
         }
 

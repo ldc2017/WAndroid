@@ -5,6 +5,8 @@ import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.LoginInfoModel;
+import com.ldc.wandroid.model.MyCollectModel;
+import com.ldc.wandroid.model.MySharedModel;
 import com.ldc.wandroid.model.NetNavigationModel;
 import com.ldc.wandroid.model.PersonalCoinModel;
 import com.ldc.wandroid.model.PersonalRankModel;
@@ -96,5 +98,16 @@ public interface ApiServer {
     Observable<BaseModel<PersonalRankModel>> get_coin_rank(
             @Path(value = "index") int index
     );
+
+    //我的分享
+    @GET(value = "/user/lg/private_articles/{index}/json")
+    Observable<BaseModel<MySharedModel>> get_my_shared(
+            @Path(value = "index") int index
+    );
+
+    //我的收藏
+    @GET(value = "/lg/collect/list/{index}/json")
+    Observable<BaseModel<MyCollectModel>> get_my_collect(@Path(value = "index") int index);
+
 
 }
