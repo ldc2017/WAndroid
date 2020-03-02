@@ -15,7 +15,12 @@ public class PersonalCoinAdapter extends BaseQuickAdapter<PersonalCoinModel.Data
         if (null == dt) {
             return;
         }
-        baseViewHolder.setText(R.id.tv_name, String.format("%s", dt.getDesc()))
+        final Integer size = dt.getDesc().length();
+        String str_coin_desc = "";
+        if (null != size && size > 0) {
+            str_coin_desc = dt.getDesc().substring(size - 10, size);
+        }
+        baseViewHolder.setText(R.id.tv_name, String.format("%s", str_coin_desc))
                 .setText(R.id.tv_info, String.format("+ %s", dt.getCoinCount()));
 
     }

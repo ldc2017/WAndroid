@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.ldc.wandroid.db.entitis.IntegralEntity;
 
@@ -19,5 +20,9 @@ public interface IntegralDao {
     //插入数据
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(IntegralEntity... ets);
+
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void update(IntegralEntity... ets);
 
 }

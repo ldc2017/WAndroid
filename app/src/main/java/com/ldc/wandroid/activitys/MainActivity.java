@@ -215,20 +215,33 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
     //保存用户积分信息
     private void save_integral_data(IntegralModel model) {
-        if (null == model) {
-            return;
-        }
-        try {
-            IntegralEntity entity = new IntegralEntity(System.currentTimeMillis(),
-                    model.getCoinCount(),
-                    model.getLevel(),
-                    model.getRank(), model.getUserId(), model.getUsername()
-            );
-            //
-            mApp.getDatabase().integralDao().insert(entity);
-            //
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (null == model) {
+                    return;
+                }
+                try {
+                    IntegralEntity et1 = mApp.getDatabase().integralDao().find_by_user_id(String.format("%s", model.getUserId()));
+                    if (null == et1) {
+                        IntegralEntity entity = new IntegralEntity(System.currentTimeMillis(),
+                                model.getCoinCount(),
+                                model.getLevel(),
+                                model.getRank(), model.getUserId(), model.getUsername()
+                        );
+                        //
+                        mApp.getDatabase().integralDao().insert(entity);
+                    } else {
+                        et1.setCoinCount(model.getCoinCount());
+                        et1.setLevel(model.getLevel());
+                        et1.setRank(model.getRank());
+                        mApp.getDatabase().integralDao().update(et1);
+                    }
+                    //
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

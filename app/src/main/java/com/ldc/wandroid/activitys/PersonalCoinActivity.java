@@ -109,9 +109,9 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
             }
         });
         //
-
+        mBinding.refreshView.setEnableRefresh(false);//禁止下拉
         mBinding.refreshView.setOnLoadMoreListener(onLoadMoreListener);
-        mBinding.refreshView.setEnableAutoLoadMore(false);
+        mBinding.refreshView.setEnableAutoLoadMore(true);
         //
         init_adapter();
 
