@@ -20,4 +20,7 @@
     <color name="color_b04c95">#B04C95</color>
     <color name="color_e6ffffff">#E6FFFFFF</color>
     <color name="color_b3ffffff">#B3FFFFFF</color>
+    <color name="color_rank_2">#D2D3D7</color>
+    <color name="color_rank_1">#FBCC34</color>
+    <color name="color_rank_3">#D8851D</color>
 </resources>

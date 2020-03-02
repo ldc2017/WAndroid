@@ -7,6 +7,7 @@ import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.model.NetNavigationModel;
 import com.ldc.wandroid.model.PersonalCoinModel;
+import com.ldc.wandroid.model.PersonalRankModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
@@ -89,4 +90,11 @@ public interface ApiServer {
     //获取个人积分获取列表
     @GET(value = "/lg/coin/list/{index}/json")
     Observable<BaseModel<PersonalCoinModel>> get_coinCount(@Path(value = "index") int index);
+
+    //获取积分排名
+    @GET(value = "/coin/rank/{index}/json")
+    Observable<BaseModel<PersonalRankModel>> get_coin_rank(
+            @Path(value = "index") int index
+    );
+
 }

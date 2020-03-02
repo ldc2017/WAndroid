@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.HomeArticleAdapter;
 import com.ldc.wandroid.adapter.HomeArticleDiffCb;
 import com.ldc.wandroid.adapter.HomeBannerAdapter;
@@ -150,7 +151,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     @Override
     public void hide_loading() {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
-       // mBinding.articleList.setVisibility(View.VISIBLE);
+        // mBinding.articleList.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -160,7 +161,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             public void run() {
                 if (null != data) {
                     if (0 == data.getErrorCode()) {
-                       // show_toast(data.getData().get(0).getChapterName());
+                        // show_toast(data.getData().get(0).getChapterName());
                     } else {
                         show_toast(data.getErrorMsg());
                     }
@@ -216,7 +217,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                     if (null == dt) {
                         return;
                     }
-                    show_toast(dt.getTitle());
+                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getApkLink());
                 }
             }
         });
@@ -261,7 +262,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     private OnBannerListener<BannerModel> onBannerListener = new OnBannerListener<BannerModel>() {
         @Override
         public void OnBannerClick(BannerModel data, int position) {
-            show_toast(position + String.format("--%s", data.getTitle()));
+            if (null==data){return;}
+            ShowArticleWebActivity.actionStart(getActivity(), data.getTitle(), data.getUrl());
         }
 
         @Override

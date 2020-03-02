@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.PersonalCoinActivity;
+import com.ldc.wandroid.activitys.PersonalRankActivity;
 import com.ldc.wandroid.adapter.MePersonalItemsAdapter;
 import com.ldc.wandroid.common.CM;
 import com.ldc.wandroid.contracts.MeContract;
@@ -51,7 +52,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
     static final MePersonalModel[] dt_items = {
             new MePersonalModel("个人积分", R.drawable.icon_integral),
-            new MePersonalModel("我的分享", R.drawable.icon_integral),
+            new MePersonalModel("积分排名", R.drawable.icon_integral),
             new MePersonalModel("我的收藏", R.drawable.icon_integral),
             new MePersonalModel("稍后阅读", R.drawable.icon_integral),
             new MePersonalModel("作者", R.drawable.icon_integral),
@@ -172,7 +173,10 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
         show_toast(dt.getName());
         switch (index) {
             case 0:
-                PersonalCoinActivity.actionStart(getActivity(),curr_coin);
+                PersonalCoinActivity.actionStart(getActivity(), curr_coin);
+                break;
+            case 1:
+                PersonalRankActivity.actionStart(getActivity());
                 break;
         }
 

@@ -1,5 +1,7 @@
 package com.ldc.wandroid.activitys;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.presenters.MainPresenter;
+import com.yanzhenjie.permission.AndPermission;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -85,11 +88,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         return new MainPresenter();
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void init_view() {
         setResult(RESULT_OK);
         init_fragment();
         init_bottom_bar();
+
+        //请求权限
+        AndPermission.with(activity)
+                .runtime()
+                .permission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_NETWORK_STATE).start();
     }
 
     @Override
