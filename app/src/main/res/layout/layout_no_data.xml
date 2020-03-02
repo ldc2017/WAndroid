@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -22,7 +23,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:text="@string/str_no_data"
             android:textColor="@color/color_666666"
-            android:textSize="@dimen/sp_20" />
-
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold" />
     </RelativeLayout>
 </layout>

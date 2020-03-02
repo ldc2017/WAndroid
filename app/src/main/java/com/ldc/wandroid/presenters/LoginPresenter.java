@@ -51,7 +51,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.V> implements Lo
 
     @Override
     public void login_req(String username, String password) {
-        getView().show_loading("加载中···");
+        getView().show_loading("请稍等···");
         apiServer.login(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
