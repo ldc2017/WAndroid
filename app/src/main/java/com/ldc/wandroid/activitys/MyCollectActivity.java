@@ -93,7 +93,7 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
                 finish();
             }
         });
-        mBinding.topBar.tvTitle.setText("我的分享");
+        mBinding.topBar.tvTitle.setText("我的收藏");
         mBinding.topBar.lineMore.setVisibility(View.GONE);
         //
         mBinding.refreshView.setEnableRefresh(false);

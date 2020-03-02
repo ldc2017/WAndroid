@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".activitys.SearchActivity"></activity>
         <activity android:name=".activitys.MySharedActivity" />
         <activity android:name=".activitys.PersonalRankActivity" />
         <activity android:name=".activitys.ShowArticleWebActivity" />

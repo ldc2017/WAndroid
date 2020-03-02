@@ -19,4 +19,6 @@
     <string name="str_loading">加载中</string>
     <string name="str_personal_integral">个人积分</string>
     <string name="str_my_shard">我的分享</string>
+    <string name="str_title">标题</string>
+    <string name="str_search">搜索</string>
 </resources>

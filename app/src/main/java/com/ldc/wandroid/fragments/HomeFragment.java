@@ -4,9 +4,11 @@ package com.ldc.wandroid.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.SearchActivity;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.HomeArticleAdapter;
 import com.ldc.wandroid.adapter.HomeArticleDiffCb;
@@ -28,6 +31,7 @@ import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.TopArticleModel;
 import com.ldc.wandroid.presenters.HomePresenter;
+import com.ldc.wandroid.views.IconCenterEditText;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.config.IndicatorConfig;
@@ -117,6 +121,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         mBinding.refreshView.setOnLoadMoreListener(refreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(false);
         mBinding.refreshView.setNestedScrollingEnabled(true);
+        //
+        init_search_view();
 
     }
 
@@ -258,11 +264,30 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         // mBinding.banner.addOnPageChangeListener(this);
     }
 
+
+    // toolbar
+    private void init_search_view() {
+        mBinding.etSearch.setOnSearchClickListener(new IconCenterEditText.OnSearchClickListener() {
+            @Override
+            public void onSearchClick(View view) {
+                final String str_k = ((AppCompatEditText) view).getText().toString();
+                if (!TextUtils.isEmpty(str_k)) {
+                    SearchActivity.actionStart(getActivity(), str_k);
+                } else {
+                    show_toast("请输入无效~~");
+                }
+            }
+        });
+
+    }
+
     //banner 点击事件
     private OnBannerListener<BannerModel> onBannerListener = new OnBannerListener<BannerModel>() {
         @Override
         public void OnBannerClick(BannerModel data, int position) {
-            if (null==data){return;}
+            if (null == data) {
+                return;
+            }
             ShowArticleWebActivity.actionStart(getActivity(), data.getTitle(), data.getUrl());
         }
 

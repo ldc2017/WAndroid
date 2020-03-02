@@ -13,6 +13,7 @@ import com.ldc.wandroid.model.PersonalRankModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
+import com.ldc.wandroid.model.SearchModel;
 import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.model.TopArticleModel;
@@ -108,6 +109,13 @@ public interface ApiServer {
     //我的收藏
     @GET(value = "/lg/collect/list/{index}/json")
     Observable<BaseModel<MyCollectModel>> get_my_collect(@Path(value = "index") int index);
+
+    //搜索
+    @POST(value = "/article/query/{index}/json")
+    Observable<BaseModel<SearchModel>> get_search(
+            @Path(value = "index") int index,
+            @Query(value = "k") String k
+    );
 
 
 }
