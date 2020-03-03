@@ -9,6 +9,8 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
 public class ApiCookie implements CookieJar {
+    private static final String TAG = "ApiCookie";
+    private static final String info = "Cookie 日志:";
     private static final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
 
     @Override

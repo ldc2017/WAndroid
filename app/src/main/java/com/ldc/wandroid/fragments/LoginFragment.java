@@ -3,6 +3,8 @@ package com.ldc.wandroid.fragments;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         }
     });
 
+    static volatile String curr_user_name = "";
+    static volatile String curr_user_password = "";
 
     @Override
     public void onDestroy() {
@@ -61,6 +65,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
     @Override
     protected void init_data() {
+        check_login();
 
     }
 
@@ -90,10 +95,15 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        final String str_base_64_password = Base64.encodeToString(curr_user_password.getBytes(), Base64.DEFAULT);
+                        SPUtils.getInstance().put(CM.user_name_key, curr_user_name);
+                        SPUtils.getInstance().put(CM.user_password_key, str_base_64_password);
+
                         MainActivity.actionStart(getActivity(), null);
                     }
                 }, 300);
             } else {
+                mBinding.layoutLogin.setVisibility(View.VISIBLE);
                 show_toast(data.getErrorMsg());
             }
         } else {
@@ -111,8 +121,10 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
         //登录
         public void _login(View view) {
-            // mPresenter.login_req(mBinding.etUserName.getText().toString(), mBinding.etUserPassword.getText().toString());
-            mPresenter.login_req("ldc_2019", "123456");
+            curr_user_name = mBinding.etUserName.getText().toString();
+            curr_user_password = mBinding.etUserPassword.getText().toString();
+            mPresenter.login_req(curr_user_name, curr_user_password);
+
 
         }
 
@@ -120,5 +132,20 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         public void _forget(View view) {
             show_toast("忘记密码");
         }
+    }
+
+
+    //检测登录
+    private void check_login() {
+        //
+        mBinding.layoutLogin.setVisibility(View.GONE);
+        //
+        curr_user_name = SPUtils.getInstance().getString(CM.user_name_key);
+        final String temp_str_password = SPUtils.getInstance().getString(CM.user_password_key);
+        curr_user_password = new String(Base64.decode(temp_str_password.getBytes(), Base64.DEFAULT));
+        if (!TextUtils.isEmpty(curr_user_name) || !TextUtils.isEmpty(curr_user_password)) {
+            mPresenter.login_req(curr_user_name, curr_user_password);
+        }
+
     }
 }
