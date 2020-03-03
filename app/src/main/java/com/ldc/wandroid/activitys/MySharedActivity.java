@@ -162,7 +162,7 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
                 if (null == dt) {
                     return;
                 }
-                show_toast(dt.getTitle());
+                ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
 
             }
         });

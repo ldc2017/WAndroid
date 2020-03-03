@@ -161,7 +161,7 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
                 if (null == dt) {
                     return;
                 }
-                show_toast(dt.getTitle());
+                ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
 
             }
         });

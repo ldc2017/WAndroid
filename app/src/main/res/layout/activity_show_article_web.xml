@@ -15,11 +15,10 @@
             android:layout_alignParentTop="true" />
 
         <LinearLayout
-            android:id="@+id/line_web"
+            android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/topBar"
-            android:orientation="vertical" />
+            android:layout_below="@id/topBar" />
 
     </RelativeLayout>
 </layout>

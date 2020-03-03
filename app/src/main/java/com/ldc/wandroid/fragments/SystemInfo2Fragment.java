@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.SystemInfo2Adapter;
 import com.ldc.wandroid.common.CM;
 import com.ldc.wandroid.contracts.SystemInfo2Contract;
@@ -130,7 +131,8 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
                 if (null == dts) {
                     return;
                 }
-                show_toast(dts.get(position).getChapterName());
+                SystemInfoModel.DatasBean dt = dts.get(position);
+                ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
 
             }
         });

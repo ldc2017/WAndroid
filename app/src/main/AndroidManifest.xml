@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".mApp"
@@ -19,11 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activitys.AuthorActivity"></activity>
+        <activity android:name=".activitys.AuthorActivity" />
         <activity android:name=".activitys.SearchActivity" />
         <activity android:name=".activitys.MySharedActivity" />
         <activity android:name=".activitys.PersonalRankActivity" />
-        <activity android:name=".activitys.ShowArticleWebActivity" />
+        <activity
+            android:name=".activitys.ShowArticleWebActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".activitys.PersonalCoinActivity" />
         <activity android:name=".activitys.SystemInfoActivity" />
         <activity android:name=".activitys.MainActivity" />

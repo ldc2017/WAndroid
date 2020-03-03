@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.android.material.tabs.TabLayout;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.ProjectsArticleAdapter;
 import com.ldc.wandroid.common.CM;
 import com.ldc.wandroid.contracts.ProjectContract;
@@ -207,7 +208,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                     if (null == dt) {
                         return;
                     }
-                    show_toast(dt.getTitle());
+                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
                 }
             });
             mBinding.projectArticleDataList.addOnScrollListener(new RecyclerView.OnScrollListener() {

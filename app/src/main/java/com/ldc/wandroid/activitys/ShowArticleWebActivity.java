@@ -4,11 +4,15 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.just.agentweb.AgentWeb;
+import com.just.agentweb.WebChromeClient;
+import com.just.agentweb.WebViewClient;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.contracts.ShowArticleWebContract;
 import com.ldc.wandroid.core.BaseActivity;
@@ -19,10 +23,11 @@ import com.yanzhenjie.permission.AndPermission;
 public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebBinding, ShowArticleWebPresenter> implements ShowArticleWebContract.V {
 
 
-    private AgentWeb agentWeb = null;
-
     private static volatile String str_title = "";
     private static volatile String str_url = "";
+    //
+    private AgentWeb agentWeb;
+    //
 
     public static void actionStart(Activity activity, String title, String url) {
         ShowArticleWebActivity.str_title = title;
@@ -57,9 +62,35 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
                 .runtime()
                 .permission(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.ACCESS_NETWORK_STATE)
                 .start();
-        init_web();
+        init_web_2();
+    }
+
+
+    @Override
+    protected void onPause() {
+        if (null != agentWeb) {
+            agentWeb.getWebLifeCycle().onPause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (null != agentWeb) {
+            agentWeb.getWebLifeCycle().onResume();
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (null != agentWeb) {
+            agentWeb.getWebLifeCycle().onDestroy();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -84,21 +115,52 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
     }
 
 
-    //初始化web
-    private void init_web() {
+//    //初始化web
+//    private void init_web() {
+//        try {
+//            mBinding.webView.getSettings().setJavaScriptEnabled(true);
+//            mBinding.webView.setWebViewClient(new WebViewClient() {
+//                @Override
+//                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                    view.loadUrl(url);
+//                    return true;
+//                }
+//            });
+//            mBinding.webView.loadUrl(str_url);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private void init_web_2() {
         try {
             agentWeb = AgentWeb.with(this)
-                    .setAgentWebParent((LinearLayout) mBinding.lineWeb,
-                            new LinearLayout.LayoutParams(-1, -1))
+                    .setAgentWebParent(mBinding.webView, new LinearLayout.LayoutParams(-1, -1))
                     .useDefaultIndicator()
+                    .setWebChromeClient(mWebChromeClient)
+                    .setWebViewClient(mWebViewClient)
+                    .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
                     .createAgentWeb()
                     .ready()
-                    .go("http://www.jd.com");
+                    .go(str_url);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    //
+    final WebViewClient mWebViewClient = new WebViewClient() {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            //do you  work
+        }
+    };
+    final WebChromeClient mWebChromeClient = new WebChromeClient() {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            //do you work
+        }
+    };
 
 }

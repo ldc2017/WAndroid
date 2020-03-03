@@ -223,7 +223,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                     if (null == dt) {
                         return;
                     }
-                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getApkLink());
+                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
                 }
             }
         });

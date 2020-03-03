@@ -149,7 +149,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
                 if (null == dt) {
                     return;
                 }
-                show_toast(dt.getTitle());
+                ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
             }
         });
 
