@@ -3,6 +3,7 @@ package com.ldc.wandroid.activitys;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,9 +11,11 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.contracts.MainContract;
@@ -130,10 +133,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private void init_bottom_bar() {
         mBinding.bottomBar
                 .setMode(BottomNavigationBar.MODE_FIXED)
-                .addItem(new BottomNavigationItem(R.drawable.icon_icon, tabs[0]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_icon, tabs[1]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_icon, tabs[2]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_icon, tabs[3]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_home, tabs[0]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_system, tabs[1]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_projects, tabs[2]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_me, tabs[3]))
                 .setFirstSelectedPosition(curr_selected_position)
                 .setTabSelectedListener(onTabSelectedListener)
                 .initialise();
@@ -223,6 +226,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         }
     }
 
+    @Override
+    public void get_logout_resp(BaseModel<Object> dt) {
+        if (null == dt) {
+            return;
+        }
+        if (0 == dt.getErrorCode()) {
+            AppUtils.exitApp();
+        } else {
+            show_toast(dt.getErrorMsg());
+        }
+    }
+
 
     //保存用户积分信息
     private void save_integral_data(IntegralModel model) {
@@ -254,5 +269,36 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        init_exit_app();
+    }
+
+    //推出成
+    private void init_exit_app() {
+        final String[] items = {"关闭", "退出", "取消"};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                switch (which) {
+                    case 0:
+                        moveTaskToBack(true);
+                        break;
+                    case 1:
+                        mPresenter.get_logout_req();
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        })
+                .create()
+                .show();
+
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,9 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.ldc.wandroid.BuildConfig;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.AuthorActivity;
 import com.ldc.wandroid.activitys.MyCollectActivity;
 import com.ldc.wandroid.activitys.MySharedActivity;
 import com.ldc.wandroid.activitys.PersonalCoinActivity;
@@ -54,11 +57,11 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
     static final MePersonalModel[] dt_items = {
             new MePersonalModel("个人积分", R.drawable.icon_integral),
-            new MePersonalModel("积分排名", R.drawable.icon_integral),
-            new MePersonalModel("我的分享", R.drawable.icon_integral),
-            new MePersonalModel("我的收藏", R.drawable.icon_integral),
-            new MePersonalModel("作者", R.drawable.icon_integral),
-            new MePersonalModel("关于", R.drawable.icon_integral)
+            new MePersonalModel("积分排名", R.drawable.icon_rank),
+            new MePersonalModel("我的分享", R.drawable.icon_shared),
+            new MePersonalModel("我的收藏", R.drawable.icon_collect),
+            new MePersonalModel("作者", R.drawable.icon_author),
+            new MePersonalModel("关于", R.drawable.icon_about)
     };
     //
     private volatile int curr_coin = 0;
@@ -192,6 +195,12 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
             case 3:
                 MyCollectActivity.actionStart(getActivity());
                 break;
+            case 4:
+                AuthorActivity.actionStart(getActivity());
+                break;
+            case 5:
+                show_about_dialog();
+                break;
         }
 
     }
@@ -208,4 +217,18 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
         mHandler.sendMessage(message);
     }
 
+
+    //显示 关于
+    private void show_about_dialog() {
+        final String[] items = {
+                String.format("版本号:%s", BuildConfig.VERSION_CODE),
+                String.format("版本:%s", BuildConfig.VERSION_NAME)
+        };
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("关于")
+                .setItems(items, null)
+                .create()
+                .show();
+
+    }
 }

@@ -118,4 +118,9 @@ public interface ApiServer {
     );
 
 
+    // 推出
+    @GET(value = "/user/logout/json")
+    Observable<BaseModel<Object>> logout();
+
+
 }

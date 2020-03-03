@@ -79,4 +79,33 @@ public class MainPresenter extends BasePresenter<MainContract.V> implements Main
                     }
                 });
     }
+
+    @Override
+    public void get_logout_req() {
+        apiServer.logout().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseModel<Object>>() {
+                    Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<Object> objectBaseModel) {
+                        getView().get_logout_resp(objectBaseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        release_disposable(disposable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        release_disposable(disposable);
+                    }
+                });
+    }
 }
