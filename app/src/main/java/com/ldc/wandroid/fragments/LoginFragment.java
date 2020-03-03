@@ -145,6 +145,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         curr_user_password = new String(Base64.decode(temp_str_password.getBytes(), Base64.DEFAULT));
         if (!TextUtils.isEmpty(curr_user_name) || !TextUtils.isEmpty(curr_user_password)) {
             mPresenter.login_req(curr_user_name, curr_user_password);
+        } else {
+            mBinding.layoutLogin.setVisibility(View.VISIBLE);
         }
 
     }

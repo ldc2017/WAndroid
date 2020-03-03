@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.contracts.MainContract;
@@ -233,6 +234,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         }
         if (0 == dt.getErrorCode()) {
             AppUtils.exitApp();
+            SPUtils.getInstance().clear();
         } else {
             show_toast(dt.getErrorMsg());
         }
@@ -296,8 +298,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
                 }
 
             }
-        })
-                .create()
+        }).create()
                 .show();
 
     }
