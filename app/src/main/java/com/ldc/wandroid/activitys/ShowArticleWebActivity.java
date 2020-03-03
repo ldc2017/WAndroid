@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -36,6 +37,32 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
         activity.startActivity(intent);
     }
 
+
+    @Override
+    protected void onPause() {
+        if (null != agentWeb) {
+            agentWeb.getWebLifeCycle().onPause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (null != agentWeb) {
+            agentWeb.getWebLifeCycle().onResume();
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (null != agentWeb) {
+            agentWeb.getWebLifeCycle().onDestroy();
+        }
+        super.onDestroy();
+    }
+
+
     @Override
     protected int ui() {
         return R.layout.activity_show_article_web;
@@ -65,36 +92,17 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
                         Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.ACCESS_NETWORK_STATE)
                 .start();
-        init_web_2();
-    }
-
-
-    @Override
-    protected void onPause() {
-        if (null != agentWeb) {
-            agentWeb.getWebLifeCycle().onPause();
+        if (TextUtils.isEmpty(str_url)) {
+            show_toast("无效地址~~");
+            finish();
+        } else {
+            init_web_2();
         }
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        if (null != agentWeb) {
-            agentWeb.getWebLifeCycle().onResume();
-        }
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (null != agentWeb) {
-            agentWeb.getWebLifeCycle().onDestroy();
-        }
-        super.onDestroy();
     }
 
     @Override
     protected void init_data() {
+
 
     }
 
@@ -114,32 +122,11 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
 
     }
 
-
-//    //初始化web
-//    private void init_web() {
-//        try {
-//            mBinding.webView.getSettings().setJavaScriptEnabled(true);
-//            mBinding.webView.setWebViewClient(new WebViewClient() {
-//                @Override
-//                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                    view.loadUrl(url);
-//                    return true;
-//                }
-//            });
-//            mBinding.webView.loadUrl(str_url);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     private void init_web_2() {
         try {
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(mBinding.webView, new LinearLayout.LayoutParams(-1, -1))
                     .useDefaultIndicator()
-                    .setWebChromeClient(mWebChromeClient)
-                    .setWebViewClient(mWebViewClient)
-                    .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
                     .createAgentWeb()
                     .ready()
                     .go(str_url);

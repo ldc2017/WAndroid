@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.SystemNavigationAdapter;
 import com.ldc.wandroid.contracts.SystemNavigationContract;
 import com.ldc.wandroid.core.BaseFragment;
@@ -50,7 +51,7 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (!hidden){
+        if (!hidden) {
             mPresenter.get_navigation_req();
         }
     }
@@ -135,12 +136,15 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                 List<NetNavigationModel> system_model = adapter.getData();
-                if (null != system_model) {
-                    NetNavigationModel s = system_model.get(position);
-                    if (null != s) {
-                        show_toast(s.getName());
-                    }
+                if (null == system_model) {
+                    return;
                 }
+                NetNavigationModel s = system_model.get(position);
+                if (null == s) {
+                    return;
+                }
+                ShowArticleWebActivity.actionStart(getActivity(), s.getName(), s.getLink());
+
 
             }
         });
