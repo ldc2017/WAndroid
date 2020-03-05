@@ -20,11 +20,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.BuildConfig;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.AuthorActivity;
 import com.ldc.wandroid.activitys.MyCollectActivity;
 import com.ldc.wandroid.activitys.MySharedActivity;
 import com.ldc.wandroid.activitys.PersonalCoinActivity;
 import com.ldc.wandroid.activitys.PersonalRankActivity;
+import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.MePersonalItemsAdapter;
 import com.ldc.wandroid.common.CM;
 import com.ldc.wandroid.contracts.MeContract;
@@ -69,8 +69,8 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     private volatile int curr_coin = 0;
 
     //
-    static final int refresh_code = 0x000;
-    static final int refresh_user_name = 0x0001;
+    private static final int refresh_code = 0x000;
+    private static final int refresh_user_name = 0x0001;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -208,7 +208,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 MyCollectActivity.actionStart(getActivity());
                 break;
             case 4:
-                AuthorActivity.actionStart(getActivity());
+                ShowArticleWebActivity.actionStart(getActivity(), "关于作者", "https://weibo.com/1785876814/profile?rightmod=1&wvr=6&mod=personinfo");
                 break;
             case 5:
                 show_about_dialog();

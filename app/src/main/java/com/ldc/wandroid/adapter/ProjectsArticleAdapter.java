@@ -1,5 +1,6 @@
 package com.ldc.wandroid.adapter;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.TimeUtils;
@@ -12,7 +13,7 @@ import com.ldc.wandroid.model.ProjectsArticleModel;
 import java.sql.Date;
 
 public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleModel.DatasBean, BaseViewHolder> {
-    protected volatile boolean isScroll = false;
+    private volatile boolean isScroll = false;
 
     public ProjectsArticleAdapter() {
         super(R.layout.layout_item_projects_article);
@@ -30,11 +31,19 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                     .setText(R.id.tv_author, String.format("【%s】", bean.getAuthor()))
                     .setText(R.id.tv_time, String.format("%s", TimeUtils.date2String(new Date(bean.getPublishTime()), "yyyy/MM/dd")));
             if (!isScroll) {
-                Glide.with(baseViewHolder.itemView).load(bean.getEnvelopePic())
-                        .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
+                //
+                if (!TextUtils.isEmpty(bean.getEnvelopePic())) {
+                    Glide.with(baseViewHolder.itemView).load(bean.getEnvelopePic())
+                            .placeholder(R.drawable.icon_image_helper)
+                            .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
+                } else {
+                    Glide.with(baseViewHolder.itemView).load(R.drawable.icon_pic_lloading)
+                            .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
+                }
             } else {
                 Glide.with(baseViewHolder.itemView).load(R.drawable.icon_pic_lloading)
                         .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
+
             }
 
         }
