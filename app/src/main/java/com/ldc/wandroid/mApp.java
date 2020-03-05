@@ -9,6 +9,7 @@ import androidx.room.Room;
 import com.blankj.utilcode.util.Utils;
 import com.ldc.wandroid.common.ErrorCatch;
 import com.ldc.wandroid.db.AppDatabase;
+import com.ldc.wandroid.db.DbDtMigrate;
 
 import me.yokeyword.fragmentation.Fragmentation;
 
@@ -34,6 +35,7 @@ public class mApp extends Application {
         //数据库
         database = Room.databaseBuilder(this, AppDatabase.class, "wandroid.db")
                 .allowMainThreadQueries()//主线程可查
+                .addMigrations(DbDtMigrate.v_1_2_2)
                 .build();
         //
         Fragmentation.builder()

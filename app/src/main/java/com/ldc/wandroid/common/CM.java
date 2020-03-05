@@ -9,6 +9,8 @@ public class CM {
     public static final String login_cookie_key = "user_cookie";
     //
     public static final String user_name_key = "user_name";
+    //
     public static final String user_password_key = "user_password";
     //
+    public static final String user_info_id = "user_info_id";
 }

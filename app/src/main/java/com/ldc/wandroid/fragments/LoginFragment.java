@@ -19,6 +19,8 @@ import com.ldc.wandroid.common.CM;
 import com.ldc.wandroid.contracts.LoginContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentLoginBinding;
+import com.ldc.wandroid.db.entitis.UserEntity;
+import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.presenters.LoginPresenter;
@@ -91,14 +93,14 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
     public void login_resp(BaseModel<LoginInfoModel> data) {
         if (null != data) {
             if (0 == data.getErrorCode()) {
-                SPUtils.getInstance().put(CM.user_id_key, String.format("%s", data.getData().getId()));
+                SPUtils.getInstance().put(CM.user_id_key, String.format("%s", String.format("%s", data.getData().getId())));
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         final String str_base_64_password = Base64.encodeToString(curr_user_password.getBytes(), Base64.DEFAULT);
                         SPUtils.getInstance().put(CM.user_name_key, curr_user_name);
                         SPUtils.getInstance().put(CM.user_password_key, str_base_64_password);
-
+                        save_user_data(data.getData());//保存数据
                         MainActivity.actionStart(getActivity(), null);
                     }
                 }, 300);
@@ -147,6 +149,31 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
             mPresenter.login_req(curr_user_name, curr_user_password);
         } else {
             mBinding.layoutLogin.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+
+    //保存登录信息
+    private void save_user_data(LoginInfoModel dt) {
+        if (null == dt) {
+            return;
+        }
+        SPUtils.getInstance().put(CM.user_info_id, String.format("%s", dt.getId()));
+        UserEntity et = mApp.getDatabase().userDao().find_by_user_id(String.format("%s", dt.getId()));
+        if (null == et) {
+            // 保存数据
+            et = new UserEntity(dt.getId(), dt.getEmail(), dt.getUsername(), dt.getNickname(), dt.getPublicName(), dt.getType(), dt.getToken());
+            mApp.getDatabase().userDao().insert(et);
+        } else {
+            //更新数据
+            et.id = dt.getId();
+            et.email = dt.getEmail();
+            et.nickname = dt.getNickname();
+            et.publicName = dt.getPublicName();
+            et.type = dt.getType();
+            et.token = dt.getToken();
+            mApp.getDatabase().userDao().update(et);
         }
 
     }

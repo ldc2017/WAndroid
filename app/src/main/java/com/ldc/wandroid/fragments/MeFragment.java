@@ -4,6 +4,7 @@ package com.ldc.wandroid.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import com.ldc.wandroid.contracts.MeContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentMeBinding;
 import com.ldc.wandroid.db.entitis.IntegralEntity;
+import com.ldc.wandroid.db.entitis.UserEntity;
 import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.MePersonalModel;
 import com.ldc.wandroid.presenters.MePresenter;
@@ -68,6 +70,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
 
     //
     static final int refresh_code = 0x000;
+    static final int refresh_user_name = 0x0001;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -77,7 +80,6 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                     if (null == dt) {
                         return false;
                     }
-                    mBinding.tvName.setText(String.format("%s", dt.getUsername()));
                     mBinding.tvUserId.setText(String.format("ID:\t%s", dt.getId()));
                     mBinding.tvRank.setText(String.format("当前排名:\t%s", dt.getRank()));
                     curr_coin = dt.getCoinCount();
@@ -97,6 +99,13 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                     }
 
                     return true;
+                case refresh_user_name:
+                    UserEntity ue = (UserEntity) msg.obj;
+                    if (null == ue) {
+                        return false;
+                    }
+                    mBinding.tvName.setText(String.format("%s", ue.username));
+                    return true;
             }
             return false;
         }
@@ -112,6 +121,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
             get_integral_data();
+            get_user_data();
         }
     }
 
@@ -134,6 +144,8 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     @Override
     protected void init_data() {
         get_integral_data();
+        //
+        get_user_data();
 
     }
 
@@ -208,6 +220,9 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     //获取数据
     private void get_integral_data() {
         final String user_id = SPUtils.getInstance().getString(CM.user_id_key);
+        if (TextUtils.isEmpty(user_id)) {
+            return;
+        }
         IntegralEntity entity = mApp.getDatabase().integralDao().find_by_user_id(user_id);
         if (null == entity) {
             return;
@@ -215,6 +230,22 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
         Message message = mHandler.obtainMessage(refresh_code);
         message.obj = entity;
         mHandler.sendMessage(message);
+    }
+
+    //获取用户信息
+    private void get_user_data() {
+        final String user_info_id = SPUtils.getInstance().getString(CM.user_info_id);
+        if (TextUtils.isEmpty(user_info_id)) {
+            return;
+        }
+        UserEntity userEntity = mApp.getDatabase().userDao().find_by_user_id(user_info_id);
+        if (null == userEntity) {
+            return;
+        }
+        Message message = mHandler.obtainMessage(refresh_user_name);
+        message.obj = userEntity;
+        mHandler.sendMessage(message);
+
     }
 
 
