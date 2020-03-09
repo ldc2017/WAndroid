@@ -1,6 +1,6 @@
 package com.ldc.wandroid.common;
 
-public class CM {
+public class cmConstants {
 
     public static final int refresh_time = 1500;
     //
@@ -13,4 +13,6 @@ public class CM {
     public static final String user_password_key = "user_password";
     //
     public static final String user_info_id = "user_info_id";
+    //
+    public static final String jg_app_key = "2d47fa3cd16d925f8174f9d5";
 }

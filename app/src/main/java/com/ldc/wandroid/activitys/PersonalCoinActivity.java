@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.adapter.PersonalCoinAdapter;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.PersonalCoinContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityPersonalCoinBinding;
@@ -158,7 +158,7 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
     private OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(CM.refresh_time);
+            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_coinCount_req(curr_index);
 

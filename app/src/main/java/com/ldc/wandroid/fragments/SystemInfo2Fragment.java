@@ -16,7 +16,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.SystemInfo2Adapter;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SystemInfo2Contract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentSystemInfo2Binding;
@@ -145,14 +145,14 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
     private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(CM.refresh_time);
+            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_system_info_req(curr_index, cid);
         }
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(CM.refresh_time);
+            refreshLayout.finishRefresh(cmConstants.refresh_time);
             curr_index = 0;
             mPresenter.get_system_info_req(curr_index, cid);
         }

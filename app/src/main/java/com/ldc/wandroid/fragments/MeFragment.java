@@ -26,7 +26,7 @@ import com.ldc.wandroid.activitys.PersonalCoinActivity;
 import com.ldc.wandroid.activitys.PersonalRankActivity;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.MePersonalItemsAdapter;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.MeContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentMeBinding;
@@ -219,7 +219,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
 
     //获取数据
     private void get_integral_data() {
-        final String user_id = SPUtils.getInstance().getString(CM.user_id_key);
+        final String user_id = SPUtils.getInstance().getString(cmConstants.user_id_key);
         if (TextUtils.isEmpty(user_id)) {
             return;
         }
@@ -234,7 +234,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
 
     //获取用户信息
     private void get_user_data() {
-        final String user_info_id = SPUtils.getInstance().getString(CM.user_info_id);
+        final String user_info_id = SPUtils.getInstance().getString(cmConstants.user_info_id);
         if (TextUtils.isEmpty(user_info_id)) {
             return;
         }

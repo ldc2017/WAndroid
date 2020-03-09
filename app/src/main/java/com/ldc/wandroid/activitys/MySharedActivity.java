@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.adapter.MySharedAdapter;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.MySharedContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityMySharedBinding;
@@ -173,7 +173,7 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
     private OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(CM.refresh_time);
+            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_my_shared_req(curr_index);
 

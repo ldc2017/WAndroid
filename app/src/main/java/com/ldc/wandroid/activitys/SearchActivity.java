@@ -17,7 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.adapter.SearchAdapter;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SearchContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivitySearchBinding;
@@ -193,7 +193,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
     private OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(CM.refresh_time);
+            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_search_req(curr_index, curr_str_k);
 

@@ -22,7 +22,25 @@ android {
                         "room.expandProjection": "true"]
             }
         }
+
+        //极光推送设置
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "2d47fa3cd16d925f8174f9d5", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
     }
+
+    packagingOptions {
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -108,5 +126,8 @@ dependencies {
     implementation 'com.yanzhenjie:permission:2.0.3'
     //
     implementation 'com.just.agentweb:agentweb:4.1.3' // (必选)
+    //极光推送
+    implementation 'cn.jiguang.sdk:jpush:3.5.6'  // 此处以JPush 3.5.6 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.2.8'  // 此处以JCore 2.2.8 版本为例。
 
 }

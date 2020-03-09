@@ -15,7 +15,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.MainActivity;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.LoginContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentLoginBinding;
@@ -93,13 +93,13 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
     public void login_resp(BaseModel<LoginInfoModel> data) {
         if (null != data) {
             if (0 == data.getErrorCode()) {
-                SPUtils.getInstance().put(CM.user_id_key, String.format("%s", String.format("%s", data.getData().getId())));
+                SPUtils.getInstance().put(cmConstants.user_id_key, String.format("%s", String.format("%s", data.getData().getId())));
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         final String str_base_64_password = Base64.encodeToString(curr_user_password.getBytes(), Base64.DEFAULT);
-                        SPUtils.getInstance().put(CM.user_name_key, curr_user_name);
-                        SPUtils.getInstance().put(CM.user_password_key, str_base_64_password);
+                        SPUtils.getInstance().put(cmConstants.user_name_key, curr_user_name);
+                        SPUtils.getInstance().put(cmConstants.user_password_key, str_base_64_password);
                         save_user_data(data.getData());//保存数据
                         MainActivity.actionStart(getActivity(), null);
                     }
@@ -142,8 +142,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         //
         mBinding.layoutLogin.setVisibility(View.GONE);
         //
-        curr_user_name = SPUtils.getInstance().getString(CM.user_name_key);
-        final String temp_str_password = SPUtils.getInstance().getString(CM.user_password_key);
+        curr_user_name = SPUtils.getInstance().getString(cmConstants.user_name_key);
+        final String temp_str_password = SPUtils.getInstance().getString(cmConstants.user_password_key);
         curr_user_password = new String(Base64.decode(temp_str_password.getBytes(), Base64.DEFAULT));
         if (!TextUtils.isEmpty(curr_user_name) || !TextUtils.isEmpty(curr_user_password)) {
             mPresenter.login_req(curr_user_name, curr_user_password);
@@ -159,7 +159,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         if (null == dt) {
             return;
         }
-        SPUtils.getInstance().put(CM.user_info_id, String.format("%s", dt.getId()));
+        SPUtils.getInstance().put(cmConstants.user_info_id, String.format("%s", dt.getId()));
         UserEntity et = mApp.getDatabase().userDao().find_by_user_id(String.format("%s", dt.getId()));
         if (null == et) {
             // 保存数据

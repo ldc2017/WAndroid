@@ -19,7 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.ProjectsArticleAdapter;
-import com.ldc.wandroid.common.CM;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.ProjectContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentProjectBinding;
@@ -260,7 +260,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
     private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(CM.refresh_time);
+            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_projects_article_req(curr_index, curr_cid);
 
@@ -268,7 +268,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(CM.refresh_time);
+            refreshLayout.finishRefresh(cmConstants.refresh_time);
             curr_index = 0;
             mPresenter.get_projects_article_req(curr_index, curr_cid);
 
