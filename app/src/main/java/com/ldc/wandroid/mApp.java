@@ -11,6 +11,7 @@ import com.ldc.wandroid.common.ErrorCatch;
 import com.ldc.wandroid.db.AppDatabase;
 import com.ldc.wandroid.db.DbDtMigrate;
 
+import cn.jpush.android.api.JPushInterface;
 import me.yokeyword.fragmentation.Fragmentation;
 
 
@@ -32,6 +33,9 @@ public class mApp extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
+        //极光推送配置
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         //数据库
         database = Room.databaseBuilder(this, AppDatabase.class, "wandroid.db")
                 .allowMainThreadQueries()//主线程可查

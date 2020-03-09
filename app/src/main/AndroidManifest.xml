@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".activitys.ShowMessageActivity"></activity>
         <activity android:name=".activitys.AuthorActivity" />
         <activity android:name=".activitys.SearchActivity" />
         <activity android:name=".activitys.MySharedActivity" />
@@ -38,7 +39,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.MyCollectActivity" />
+        <activity android:name=".activitys.MyCollectActivity" /> <!--  -->
+        <!--  -->
+        <!-- 极光配置 -->
+        <service
+            android:name=".jg.JgService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service> <!--  -->
+        <receiver
+            android:name=".jg.JgReceived"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <!-- 包名 -->
+                <category android:name="com.ldc.wandroid" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
