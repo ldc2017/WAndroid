@@ -7,8 +7,8 @@ android {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 10
-        versionName "v_0.1.0"
+        versionCode 11
+        versionName "v_0.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true
@@ -117,9 +117,6 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0'
     //
     implementation 'com.youth.banner:banner:2.0.0-alpha02'  //预览版
-    //
-    //    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    //    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //
     implementation 'com.squareup.picasso:picasso:2.71828'
     //
