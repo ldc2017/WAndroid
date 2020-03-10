@@ -4,11 +4,11 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.TimeUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.ProjectsArticleModel;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 
@@ -33,15 +33,15 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
             if (!isScroll) {
                 //
                 if (!TextUtils.isEmpty(bean.getEnvelopePic())) {
-                    Glide.with(baseViewHolder.itemView).load(bean.getEnvelopePic())
+                    Picasso.get().load(bean.getEnvelopePic())
                             .placeholder(R.drawable.icon_image_helper)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 } else {
-                    Glide.with(baseViewHolder.itemView).load(R.drawable.icon_pic_lloading)
+                    Picasso.get().load(R.drawable.icon_pic_lloading)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 }
             } else {
-                Glide.with(baseViewHolder.itemView).load(R.drawable.icon_pic_lloading)
+                Picasso.get().load(R.drawable.icon_pic_lloading)
                         .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
 
             }

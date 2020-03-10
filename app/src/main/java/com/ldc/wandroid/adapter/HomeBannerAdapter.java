@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.BannerModel;
+import com.squareup.picasso.Picasso;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -33,7 +33,10 @@ public class HomeBannerAdapter extends BannerAdapter<BannerModel, HomeBannerAdap
     public void onBindView(BannerViewHolder holder, BannerModel data, int position, int size) {
         if (null != data) {
             holder.mTvWord.setText(String.format("%s", data.getTitle()));
-            Glide.with(holder.itemView).load(data.getImagePath()).into(holder.mIvImage);
+            Picasso.get()
+                    .load(data.getImagePath())
+                    .placeholder(R.drawable.icon_image_helper)
+                    .into(holder.mIvImage);
         }
 
     }

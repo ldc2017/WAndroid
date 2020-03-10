@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.android.material.tabs.TabLayout;
@@ -29,6 +28,7 @@ import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.presenters.ProjectPresenter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -219,10 +219,10 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         projects_article_adapter.setScroll(false);
                         projects_article_adapter.notifyDataSetChanged();
-                        Glide.with(getActivity()).resumeRequests();//恢复Glide加载图片
+                        Picasso.get().resumeTag(this);//恢复加载图片
                     } else {
                         projects_article_adapter.setScroll(true);
-                        Glide.with(getActivity()).pauseRequests();//禁止Glide加载图片
+                        Picasso.get().pauseTag(this);//禁止加载图片
                     }
                 }
             });
