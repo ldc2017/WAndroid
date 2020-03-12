@@ -16,6 +16,11 @@ public interface HomeContract {
 
         void get_banner_resp(BaseModel<List<BannerModel>> data);
 
+
+        void select_collect_resp(BaseModel<Object> data);
+
+        void un_select_collect_originId_resp(BaseModel<Object> data);
+
     }
 
     interface P {
@@ -24,5 +29,9 @@ public interface HomeContract {
         void get_article_req(int index);
 
         void get_banner_req();
+
+        void select_collect_req(String id);
+
+        void un_select_collect_originId_req(String id);
     }
 }

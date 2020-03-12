@@ -81,4 +81,36 @@ public class MyCollectPresenter extends BasePresenter<MyCollectContract.V> imple
                     }
                 });
     }
+
+    @Override
+    public void un_select_collect_req(String id, String originId) {
+        apiServer.un_select_collect(id, originId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseModel<Object>>() {
+                    Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<Object> objectBaseModel) {
+                        getView().un_select_collect_resp(objectBaseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        release_disposable(disposable);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        release_disposable(disposable);
+
+                    }
+                });
+    }
 }

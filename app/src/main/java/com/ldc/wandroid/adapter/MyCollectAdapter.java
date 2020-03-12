@@ -1,10 +1,15 @@
 package com.ldc.wandroid.adapter;
 
+import android.text.TextUtils;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+
 import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.MyCollectModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -22,5 +27,15 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
                 .setText(R.id.tv_context, String.format("%s", dt.getDesc()))
                 .setText(R.id.tv_time, String.format("%s", TimeUtils.date2String(new Date(dt.getPublishTime()), "yyyy/MM/dd HH:mm")))
                 .setText(R.id.tv_author, String.format("%s", dt.getAuthor()));
+        if (0 == dt.getVisible()) {
+            ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);
+        }
+        // 显示图片
+        if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
+            Picasso.get().load(dt.getEnvelopePic()).placeholder(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
+        } else {
+            Picasso.get().load(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
+
+        }
     }
 }

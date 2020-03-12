@@ -123,4 +123,18 @@ public interface ApiServer {
     Observable<BaseModel<Object>> logout();
 
 
+    //收藏文章
+    @POST(value = "/lg/collect/{id}/json")
+    Observable<BaseModel<Object>> select_collect(@Path(value = "id") String id);
+
+
+    //取消收藏
+    @POST(value = "/lg/uncollect_originId/{id}/json")
+    Observable<BaseModel<Object>> un_select_collect_originId(@Path(value = "id") String id);
+
+    //我的收藏取消收藏
+    @POST(value = "/lg/uncollect/{id}/json")
+    Observable<BaseModel<Object>> un_select_collect(@Path(value = "id") String id, @Query(value = "originId") String originId);
+
+
 }

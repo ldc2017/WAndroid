@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.SearchActivity;
@@ -53,7 +55,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     private volatile int curr_article_index = 0;
 
     //
-    static final int refresh_data_code = 0x000;
+    private static final int refresh_data_code = 0x000;
     private final Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -207,6 +209,29 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         }
     }
 
+    @Override
+    public void select_collect_resp(BaseModel<Object> data) {
+        if (null == data) {
+            return;
+        }
+
+        if (0 != data.getErrorCode()) {
+            //操作失败
+            show_toast(data.getErrorMsg());
+        }
+    }
+
+    @Override
+    public void un_select_collect_originId_resp(BaseModel<Object> data) {
+        if (null == data) {
+            return;
+        }
+        if (0 != data.getErrorCode()) {
+            //操作失败
+            show_toast(data.getErrorMsg());
+        }
+    }
+
     //数据适配器
     private void init_article_adapter() {
         mBinding.articleList.setItemViewCacheSize(10);
@@ -224,6 +249,26 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                         return;
                     }
                     ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
+                }
+            }
+        });
+        article_adapter.addChildClickViewIds(R.id.ck_collect);
+        article_adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if (R.id.ck_collect == view.getId()) {
+                    List<HomeArticleModel.DatasBean> dts = adapter.getData();
+                    if (null != dts) {
+                        HomeArticleModel.DatasBean dt = dts.get(position);
+                        if (null == dt) {
+                            return;
+                        }
+                        if (((CheckBox) view).isChecked()) {
+                            mPresenter.un_select_collect_originId_req(String.format("%s", dt.getId()));
+                        } else {
+                            mPresenter.select_collect_req(String.format("%s", dt.getId()));
+                        }
+                    }
                 }
             }
         });

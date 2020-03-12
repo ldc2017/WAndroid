@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.adapter.MyCollectAdapter;
@@ -141,6 +142,17 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
         }
     }
 
+    @Override
+    public void un_select_collect_resp(BaseModel<Object> dt) {
+        if (null == dt) {
+            return;
+        }
+        if (0 == dt.getErrorCode()) {
+            curr_index = 0;
+            mPresenter.get_my_collect_req(curr_index);
+        }
+    }
+
 
     // 适配器
     private void init_adapter() {
@@ -163,6 +175,24 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
                 }
                 ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
 
+            }
+        });
+        my_collect_adapter.addChildClickViewIds(R.id.ck_collect);
+        my_collect_adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if (R.id.ck_collect == view.getId()) {
+                    //取消收藏
+                    List<MyCollectModel.DatasBean> dts = adapter.getData();
+                    if (null == dts) {
+                        return;
+                    }
+                    MyCollectModel.DatasBean dt = dts.get(position);
+                    if (null == dt) {
+                        return;
+                    }
+                    mPresenter.un_select_collect_req(String.format("%s", dt.getId()), String.format("%s", dt.getOriginId()));
+                }
             }
         });
 
