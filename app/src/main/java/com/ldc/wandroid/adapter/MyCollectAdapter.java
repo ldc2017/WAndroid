@@ -23,13 +23,12 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
         if (null == dt) {
             return;
         }
-        baseViewHolder.setText(R.id.tv_title, String.format("%s", dt.getTitle()))
-                .setText(R.id.tv_context, String.format("%s", dt.getDesc()))
+        baseViewHolder.setText(R.id.tv_title, String.format("%s", dt.getChapterName()))
+                .setText(R.id.tv_context, String.format("%s\n%s", dt.getTitle(), dt.getDesc()))
                 .setText(R.id.tv_time, String.format("%s", TimeUtils.date2String(new Date(dt.getPublishTime()), "yyyy/MM/dd HH:mm")))
                 .setText(R.id.tv_author, String.format("%s", dt.getAuthor()));
-        if (0 == dt.getVisible()) {
-            ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);
-        }
+        //收藏的
+        ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);
         // 显示图片
         if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
             Picasso.get().load(dt.getEnvelopePic()).placeholder(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));

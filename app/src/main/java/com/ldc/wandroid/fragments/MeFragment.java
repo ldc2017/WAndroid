@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.BuildConfig;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.MyCollectActivity;
+import com.ldc.wandroid.activitys.MyPrivateArticleActivity;
 import com.ldc.wandroid.activitys.MySharedActivity;
 import com.ldc.wandroid.activitys.PersonalCoinActivity;
 import com.ldc.wandroid.activitys.PersonalRankActivity;
@@ -62,6 +63,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
             new MePersonalModel("积分排名", R.drawable.icon_rank),
             new MePersonalModel("我的分享", R.drawable.icon_shared),
             new MePersonalModel("我的收藏", R.drawable.icon_collect),
+            new MePersonalModel("分享文章", R.drawable.icon_private_article),
             new MePersonalModel("作者", R.drawable.icon_author),
             new MePersonalModel("关于", R.drawable.icon_about)
     };
@@ -208,9 +210,12 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 MyCollectActivity.actionStart(getActivity());
                 break;
             case 4:
-                ShowArticleWebActivity.actionStart(getActivity(), "关于作者", "https://weibo.com/1785876814/profile?rightmod=1&wvr=6&mod=personinfo");
+                MyPrivateArticleActivity.actionStart(getActivity());
                 break;
             case 5:
+                ShowArticleWebActivity.actionStart(getActivity(), "关于作者", "https://weibo.com/1785876814/profile?rightmod=1&wvr=6&mod=personinfo");
+                break;
+            case 6:
                 show_about_dialog();
                 break;
         }

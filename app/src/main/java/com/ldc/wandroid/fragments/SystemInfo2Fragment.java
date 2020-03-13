@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
@@ -136,6 +137,24 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
 
             }
         });
+        system_info_adapter.addChildClickViewIds(R.id.ck_collect);
+        system_info_adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if (R.id.ck_collect == view.getId()) {
+                    List<SystemInfoModel.DatasBean> dts = adapter.getData();
+                    if (null == dts) return;
+
+                    SystemInfoModel.DatasBean dt = dts.get(position);
+                    if (null == dt) return;
+                    if (!dt.isCollect()) {
+                        mPresenter.select_collect_req(String.format("%s", dt.getId()));
+                    } else {
+                        mPresenter.un_select_collect_req(String.format("%s", dt.getId()));
+                    }
+                }
+            }
+        });
 
 
     }
@@ -171,5 +190,21 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
             show_toast(dts.getErrorMsg());
         }
 
+    }
+
+    @Override
+    public void select_collect_resp(BaseModel<Object> dt) {
+        if (null == dt) return;
+        if (0 != dt.getErrorCode()) {
+            show_toast(dt.getErrorMsg());
+        }
+    }
+
+    @Override
+    public void un_select_collect_resp(BaseModel<Object> dt) {
+        if (null == dt) return;
+        if (0 != dt.getErrorCode()) {
+            show_toast(dt.getErrorMsg());
+        }
     }
 }

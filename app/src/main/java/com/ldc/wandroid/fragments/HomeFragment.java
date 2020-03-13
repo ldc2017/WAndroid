@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -121,8 +120,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     @Override
     protected void init_view() {
         mBinding.refreshView.setOnLoadMoreListener(refreshLoadMoreListener);
-        mBinding.refreshView.setEnableAutoLoadMore(false);
-        mBinding.refreshView.setNestedScrollingEnabled(true);
+        mBinding.refreshView.setEnableAutoLoadMore(true);
+        mBinding.refreshView.setNestedScrollingEnabled(true);//启动嵌套滚动
+        mBinding.refreshView.setEnableLoadMoreWhenContentNotFull(true);
         //
         init_search_view();
 
@@ -263,7 +263,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                         if (null == dt) {
                             return;
                         }
-                        if (((CheckBox) view).isChecked()) {
+                        if (0 == dt.getVisible()) {
                             mPresenter.un_select_collect_originId_req(String.format("%s", dt.getId()));
                         } else {
                             mPresenter.select_collect_req(String.format("%s", dt.getId()));

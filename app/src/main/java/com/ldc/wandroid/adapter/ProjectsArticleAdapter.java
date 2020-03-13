@@ -1,6 +1,7 @@
 package com.ldc.wandroid.adapter;
 
 import android.text.TextUtils;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.TimeUtils;
@@ -30,6 +31,13 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                     .setText(R.id.tv_context, String.format("%s", bean.getTitle()))
                     .setText(R.id.tv_author, String.format("【%s】", bean.getAuthor()))
                     .setText(R.id.tv_time, String.format("%s", TimeUtils.date2String(new Date(bean.getPublishTime()), "yyyy/MM/dd")));
+
+            if (bean.isCollect()) {
+                ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);
+            } else {
+                ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(false);
+            }
+
             if (!isScroll) {
                 //
                 if (!TextUtils.isEmpty(bean.getEnvelopePic())) {

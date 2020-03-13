@@ -10,6 +10,7 @@ import com.ldc.wandroid.model.MySharedModel;
 import com.ldc.wandroid.model.NetNavigationModel;
 import com.ldc.wandroid.model.PersonalCoinModel;
 import com.ldc.wandroid.model.PersonalRankModel;
+import com.ldc.wandroid.model.PrivateSharedArticleModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
@@ -136,5 +137,13 @@ public interface ApiServer {
     @POST(value = "/lg/uncollect/{id}/json")
     Observable<BaseModel<Object>> un_select_collect(@Path(value = "id") String id, @Query(value = "originId") String originId);
 
+
+    //获取自己分享的文章列表
+    @GET(value = "/user/lg/private_articles/{index}/json")
+    Observable<BaseModel<PrivateSharedArticleModel>> get_private_article(@Path(value = "index") int index);
+
+    //分享文章
+    @POST(value = "lg/user_article/add/json")
+    Observable<BaseModel<Object>> user_article_add(@Query(value = "title") String title, @Query(value = "link") String id);
 
 }
