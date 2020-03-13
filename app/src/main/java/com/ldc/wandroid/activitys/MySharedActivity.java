@@ -24,6 +24,7 @@ import com.ldc.wandroid.model.MySharedModel;
 import com.ldc.wandroid.presenters.MySharedPresenter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -95,7 +96,13 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
             }
         });
         mBinding.topBar.tvTitle.setText("我的分享");
-        mBinding.topBar.lineMore.setVisibility(View.GONE);
+        Picasso.get().load(R.drawable.icon_add).into(mBinding.topBar.ivMore);
+        mBinding.topBar.lineMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddPrivateArticleActivity.actionStart(activity);
+            }
+        });
         //
         mBinding.refreshView.setEnableRefresh(false);
         mBinding.refreshView.setOnLoadMoreListener(onLoadMoreListener);

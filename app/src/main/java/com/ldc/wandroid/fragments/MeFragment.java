@@ -21,7 +21,6 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.BuildConfig;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.MyCollectActivity;
-import com.ldc.wandroid.activitys.MyPrivateArticleActivity;
 import com.ldc.wandroid.activitys.MySharedActivity;
 import com.ldc.wandroid.activitys.PersonalCoinActivity;
 import com.ldc.wandroid.activitys.PersonalRankActivity;
@@ -188,34 +187,34 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 if (null == dt) {
                     return;
                 }
-                go_action(dt, position);
+                go_action(dt);
             }
         });
     }
 
     //跳转
-    private void go_action(MePersonalModel dt, int index) {
-        show_toast(dt.getName());
-        switch (index) {
-            case 0:
+    private void go_action(MePersonalModel dt) {
+        switch (dt.getIcon()) {
+            case R.drawable.icon_integral:
                 PersonalCoinActivity.actionStart(getActivity(), curr_coin);
                 break;
-            case 1:
+            case R.drawable.icon_rank:
                 PersonalRankActivity.actionStart(getActivity());
                 break;
-            case 2:
+            case R.drawable.icon_shared:
                 MySharedActivity.actionStart(getActivity());
                 break;
-            case 3:
+            case R.drawable.icon_collect:
                 MyCollectActivity.actionStart(getActivity());
                 break;
-            case 4:
-                MyPrivateArticleActivity.actionStart(getActivity());
+            case R.drawable.icon_private_article:
+                show_toast("敬请期待");
+                //MyPrivateArticleActivity.actionStart(getActivity());
                 break;
-            case 5:
+            case R.drawable.icon_author:
                 ShowArticleWebActivity.actionStart(getActivity(), "关于作者", "https://weibo.com/1785876814/profile?rightmod=1&wvr=6&mod=personinfo");
                 break;
-            case 6:
+            case R.drawable.icon_about:
                 show_about_dialog();
                 break;
         }

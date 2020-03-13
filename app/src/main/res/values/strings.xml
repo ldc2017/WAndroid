@@ -22,4 +22,5 @@
     <string name="str_title">标题</string>
     <string name="str_search">搜索</string>
     <string name="str_submit">提交</string>
+    <string name="str_article_link">文章地址</string>
 </resources>
