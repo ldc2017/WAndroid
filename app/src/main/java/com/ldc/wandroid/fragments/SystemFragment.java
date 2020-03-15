@@ -24,13 +24,14 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPresenter> implements SystemContract.V {
 
 
-    private static final String[] tabs = {"体系", "导航"};
+    private static final String[] tabs = {"体系", "导航", "微信公众号"};
     private volatile int curr_tab_selected_position = 0;
     private volatile SupportFragment curr_fragment;
     private SupportFragment[] fragments = new SupportFragment[4];
     //
     private static final int fragment_page0 = 0;
     private static final int fragment_page1 = 1;
+    private static final int fragment_page2 = 2;
 
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -135,12 +136,15 @@ public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPr
         if (null == curr_fragment) {
             fragments[fragment_page0] = SystemSystemFragment.newInstance(null);
             fragments[fragment_page1] = SystemNavigationFragment.newInstance(null);
+            fragments[fragment_page2] = SystemWeChatNumberFragment.newInstance(null);
             loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
                     fragments[fragment_page0],
-                    fragments[fragment_page1]);
+                    fragments[fragment_page1],
+                    fragments[fragment_page2]);
         } else {
             fragments[fragment_page0] = curr_fragment;
             fragments[fragment_page1] = findFragment(SystemNavigationFragment.class);
+            fragments[fragment_page2] = findFragment(SystemWeChatNumberFragment.class);
 
             showHideFragment(curr_fragment);
         }

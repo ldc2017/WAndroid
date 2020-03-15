@@ -18,6 +18,9 @@ import com.ldc.wandroid.model.SearchModel;
 import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.model.TopArticleModel;
+import com.ldc.wandroid.model.UserArticleModel;
+import com.ldc.wandroid.model.WeChatNumberHistoryModel;
+import com.ldc.wandroid.model.WeChatNumberModel;
 
 import java.util.List;
 
@@ -146,4 +149,21 @@ public interface ApiServer {
     @POST(value = "lg/user_article/add/json")
     Observable<BaseModel<Object>> user_article_add(@Query(value = "title") String title, @Query(value = "link") String id);
 
+
+    //广场文章
+    @GET(value = "/user_article/list/{p}/json")
+    Observable<BaseModel<UserArticleModel>> get_user_article(@Path(value = "p") final int p);
+
+
+    //获取微信公众号
+    @GET(value = "/wxarticle/chapters/json")
+    Observable<BaseModel<List<WeChatNumberModel>>> get_wechat_number();
+
+
+    //获取微信公招历史
+    @GET(value = "/wxarticle/list/{wx_number}/{p}/json")
+    Observable<BaseModel<WeChatNumberHistoryModel>> get_wechat_number_hostory(
+            @Path(value = "wx_number") String wx_number,
+            @Path(value = "p") int p
+    );
 }
