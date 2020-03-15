@@ -255,10 +255,10 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         projects_article_adapter.setScroll(false);
                         projects_article_adapter.notifyDataSetChanged();
-                        Picasso.get().resumeTag(this);//恢复加载图片
+                        Picasso.get().resumeTag(ProjectsArticleAdapter.image_tag);//恢复加载图片
                     } else {
                         projects_article_adapter.setScroll(true);
-                        Picasso.get().pauseTag(this);//禁止加载图片
+                        Picasso.get().pauseTag(ProjectsArticleAdapter.image_tag);//禁止加载图片
                     }
                 }
             });

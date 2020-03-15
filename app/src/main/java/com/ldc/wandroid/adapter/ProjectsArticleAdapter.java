@@ -15,6 +15,7 @@ import java.sql.Date;
 
 public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleModel.DatasBean, BaseViewHolder> {
     private volatile boolean isScroll = false;
+    public static final String image_tag = "ProjectsArticleAdapter";
 
     public ProjectsArticleAdapter() {
         super(R.layout.layout_item_projects_article);
@@ -43,13 +44,16 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                 if (!TextUtils.isEmpty(bean.getEnvelopePic())) {
                     Picasso.get().load(bean.getEnvelopePic())
                             .placeholder(R.drawable.icon_image_helper)
+                            .tag(image_tag)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 } else {
                     Picasso.get().load(R.drawable.icon_pic_lloading)
+                            .tag(image_tag)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 }
             } else {
                 Picasso.get().load(R.drawable.icon_pic_lloading)
+                        .tag(image_tag)
                         .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
 
             }

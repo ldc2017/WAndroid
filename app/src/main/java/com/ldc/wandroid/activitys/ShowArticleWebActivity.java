@@ -127,6 +127,7 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(mBinding.webView, new LinearLayout.LayoutParams(-1, -1))
                     .useDefaultIndicator()
+                    .setSecurityType(AgentWeb.SecurityType.DEFAULT_CHECK)
                     .createAgentWeb()
                     .ready()
                     .go(str_url);

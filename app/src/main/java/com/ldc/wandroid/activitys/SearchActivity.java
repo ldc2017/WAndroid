@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.adapter.SearchAdapter;
@@ -152,6 +153,24 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
                 ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
             }
         });
+        //收藏事件
+        search_adapter.addChildClickViewIds(R.id.ck_collect);
+        search_adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if (R.id.ck_collect == view.getId()) {
+                    List<SearchModel.DatasBean> dts = adapter.getData();
+                    if (null == dts) return;
+                    SearchModel.DatasBean dt = dts.get(position);
+                    if (null == dt) return;
+                    if (!dt.isCollect()) {
+                        mPresenter.select_collect_req("" + dt.getId());
+                    } else {
+                        mPresenter.un_select_collect_originId_req("" + dt.getId());
+                    }
+                }
+            }
+        });
 
     }
 
@@ -166,6 +185,22 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
             mHandler.sendMessage(message);
         } else {
             show_toast(dt.getErrorMsg());
+        }
+    }
+
+    @Override
+    public void select_collect_resp(BaseModel<Object> data) {
+        if (null == data) return;
+        if (0 != data.getErrorCode()) {
+            show_toast(data.getErrorMsg());
+        }
+    }
+
+    @Override
+    public void un_select_collect_originId_resp(BaseModel<Object> data) {
+        if (null == data) return;
+        if (0 != data.getErrorCode()) {
+            show_toast(data.getErrorMsg());
         }
     }
 
