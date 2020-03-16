@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     //
     private HomeArticleAdapter article_adapter = new HomeArticleAdapter();
-    private LinearLayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+    private RecyclerView.LayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
     private volatile int curr_article_index = 0;
     //
     private HomeTopArticleAdapter top_article_adapter = new HomeTopArticleAdapter();
@@ -129,7 +129,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     protected void init_view() {
         mBinding.refreshView.setOnRefreshLoadMoreListener(refreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(true);
-        mBinding.refreshView.setNestedScrollingEnabled(true);
         //
 //        mBinding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
 //            @Override
@@ -288,7 +287,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                 }
             }
         });
-        top_article_adapter.setEmptyView(R.layout.layout_no_data);
+        //top_article_adapter.setEmptyView(R.layout.layout_no_data);
     }
 
     //数据适配器
