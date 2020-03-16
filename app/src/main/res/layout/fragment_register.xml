@@ -81,7 +81,7 @@
                 android:background="@drawable/btn_login_bg"
                 android:onClick="@{(v)->events.btn_register(v)}"
                 android:text="@string/str_register"
-                android:textSize="@dimen/sp_20" />
+                android:textSize="@dimen/sp_18" />
         </LinearLayout>
 
 

@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp_3"
-    android:layout_marginBottom="@dimen/dp_3"
     android:background="@drawable/layout_item_bg"
     android:elevation="@dimen/dp_5"
     android:orientation="vertical"
@@ -68,8 +66,7 @@
             android:maxLines="3"
             android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
             android:textColor="@color/color_222222"
-            android:textSize="@dimen/sp_20"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_18" />
     </RelativeLayout>
 
     <RelativeLayout

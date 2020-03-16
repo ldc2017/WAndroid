@@ -28,12 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:maxLines="3"
+        android:ellipsize="end"
         android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
-
-
         android:textColor="@color/color_222222"
-        android:textSize="@dimen/sp_20"
-        android:textStyle="bold" />
+        android:textSize="@dimen/sp_18" />
 
     <RelativeLayout
         android:layout_width="match_parent"

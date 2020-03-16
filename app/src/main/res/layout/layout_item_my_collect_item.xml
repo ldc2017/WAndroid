@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp_5"
     android:background="@drawable/layout_item_bg"
     android:elevation="@dimen/dp_5"
     android:orientation="vertical"
@@ -68,7 +67,7 @@
             android:ellipsize="end"
             android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
             android:textColor="@color/color_222222"
-            android:textSize="@dimen/sp_20"
+            android:textSize="@dimen/sp_18"
             android:textStyle="normal" />
     </RelativeLayout>
 
