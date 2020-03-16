@@ -23,4 +23,5 @@
     <string name="str_search">搜索</string>
     <string name="str_submit">提交</string>
     <string name="str_article_link">文章地址</string>
+    <string name="str_sticky">置顶</string>
 </resources>

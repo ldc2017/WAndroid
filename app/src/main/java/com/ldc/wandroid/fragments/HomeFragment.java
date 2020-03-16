@@ -21,8 +21,8 @@ import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.SearchActivity;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.HomeArticleAdapter;
-import com.ldc.wandroid.adapter.HomeArticleDiffCb;
 import com.ldc.wandroid.adapter.HomeBannerAdapter;
+import com.ldc.wandroid.adapter.HomeTopArticleAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.HomeContract;
 import com.ldc.wandroid.core.BaseFragment;
@@ -50,12 +50,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     //
     private HomeArticleAdapter article_adapter = new HomeArticleAdapter();
-    private RecyclerView.LayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+    private LinearLayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
     private volatile int curr_article_index = 0;
+    //
+    private HomeTopArticleAdapter top_article_adapter = new HomeTopArticleAdapter();
+    private RecyclerView.LayoutManager top_article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
 
     //
     private static final int refresh_data_code = 0x000;
-    private final Handler handler = new Handler(new Handler.Callback() {
+    private final static int refresh_top_article_code = 0x001;
+    private final Handler uiHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             switch (msg.what) {
@@ -69,6 +73,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                         }
                     }
                     return true;
+                case refresh_top_article_code:
+                    List<TopArticleModel> top_dts = (List<TopArticleModel>) msg.obj;
+                    top_article_adapter.setNewData(top_dts);
+                    return true;
             }
             return false;
         }
@@ -77,7 +85,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        uiHandler.removeCallbacksAndMessages(null);
     }
 
     @Override
@@ -119,10 +127,18 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     protected void init_view() {
-        mBinding.refreshView.setOnLoadMoreListener(refreshLoadMoreListener);
+        mBinding.refreshView.setOnRefreshLoadMoreListener(refreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(true);
-        mBinding.refreshView.setNestedScrollingEnabled(true);//启动嵌套滚动
-        mBinding.refreshView.setEnableLoadMoreWhenContentNotFull(true);
+        mBinding.refreshView.setNestedScrollingEnabled(true);
+        //
+//        mBinding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {   //scrollY是滑动的距离
+//                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+//
+//                }
+//            }
+//        });
         //
         init_search_view();
 
@@ -130,7 +146,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     protected void init_data() {
-        handler.postDelayed(new Runnable() {
+        uiHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mPresenter.get_top_article_req();
@@ -140,6 +156,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         }, 500);
         //适配器
         init_article_adapter();
+        init_top_article_adapter();
     }
 
     @Override
@@ -152,24 +169,24 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     public void show_loading(String message) {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
         mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
-        //mBinding.articleList.setVisibility(View.GONE);
 
     }
 
     @Override
     public void hide_loading() {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
-        // mBinding.articleList.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void get_top_article_resp(BaseModel<List<TopArticleModel>> data) {
-        handler.post(new Runnable() {
+        uiHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (null != data) {
                     if (0 == data.getErrorCode()) {
-                        // show_toast(data.getData().get(0).getChapterName());
+                        Message message = uiHandler.obtainMessage(refresh_top_article_code);
+                        message.obj = data.getData();
+                        uiHandler.sendMessage(message);
                     } else {
                         show_toast(data.getErrorMsg());
                     }
@@ -181,14 +198,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     public void get_article_resp(BaseModel<HomeArticleModel> data) {
-        handler.post(new Runnable() {
+        uiHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (null != data) {
                     if (0 == data.getErrorCode()) {
-                        Message message = handler.obtainMessage(refresh_data_code);
+                        Message message = uiHandler.obtainMessage(refresh_data_code);
                         message.obj = data.getData().getDatas();
-                        handler.sendMessage(message);
+                        uiHandler.sendMessage(message);
                     } else {
                         show_toast(data.getErrorMsg());
                     }
@@ -200,7 +217,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     @Override
     public void get_banner_resp(BaseModel<List<BannerModel>> data) {
         if (null != data) {
-            handler.post(new Runnable() {
+            uiHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     init_banner(data.getData());
@@ -232,12 +249,53 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         }
     }
 
+    //置顶文章
+    private void init_top_article_adapter() {
+        mBinding.topArticleList.setItemViewCacheSize(10);
+        mBinding.topArticleList.setHasFixedSize(true);
+        mBinding.topArticleList.setLayoutManager(top_article_layout_manager);
+        mBinding.topArticleList.setAdapter(top_article_adapter);
+        top_article_adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                List<TopArticleModel> dts = adapter.getData();
+                if (null != dts) {
+                    TopArticleModel dt = dts.get(position);
+                    if (null == dt) {
+                        return;
+                    }
+                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
+                }
+            }
+        });
+        top_article_adapter.addChildClickViewIds(R.id.ck_collect);
+        top_article_adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if (R.id.ck_collect == view.getId()) {
+                    List<TopArticleModel> dts = adapter.getData();
+                    if (null != dts) {
+                        TopArticleModel dt = dts.get(position);
+                        if (null == dt) {
+                            return;
+                        }
+                        if (0 == dt.getVisible()) {
+                            mPresenter.un_select_collect_originId_req(String.format("%s", dt.getId()));
+                        } else {
+                            mPresenter.select_collect_req(String.format("%s", dt.getId()));
+                        }
+                    }
+                }
+            }
+        });
+        top_article_adapter.setEmptyView(R.layout.layout_no_data);
+    }
+
     //数据适配器
     private void init_article_adapter() {
         mBinding.articleList.setItemViewCacheSize(10);
         mBinding.articleList.setHasFixedSize(true);
         mBinding.articleList.setLayoutManager(article_layout_manager);
-        article_adapter.setDiffCallback(new HomeArticleDiffCb());
         mBinding.articleList.setAdapter(article_adapter);
         article_adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -273,8 +331,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             }
         });
         article_adapter.setEmptyView(R.layout.layout_no_data);
-        article_adapter.setAnimationEnable(true);
     }
+
 
     //刷新事件
     private OnRefreshLoadMoreListener refreshLoadMoreListener = new OnRefreshLoadMoreListener() {
