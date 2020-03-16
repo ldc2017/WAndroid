@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_60"
     android:layout_marginTop="@dimen/dp_1"
-    android:background="@drawable/layout_item_bg"
+    android:background="@drawable/layout_item_bg_2"
     android:paddingLeft="@dimen/dp_10"
     android:paddingRight="@dimen/dp_10"
     tools:targetApi="lollipop">
@@ -14,6 +14,7 @@
         android:id="@+id/iv_image"
         android:layout_width="@dimen/dp_20"
         android:layout_height="@dimen/dp_20"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:src="@drawable/icon_integral" />

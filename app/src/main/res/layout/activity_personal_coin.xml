@@ -3,31 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/topBar"
-            layout="@layout/top_bar"
+            android:id="@+id/layout_loading"
+            layout="@layout/layout_loading"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_alignParentTop="true" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/topBar"
             android:orientation="vertical">
 
             <include
-                android:id="@+id/layout_loading"
-                layout="@layout/layout_loading"
+                android:id="@+id/topBar"
+                layout="@layout/top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:layout_height="@dimen/dp_50"
+                android:layout_alignParentTop="true" />
+
 
             <RelativeLayout
                 android:id="@+id/rl_coin"
@@ -64,5 +64,5 @@
 
 
         </RelativeLayout>
-    </RelativeLayout>
+    </FrameLayout>
 </layout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
     private volatile int curr_index = 0;
     //
     static final int refresh_dt_code = 0x000;
+    static final int refresh_ui_coin_code = 0x001;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -60,6 +62,10 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
                     } else {
                         personal_coin_adapter.addData(dtt);
                     }
+                    return true;
+                case refresh_ui_coin_code:
+                    int v = msg.arg1;
+                    mBinding.tvCoin.setText(String.format("%s", v));
                     return true;
             }
             return false;
@@ -121,7 +127,9 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
     protected void init_data() {
         mPresenter.get_coinCount_req(curr_index);
         //
-        mBinding.tvCoin.setText(String.format("%s", curr_coin));
+        //mBinding.tvCoin.setText(String.format("%s", curr_coin));
+        dynamic_show_coin();
+
 
     }
 
@@ -145,6 +153,37 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
 
     }
 
+    //显示动态积分
+    private void dynamic_show_coin() {
+        final Thread thread = new Thread(new Runnable() {
+            private volatile int value = 0;
+
+            @Override
+            public void run() {
+                //判断程序是否被终止
+                if (!Thread.currentThread().isInterrupted()) {
+                    //遍历数据
+                    for (; ; ) {
+                        value += 89;
+                        final Message message = mHandler.obtainMessage(refresh_ui_coin_code);
+                        if (value < curr_coin) {
+                            message.arg1 = value;
+                            mHandler.sendMessage(message);
+                        } else {
+                            message.arg1 = curr_coin;
+                            mHandler.sendMessage(message);
+                            break;
+                        }
+                        SystemClock.sleep(50);
+
+                    }
+                }
+
+            }
+        });
+        thread.start();
+
+    }
 
     // 初始化适配器
     private void init_adapter() {
