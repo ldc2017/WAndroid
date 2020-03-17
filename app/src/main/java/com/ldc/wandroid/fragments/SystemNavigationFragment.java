@@ -32,11 +32,18 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
 
     private final SystemNavigationAdapter system_navigation_adapter = new SystemNavigationAdapter();
-    private final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+    private final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
     //
+    private static final int refresh_code = 0x00;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case refresh_code:
+                    List<NetNavigationModel> dts = (List<NetNavigationModel>) msg.obj;
+                    system_navigation_adapter.setNewData(dts);
+                    break;
+            }
             return false;
         }
     });
@@ -76,6 +83,7 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
     @Override
     protected void init_view() {
+        init_adapter();
 
     }
 
@@ -108,13 +116,9 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
     public void get_navigation_resp(BaseModel<List<NetNavigationModel>> dts) {
         if (null != dts) {
             if (0 == dts.getErrorCode()) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        init_adapter(dts.getData());
-
-                    }
-                });
+                Message message = mHandler.obtainMessage(refresh_code);
+                message.obj = dts.getData();
+                mHandler.sendMessage(message);
 
             } else {
                 show_toast(dts.getErrorMsg());
@@ -123,9 +127,8 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
     }
 
 
-    //初始化
-    private void init_adapter(List<NetNavigationModel> dts) {
-        system_navigation_adapter.setNewData(dts);
+    //初始化适配器
+    private void init_adapter() {
         mBinding.dataList.setAdapter(system_navigation_adapter);
         mBinding.dataList.setHasFixedSize(true);
         mBinding.dataList.setItemViewCacheSize(10);

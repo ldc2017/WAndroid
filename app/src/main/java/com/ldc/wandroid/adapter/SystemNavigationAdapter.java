@@ -19,10 +19,11 @@ public class SystemNavigationAdapter extends BaseQuickAdapter<NetNavigationModel
             R.color.color_f18c39,
             R.color.color_b04c95,
     };
+
     @Override
     protected void convert(BaseViewHolder baseViewHolder, NetNavigationModel netNavigationModel) {
         if (netNavigationModel != null) {
-             int pos = new Random().nextInt(colors.length);
+            int pos = new Random().nextInt(colors.length);
             baseViewHolder.setText(R.id.tv_name, netNavigationModel.getName())
                     .setTextColorRes(R.id.tv_name, colors[pos]);
         }

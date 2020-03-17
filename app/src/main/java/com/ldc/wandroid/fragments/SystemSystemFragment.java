@@ -36,9 +36,17 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
     private final SystemSystemAdapter system_system_adapter = new SystemSystemAdapter();
     private final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
 
+
+    private static final int refresh_code = 0x00;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case refresh_code:
+                    List<SystemModel> dts = (List<SystemModel>) msg.obj;
+                    system_system_adapter.setNewData(dts);
+                    return true;
+            }
             return false;
         }
     });
@@ -77,7 +85,7 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
 
     @Override
     protected void init_view() {
-
+        init_adapter();
     }
 
     @Override
@@ -95,12 +103,10 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
     public void show_loading(String message) {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
         mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
-        mBinding.dataList.setVisibility(View.GONE);
     }
 
     @Override
     public void hide_loading() {
-        mBinding.dataList.setVisibility(View.VISIBLE);
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
     }
 
@@ -108,21 +114,17 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
     public void get_system_resp(BaseModel<List<SystemModel>> dts) {
         if (null != dts) {
             if (0 == dts.getErrorCode()) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        init_adapter(dts.getData());
-                    }
-                });
+                Message message = mHandler.obtainMessage(refresh_code);
+                message.obj = dts.getData();
+                mHandler.sendMessage(message);
             } else {
                 show_toast(dts.getErrorMsg());
             }
         }
     }
 
-    // 初始化
-    private void init_adapter(List<SystemModel> dts) {
-        system_system_adapter.setNewData(dts);
+    // 初始化适配器
+    private void init_adapter() {
         mBinding.dataList.setItemViewCacheSize(10);
         mBinding.dataList.setLayoutManager(layoutManager);
         mBinding.dataList.setHasFixedSize(true);

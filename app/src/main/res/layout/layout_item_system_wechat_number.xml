@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_5"
+    android:layout_margin="@dimen/dp_10"
     android:background="@drawable/text_layout_item_bg"
     android:padding="@dimen/dp_10">
 
@@ -14,5 +14,5 @@
         android:singleLine="true"
         android:text="123"
         android:textColor="@color/color_222222"
-        android:textSize="@dimen/sp_18" />
+        android:textSize="@dimen/sp_16" />
 </FrameLayout>
