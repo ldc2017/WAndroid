@@ -44,8 +44,10 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nested_scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,12 +67,10 @@
                         android:nestedScrollingEnabled="false"
                         tools:targetApi="lollipop" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <com.ldc.wandroid.views.MaxRecyclerView
                         android:id="@+id/article_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
-                        tools:targetApi="lollipop" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
@@ -79,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
 
         <include
             android:id="@+id/layout_loading"

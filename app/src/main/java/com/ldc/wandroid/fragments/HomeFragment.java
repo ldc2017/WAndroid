@@ -129,16 +129,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     protected void init_view() {
         mBinding.refreshView.setOnRefreshLoadMoreListener(refreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(true);
-        //
-//        mBinding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {   //scrollY是滑动的距离
-//                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-//
-//                }
-//            }
-//        });
-        //
         init_search_view();
 
     }
