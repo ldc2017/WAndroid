@@ -22,7 +22,6 @@ import com.ldc.wandroid.activitys.SearchActivity;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.HomeArticleAdapter;
 import com.ldc.wandroid.adapter.HomeBannerAdapter;
-import com.ldc.wandroid.adapter.HomeTopArticleAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.HomeContract;
 import com.ldc.wandroid.core.BaseFragment;
@@ -42,6 +41,8 @@ import com.youth.banner.util.BannerUtils;
 
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -53,8 +54,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     private RecyclerView.LayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
     private volatile int curr_article_index = 0;
     //
-    private HomeTopArticleAdapter top_article_adapter = new HomeTopArticleAdapter();
-    private RecyclerView.LayoutManager top_article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+    private Disposable time_disposable;
 
     //
     private static final int refresh_data_code = 0x000;
@@ -75,7 +75,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                     return true;
                 case refresh_top_article_code:
                     List<TopArticleModel> top_dts = (List<TopArticleModel>) msg.obj;
-                    top_article_adapter.setNewData(top_dts);
+                   //  top_article_adapter.setNewData(top_dts);
                     return true;
             }
             return false;
@@ -145,7 +145,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         }, 500);
         //适配器
         init_article_adapter();
-        init_top_article_adapter();
     }
 
     @Override
@@ -236,48 +235,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             //操作失败
             show_toast(data.getErrorMsg());
         }
-    }
-
-    //置顶文章
-    private void init_top_article_adapter() {
-        mBinding.topArticleList.setItemViewCacheSize(10);
-        mBinding.topArticleList.setHasFixedSize(true);
-        mBinding.topArticleList.setLayoutManager(top_article_layout_manager);
-        mBinding.topArticleList.setAdapter(top_article_adapter);
-        top_article_adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
-                List<TopArticleModel> dts = adapter.getData();
-                if (null != dts) {
-                    TopArticleModel dt = dts.get(position);
-                    if (null == dt) {
-                        return;
-                    }
-                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
-                }
-            }
-        });
-        top_article_adapter.addChildClickViewIds(R.id.ck_collect);
-        top_article_adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
-                if (R.id.ck_collect == view.getId()) {
-                    List<TopArticleModel> dts = adapter.getData();
-                    if (null != dts) {
-                        TopArticleModel dt = dts.get(position);
-                        if (null == dt) {
-                            return;
-                        }
-                        if (0 == dt.getVisible()) {
-                            mPresenter.un_select_collect_originId_req(String.format("%s", dt.getId()));
-                        } else {
-                            mPresenter.select_collect_req(String.format("%s", dt.getId()));
-                        }
-                    }
-                }
-            }
-        });
-        //top_article_adapter.setEmptyView(R.layout.layout_no_data);
     }
 
     //数据适配器

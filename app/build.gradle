@@ -7,8 +7,8 @@ android {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 23
-        versionName "V0.2.3"
+        versionCode 24
+        versionName "V0.2.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true

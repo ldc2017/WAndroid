@@ -32,7 +32,7 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
 
     private final SystemNavigationAdapter system_navigation_adapter = new SystemNavigationAdapter();
-    private final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+    private final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
     //
     private static final int refresh_code = 0x00;
     private final Handler mHandler = new Handler(new Handler.Callback() {
