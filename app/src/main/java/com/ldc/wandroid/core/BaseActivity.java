@@ -1,5 +1,6 @@
 package com.ldc.wandroid.core;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -71,6 +72,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
         super.onSaveInstanceState(outState);
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

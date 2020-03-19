@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -107,6 +108,7 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
                         cache_fragments.add(SystemInfo2Fragment.newInstance(String.format("%s", dt.getId())));
                         cache_tabs.add(String.format("%s", dt.getName()));
                         mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(dt.getName()));
+                        SystemClock.sleep(1);
                     }
                     //
                     if (null == system_info_adapter) {

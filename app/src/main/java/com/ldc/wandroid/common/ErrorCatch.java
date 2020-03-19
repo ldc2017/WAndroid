@@ -9,6 +9,6 @@ public class ErrorCatch implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
-        Log.e(TAG, String.format("程序异常: %s", e.getMessage()), e);
+        Log.e(TAG, String.format("\n::%s\n::%s\n::程序异常: %s", t.getName(), t.getId(), e.getMessage()), e);
     }
 }

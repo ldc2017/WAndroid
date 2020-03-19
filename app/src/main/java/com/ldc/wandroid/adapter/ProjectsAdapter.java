@@ -10,11 +10,11 @@ import java.util.List;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class SystemInfoAdapter extends FragmentStatePagerAdapter {
+public class ProjectsAdapter extends FragmentStatePagerAdapter {
     private final List<SupportFragment> dts;
     private final List<String> tabs;
 
-    public SystemInfoAdapter(@NonNull FragmentManager fm, int behavior, List<SupportFragment> ds, List<String> tabs) {
+    public ProjectsAdapter(@NonNull FragmentManager fm, int behavior, List<SupportFragment> ds, List<String> tabs) {
         super(fm, behavior);
         this.dts = new ArrayList<>(ds);
         this.tabs = new ArrayList<>(tabs);
