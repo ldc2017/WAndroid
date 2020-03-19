@@ -2,6 +2,7 @@ package com.ldc.wandroid.core;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -75,6 +76,8 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
         super.onCreate(savedInstanceState);
         try {
             activity = this;
+            //强制竖屏
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             mBinding = DataBindingUtil.setContentView(this, ui());
             mPresenter = init_presenter();
             if (null != mPresenter) {
