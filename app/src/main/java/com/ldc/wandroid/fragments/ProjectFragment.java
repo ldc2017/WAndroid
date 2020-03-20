@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -139,15 +138,14 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                 mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(model.getName()));
                 SystemClock.sleep(1);
             }
-            projects_adapter = new ProjectsAdapter(getParentFragmentManager(),
+            projects_adapter = new ProjectsAdapter(getChildFragmentManager(),
                     FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
                     cache_fragments, cache_tabs);
 
-            mBinding.fragmentContainer.setOffscreenPageLimit(3);
+            mBinding.fragmentContainer.setOffscreenPageLimit(cache_fragments.size() - 1);
             mBinding.fragmentContainer.setAdapter(projects_adapter);
             mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
         } catch (Exception e) {
-            Log.d(TAG, String.format("run:1111111111111111111111111111 %s", e.getMessage()));
             e.printStackTrace();
         }
     }

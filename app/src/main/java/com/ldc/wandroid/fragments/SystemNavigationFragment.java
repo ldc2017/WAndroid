@@ -7,12 +7,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.SystemNavigationAdapter;
@@ -32,7 +33,7 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
 
     private final SystemNavigationAdapter system_navigation_adapter = new SystemNavigationAdapter();
-    private final RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+    private final FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getActivity());
     //
     private static final int refresh_code = 0x00;
     private final Handler mHandler = new Handler(new Handler.Callback() {
@@ -129,6 +130,10 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
 
     //初始化适配器
     private void init_adapter() {
+
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
+        //
         mBinding.dataList.setAdapter(system_navigation_adapter);
         mBinding.dataList.setHasFixedSize(true);
         mBinding.dataList.setItemViewCacheSize(10);

@@ -76,7 +76,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            mPresenter.get_projects_article_req(curr_index, curr_cid);
+            //  mPresenter.get_projects_article_req(curr_index, curr_cid);
         }
     }
 
@@ -106,7 +106,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
 
     @Override
     protected void init_data() {
-        mPresenter.get_projects_article_req(curr_index, curr_cid);
+        // mPresenter.get_projects_article_req(curr_index, curr_cid);
     }
 
     @Override
