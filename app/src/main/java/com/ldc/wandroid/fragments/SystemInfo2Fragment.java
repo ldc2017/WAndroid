@@ -52,7 +52,7 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
 
 
     //
-    static final int refresh_code = 0x000;
+    private static final int refresh_code = 0x000;
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {

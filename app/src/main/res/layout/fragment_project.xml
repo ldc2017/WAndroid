@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ProjectFragment">
+        tools:context=".fragments.ProjectArticleFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -19,8 +19,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tab_layout"
-            tools:context=".fragments.ProjectArticleFragment">
+            android:layout_below="@+id/tab_layout">
 
             <include
                 android:id="@+id/layout_loading"

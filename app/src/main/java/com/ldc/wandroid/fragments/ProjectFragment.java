@@ -31,7 +31,6 @@ import me.yokeyword.fragmentation.SupportFragment;
  */
 public class ProjectFragment extends BaseFragment<FragmentProjectBinding, ProjectPresenter> implements ProjectContract.V {
 
-    private ProjectsAdapter projects_adapter;
     private static volatile List<SupportFragment> cache_fragments = new ArrayList<>(16);
     private static volatile List<String> cache_tabs = new ArrayList<>(16);
 
@@ -138,7 +137,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                 mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(model.getName()));
                 SystemClock.sleep(1);
             }
-            projects_adapter = new ProjectsAdapter(getChildFragmentManager(),
+            ProjectsAdapter projects_adapter = new ProjectsAdapter(getChildFragmentManager(),
                     FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
                     cache_fragments, cache_tabs);
 
