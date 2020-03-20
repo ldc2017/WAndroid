@@ -27,13 +27,14 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPresenter> implements SystemContract.V {
 
 
-    private static final String[] tabs = {"体系", "导航", "微信公众号"};
+    private static final String[] tabs = {"体系","项目", "微信公众号",  "导航"};
     private SystemAdapter systemAdapter = null;
     private SupportFragment[] fragments = new SupportFragment[tabs.length];
     //
     private static final int fragment_page0 = 0;
     private static final int fragment_page1 = 1;
     private static final int fragment_page2 = 2;
+    private static final int fragment_page3 = 3;
 
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -103,8 +104,9 @@ public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPr
             public void run() {
                 //显示标题
                 fragments[fragment_page0] = SystemSystemFragment.newInstance(null);
-                fragments[fragment_page1] = SystemNavigationFragment.newInstance(null);
+                fragments[fragment_page1] = ProjectFragment.newInstance(null);
                 fragments[fragment_page2] = SystemWeChatNumberFragment.newInstance(null);
+                fragments[fragment_page3] = SystemNavigationFragment.newInstance(null);
                 for (String string : tabs) {
                     mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(string));
                 }

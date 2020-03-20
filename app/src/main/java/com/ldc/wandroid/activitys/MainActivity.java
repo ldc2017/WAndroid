@@ -27,7 +27,7 @@ import com.ldc.wandroid.databinding.ActivityMainBinding;
 import com.ldc.wandroid.db.entitis.IntegralEntity;
 import com.ldc.wandroid.fragments.HomeFragment;
 import com.ldc.wandroid.fragments.MeFragment;
-import com.ldc.wandroid.fragments.ProjectFragment;
+import com.ldc.wandroid.fragments.SquareFragment;
 import com.ldc.wandroid.fragments.SystemFragment;
 import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private static final int fragment_page2 = 2;
     private static final int fragment_page3 = 3;
     //
-    private static final String[] tabs = {"首页", "体系", "项目", "我的"};
+    private static final String[] tabs = {"首页", "体系", "广场", "我的"};
 
     //
     private final Handler mHandler = new Handler(new Handler.Callback() {
@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         if (null == curr_fragment) {
             fragments[fragment_page0] = HomeFragment.newInstance(null);
             fragments[fragment_page1] = SystemFragment.newInstance(null);
-            fragments[fragment_page2] = ProjectFragment.newInstance(null);
+            fragments[fragment_page2] = SquareFragment.newInstance();
             fragments[fragment_page3] = MeFragment.newInstance(null);
             loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
                     fragments[fragment_page0],
@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
 
             fragments[fragment_page0] = curr_fragment;
             fragments[fragment_page1] = findFragment(SystemFragment.class);
-            fragments[fragment_page2] = findFragment(ProjectFragment.class);
+            fragments[fragment_page2] = findFragment(SquareFragment.class);
             fragments[fragment_page3] = findFragment(MeFragment.class);
 
             showHideFragment(curr_fragment);

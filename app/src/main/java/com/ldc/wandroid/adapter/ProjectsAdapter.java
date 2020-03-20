@@ -1,39 +1,32 @@
 package com.ldc.wandroid.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.ldc.wandroid.R;
+import com.ldc.wandroid.model.ProjectsModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
-import me.yokeyword.fragmentation.SupportFragment;
+public class ProjectsAdapter extends BaseQuickAdapter<ProjectsModel, BaseViewHolder> {
 
-public class ProjectsAdapter extends FragmentStatePagerAdapter {
-    private final List<SupportFragment> dts;
-    private final List<String> tabs;
+    private final int[] colors = {
+            R.color.color_f34133,
+            R.color.color_449e95,
+            R.color.color_00adef,
+            R.color.color_f18c39,
+            R.color.color_b04c95,
+    };
 
-    public ProjectsAdapter(@NonNull FragmentManager fm, int behavior, List<SupportFragment> ds, List<String> tabs) {
-        super(fm, behavior);
-        this.dts = new ArrayList<>(ds);
-        this.tabs = new ArrayList<>(tabs);
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return dts.get(position);
+    public ProjectsAdapter() {
+        super(R.layout.layout_item_projects);
     }
 
     @Override
-    public int getCount() {
-        return null == dts ? 0 : dts.size();
+    protected void convert(BaseViewHolder baseViewHolder, ProjectsModel dt) {
+        if (dt != null) {
+            final int pos = new Random().nextInt(colors.length);
+            baseViewHolder.setText(R.id.tv_name, dt.getName())
+                    .setTextColorRes(R.id.tv_name, colors[pos]);
+        }
     }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return tabs.get(position);
-    }
-
 }

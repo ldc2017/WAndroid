@@ -4,15 +4,19 @@ package com.ldc.wandroid.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.ProjectInfoActivity;
 import com.ldc.wandroid.adapter.ProjectsAdapter;
 import com.ldc.wandroid.contracts.ProjectContract;
 import com.ldc.wandroid.core.BaseFragment;
@@ -21,18 +25,15 @@ import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.presenters.ProjectPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProjectFragment extends BaseFragment<FragmentProjectBinding, ProjectPresenter> implements ProjectContract.V {
 
-    private static volatile List<SupportFragment> cache_fragments = new ArrayList<>(16);
-    private static volatile List<String> cache_tabs = new ArrayList<>(16);
+    private final ProjectsAdapter projectsAdapter = new ProjectsAdapter();
+    private final FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getActivity());
 
 
     public static ProjectFragment newInstance(Bundle args) {
@@ -51,7 +52,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
                 case refresh_code:
                     List<ProjectsModel> dts = (List<ProjectsModel>) msg.obj;
                     if (null == dts) return false;
-                    init_tab_layout(dts);
+                    projectsAdapter.setNewData(dts);
                     return true;
             }
             return false;
@@ -83,6 +84,7 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
 
     @Override
     protected void init_view() {
+        init_adapter();
     }
 
     @Override
@@ -123,31 +125,34 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
 
     }
 
+    //初始化适配器
+    private void init_adapter() {
 
-    //初始化tab_layout
-    private void init_tab_layout(List<ProjectsModel> dts) {
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
+        //
+        mBinding.dataList.setAdapter(projectsAdapter);
+        mBinding.dataList.setHasFixedSize(true);
+        mBinding.dataList.setItemViewCacheSize(10);
+        mBinding.dataList.setLayoutManager(layoutManager);
+        //
+        projectsAdapter.setEmptyView(R.layout.layout_no_data);
+        projectsAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                List<ProjectsModel> system_model = adapter.getData();
+                if (null == system_model) {
+                    return;
+                }
+                ProjectsModel dt = system_model.get(position);
+                if (null == dt) {
+                    return;
+                }
+                ProjectInfoActivity.actionStart(getActivity(), "" + dt.getId(),dt.getName());
 
-        try {
-            if (null == dts) return;
-            mBinding.tabLayout.removeAllTabs();
-            for (ProjectsModel model : dts) {
-                if (null == model) continue;
-                cache_fragments.add(ProjectInfoFragment.newInstance(String.format("%s", model.getId())));
-                cache_tabs.add(String.format("%s", model.getName()));
-                mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(model.getName()));
-                SystemClock.sleep(1);
+
             }
-            ProjectsAdapter projects_adapter = new ProjectsAdapter(getChildFragmentManager(),
-                    FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-                    cache_fragments, cache_tabs);
+        });
 
-            mBinding.fragmentContainer.setOffscreenPageLimit(cache_fragments.size() - 1);
-            mBinding.fragmentContainer.setAdapter(projects_adapter);
-            mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
-
 }

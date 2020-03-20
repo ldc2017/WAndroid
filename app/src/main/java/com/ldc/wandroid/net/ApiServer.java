@@ -15,10 +15,10 @@ import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
 import com.ldc.wandroid.model.SearchModel;
+import com.ldc.wandroid.model.SquareArticleModel;
 import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.model.TopArticleModel;
-import com.ldc.wandroid.model.UserArticleModel;
 import com.ldc.wandroid.model.WeChatNumberHistoryModel;
 import com.ldc.wandroid.model.WeChatNumberModel;
 
@@ -152,7 +152,7 @@ public interface ApiServer {
 
     //广场文章
     @GET(value = "/user_article/list/{p}/json")
-    Observable<BaseModel<UserArticleModel>> get_user_article(@Path(value = "p") final int p);
+    Observable<BaseModel<SquareArticleModel>> get_user_article(@Path(value = "p") final int p);
 
 
     //获取微信公众号

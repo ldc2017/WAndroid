@@ -1,6 +1,7 @@
 package com.ldc.wandroid.adapter;
 
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
@@ -36,5 +37,15 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
             Picasso.get().load(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
 
         }
+        //
+        if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
+            baseViewHolder.findView(R.id.iv_icon_pic).setVisibility(View.VISIBLE);
+            Picasso.get().load(dt.getEnvelopePic())
+                    .placeholder(R.drawable.icon_image_helper)
+                    .into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
+        } else {
+            baseViewHolder.findView(R.id.iv_icon_pic).setVisibility(View.GONE);
+        }
+
     }
 }

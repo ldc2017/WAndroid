@@ -1,7 +1,8 @@
-package com.ldc.wandroid.fragments;
+package com.ldc.wandroid.activitys;
 
 
-import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -16,12 +17,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.ProjectsArticleAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.ProjectInfoContract;
-import com.ldc.wandroid.core.BaseFragment;
-import com.ldc.wandroid.databinding.FragmentProjectInfoBinding;
+import com.ldc.wandroid.core.BaseActivity;
+import com.ldc.wandroid.databinding.ActivityProjectInfoBinding;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.presenters.ProjectInfoPresenter;
@@ -34,22 +34,22 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding, ProjectInfoPresenter> implements ProjectInfoContract.V {
+public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding, ProjectInfoPresenter> implements ProjectInfoContract.V {
 
 
     //
     private ProjectsArticleAdapter projects_article_adapter = new ProjectsArticleAdapter();
-    private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-    private volatile int curr_index = 0;
+    private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
+    private static volatile int curr_index = 0;
     private static volatile String curr_cid = "";
+    private static volatile String curr_title = "";
 
-    public static ProjectInfoFragment newInstance(final String cid) {
-        ProjectInfoFragment fragment = new ProjectInfoFragment();
-        Bundle args = new Bundle();
+    public static void actionStart(Activity activity, final String cid, String title) {
         curr_cid = cid;
-        args.putString("cid", cid);
-        fragment.setArguments(args);
-        return fragment;
+        curr_title = title;
+        curr_index = 0;
+        Intent intent = new Intent(activity, ProjectInfoActivity.class);
+        activity.startActivity(intent);
     }
 
     //
@@ -74,13 +74,6 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
     });
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        if (!hidden) {
-            //  mPresenter.get_projects_article_req(curr_index, curr_cid);
-        }
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
@@ -88,7 +81,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
 
     @Override
     protected int ui() {
-        return R.layout.fragment_project_info;
+        return R.layout.activity_project_info;
     }
 
     @Override
@@ -98,15 +91,24 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
 
     @Override
     protected void init_view() {
+        mBinding.topBar.lineMore.setVisibility(View.GONE);
+        mBinding.topBar.tvTitle.setText(curr_title);
+        mBinding.topBar.lineBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(false);
-        init_adapter();
 
     }
 
     @Override
     protected void init_data() {
-        // mPresenter.get_projects_article_req(curr_index, curr_cid);
+
+        init_adapter();
+        mPresenter.get_projects_article_req(curr_index, curr_cid);
     }
 
     @Override
@@ -177,7 +179,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
                     if (null == dt) {
                         return;
                     }
-                    ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
+                    ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
                 }
             });
             projects_article_adapter.addChildClickViewIds(R.id.ck_collect);
@@ -187,7 +189,6 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
                     if (R.id.ck_collect == view.getId()) {
                         List<ProjectsArticleModel.DatasBean> dts = adapter.getData();
                         if (null == dts) return;
-
                         ProjectsArticleModel.DatasBean dt = dts.get(position);
                         if (null == dt) return;
                         if (!dt.isCollect()) {

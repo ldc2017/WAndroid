@@ -9,17 +9,17 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.model.ProjectsArticleModel;
+import com.ldc.wandroid.model.SquareArticleModel;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 
-public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleModel.DatasBean, BaseViewHolder> {
+public class SquareArticleAdapter extends BaseQuickAdapter<SquareArticleModel.DatasBean, BaseViewHolder> {
     private volatile boolean isScroll = false;
     public static final String image_tag = "ProjectsArticleAdapter";
 
-    public ProjectsArticleAdapter() {
-        super(R.layout.layout_item_projects_article);
+    public SquareArticleAdapter() {
+        super(R.layout.layout_item_square_article);
     }
 
     public void setScroll(boolean s) {
@@ -27,7 +27,7 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
     }
 
     @Override
-    protected void convert(BaseViewHolder baseViewHolder, ProjectsArticleModel.DatasBean bean) {
+    protected void convert(BaseViewHolder baseViewHolder, SquareArticleModel.DatasBean bean) {
         if (null != bean) {
             baseViewHolder.setText(R.id.tv_title, String.format("%s•%s", bean.getSuperChapterName(), bean.getChapterName()))
                     .setText(R.id.tv_context, String.format("%s", bean.getTitle()))

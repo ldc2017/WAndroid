@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
-        tools:context=".fragments.ProjectInfoFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".fragments.SquareFragment">
 
         <include
             android:id="@+id/layout_loading"
@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
 
     </FrameLayout>
 </layout>
