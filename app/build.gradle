@@ -128,7 +128,5 @@ dependencies {
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.5.6'  // 此处以JPush 3.5.6 版本为例。
     implementation 'cn.jiguang.sdk:jcore:2.2.8'  // 此处以JCore 2.2.8 版本为例。
-    //
-    implementation 'com.hyman:flowlayout-lib:1.1.2'
 
 }
