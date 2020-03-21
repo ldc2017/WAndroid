@@ -7,8 +7,8 @@ android {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 25
-        versionName "V0.2.5"
+        versionCode 26
+        versionName "2020321_26"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true
@@ -130,5 +130,7 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:2.2.8'  // 此处以JCore 2.2.8 版本为例。
     //
     implementation 'com.google.android:flexbox:2.0.1'
+    //圆角图片
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,12 +47,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_icon_pic"
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_80"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:scaleType="centerCrop" />
+            android:layout_margin="@dimen/dp_5"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_image_helper"
+            app:riv_border_color="@color/color_c3c3c3"
+            app:riv_border_width="@dimen/dp_2"
+            app:riv_corner_radius="@dimen/dp_3"
+            app:riv_mutate_background="true"
+            app:riv_oval="false" />
 
         <TextView
             android:id="@+id/tv_context"
@@ -62,8 +72,8 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_toEndOf="@+id/iv_icon_pic"
             android:layout_toRightOf="@+id/iv_icon_pic"
-            android:maxLines="3"
             android:ellipsize="end"
+            android:maxLines="3"
             android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
             android:textColor="@color/color_222222"
             android:textSize="@dimen/sp_18"

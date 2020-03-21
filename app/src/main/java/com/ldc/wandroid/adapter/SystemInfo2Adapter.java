@@ -20,7 +20,7 @@ public class SystemInfo2Adapter extends BaseQuickAdapter<SystemInfoModel.DatasBe
         if (null != bean) {
             baseViewHolder.setText(R.id.tv_title, String.format("%s•%s", bean.getSuperChapterName(), bean.getChapterName()))
                     .setText(R.id.tv_context, String.format("%s", bean.getTitle()))
-                    .setText(R.id.tv_author, String.format("【%s】", bean.getAuthor()))
+                    .setText(R.id.tv_author, String.format("%s", bean.getAuthor()))
                     .setText(R.id.tv_time, String.format("%s", TimeUtils.date2String(new Date(bean.getPublishTime()), "yyyy/MM/dd")));
             if (bean.isCollect()) {
                 ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);

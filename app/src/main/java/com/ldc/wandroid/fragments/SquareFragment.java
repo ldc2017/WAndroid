@@ -16,7 +16,6 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
-import com.ldc.wandroid.adapter.ProjectsArticleAdapter;
 import com.ldc.wandroid.adapter.SquareArticleAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SquareContract;
@@ -27,7 +26,6 @@ import com.ldc.wandroid.model.SquareArticleModel;
 import com.ldc.wandroid.presenters.SquarePresenter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -184,20 +182,6 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
                             mPresenter.un_select_collect_req(String.format("%s", dt.getId()));
                         }
 
-                    }
-                }
-            });
-            mBinding.projectArticleDataList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    // super.onScrollStateChanged(recyclerView, newState);
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        squareArticleAdapter.setScroll(false);
-                        squareArticleAdapter.notifyDataSetChanged();
-                        Picasso.get().resumeTag(ProjectsArticleAdapter.image_tag);//恢复加载图片
-                    } else {
-                        squareArticleAdapter.setScroll(true);
-                        Picasso.get().pauseTag(ProjectsArticleAdapter.image_tag);//禁止加载图片
                     }
                 }
             });

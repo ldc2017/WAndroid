@@ -27,7 +27,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPresenter> implements SystemContract.V {
 
 
-    private static final String[] tabs = {"体系","项目", "微信公众号",  "导航"};
+    private static final String[] tabs = {"体系","项目", "微信",  "导航"};
     private SystemAdapter systemAdapter = null;
     private SupportFragment[] fragments = new SupportFragment[tabs.length];
     //
