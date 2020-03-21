@@ -38,8 +38,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         }
     });
 
-    static volatile String curr_user_name = "";
-    static volatile String curr_user_password = "";
+    private static volatile String curr_user_name = "";
+    private static volatile String curr_user_password = "";
 
     @Override
     public void onDestroy() {
@@ -67,6 +67,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
     @Override
     protected void init_data() {
+        //检测是否登录
         check_login();
 
     }
@@ -87,6 +88,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
     @Override
     public void hide_loading() {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        mBinding.layoutLogin.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -129,11 +131,6 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
 
         }
-
-        //忘记密码
-        public void _forget(View view) {
-            show_toast("忘记密码");
-        }
     }
 
 
@@ -146,6 +143,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         final String temp_str_password = SPUtils.getInstance().getString(cmConstants.user_password_key);
         curr_user_password = new String(Base64.decode(temp_str_password.getBytes(), Base64.DEFAULT));
         if (!TextUtils.isEmpty(curr_user_name) || !TextUtils.isEmpty(curr_user_password)) {
+            mBinding.etUserName.setText(curr_user_name);//设置账号
+            mBinding.etUserPassword.setText(curr_user_password);//设置账号
             mPresenter.login_req(curr_user_name, curr_user_password);
         } else {
             mBinding.layoutLogin.setVisibility(View.VISIBLE);

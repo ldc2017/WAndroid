@@ -9,6 +9,8 @@
         android:name="com.ldc.wandroid.fragments.LoginFragment"
         android:label="LoginFragment">
         <action
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_to_left"
             android:id="@+id/action_login_2_register"
             app:destination="@id/registerFragment" />
     </fragment>
@@ -17,6 +19,8 @@
         android:name="com.ldc.wandroid.fragments.RegisterFragment"
         android:label="RegisterFragment">
         <action
+            app:enterAnim="@anim/in_from_right"
+            app:exitAnim="@anim/out_to_left"
             android:id="@+id/action_register_b2_login"
             app:destination="@id/loginFragment" />
     </fragment>

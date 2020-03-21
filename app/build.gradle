@@ -7,8 +7,8 @@ android {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 26
-        versionName "2020321_26"
+        versionCode 27
+        versionName "V0.0.27"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true
@@ -132,5 +132,7 @@ dependencies {
     implementation 'com.google.android:flexbox:2.0.1'
     //圆角图片
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    //接入微信分享
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.5.8'
 
 }

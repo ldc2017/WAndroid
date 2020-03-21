@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/str_please_enter_password"
-                    android:inputType="textVisiblePassword"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textSize="@dimen/sp_18" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +92,8 @@
                     android:layout_centerVertical="true"
                     android:onClick="@{(v)->events._2Register(v)}"
                     android:text="@string/str_register"
-                    android:textSize="@dimen/sp_17" />
+                    android:textSize="@dimen/sp_17"
+                    tools:ignore="RelativeOverlap" />
 
                 <TextView
                     android:id="@+id/tv_for_get"
