@@ -41,8 +41,6 @@ import com.youth.banner.util.BannerUtils;
 
 import java.util.List;
 
-import io.reactivex.disposables.Disposable;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -53,8 +51,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     private HomeArticleAdapter article_adapter = new HomeArticleAdapter();
     private RecyclerView.LayoutManager article_layout_manager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
     private volatile int curr_article_index = 0;
-    //
-    private Disposable time_disposable;
 
     //
     private static final int refresh_data_code = 0x000;
@@ -128,7 +124,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     @Override
     protected void init_view() {
         mBinding.refreshView.setOnRefreshLoadMoreListener(refreshLoadMoreListener);
-        mBinding.refreshView.setEnableAutoLoadMore(true);
+        mBinding.refreshView.setNestedScrollingEnabled(true);
         init_search_view();
 
     }
