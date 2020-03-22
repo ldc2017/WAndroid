@@ -2,50 +2,58 @@ package com.ldc.wandroid.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 
 public class MyScrollViewScroll extends NestedScrollView {
-    // private int downX;
-    private int downY;
-    private int touchSlop;
+    private boolean isNeedScroll = true;
+    private float xDistance, yDistance, xLast, yLast;
+    private int scaledTouchSlop;
 
-    public MyScrollViewScroll(Context context) {
+    public MyScrollViewScroll(@NonNull Context context) {
         super(context);
-        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
-    public MyScrollViewScroll(Context context, AttributeSet attrs) {
+    public MyScrollViewScroll(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
-    public MyScrollViewScroll(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyScrollViewScroll(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        scaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent e) {
-        int action = e.getAction();
-        switch (action) {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                // downX = (int) e.getRawX();
-                downY = (int) e.getRawY();
+                xDistance = yDistance = 0f;
+                xLast = ev.getX();
+                yLast = ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                int moveY = (int) e.getRawY();
-                if (Math.abs(moveY - downY) > touchSlop) {
-                    return true;
-                }
+                final float curX = ev.getX();
+                final float curY = ev.getY();
+
+                xDistance += Math.abs(curX - xLast);
+                yDistance += Math.abs(curY - yLast);
+                xLast = curX;
+                yLast = curY;
+                Log.e("SiberiaDante", "xDistance ：" + xDistance + "---yDistance:" + yDistance);
+                return !(xDistance >= yDistance || yDistance < scaledTouchSlop) && isNeedScroll;
         }
-        return super.onInterceptTouchEvent(e);
+        return super.onInterceptTouchEvent(ev);
     }
 
-    @Override
-    protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
-        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
+    /*
+    改方法用来处理NestedScrollView是否拦截滑动事件
+     */
+    public void setNeedScroll(boolean isNeedScroll) {
+        this.isNeedScroll = isNeedScroll;
     }
 }

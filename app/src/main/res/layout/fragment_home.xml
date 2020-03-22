@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.HomeFragment">
-
+        <!--搜索框-->
         <RelativeLayout
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
@@ -28,35 +33,35 @@
                 android:paddingStart="@dimen/dp_10"
                 android:paddingEnd="@dimen/dp_10" />
         </RelativeLayout>
-
-        <com.youth.banner.Banner
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
-            android:layout_below="@+id/tool_bar" />
-
-        <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_view"
+        <!--内容-->
+        <com.ldc.wandroid.views.MyScrollViewScroll
+            android:id="@+id/my_scrollview_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/banner">
+            android:layout_below="@+id/tool_bar"
+            android:fillViewport="true">
 
-            <com.scwang.smart.refresh.header.MaterialHeader
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:descendantFocusability="blocksDescendants"
+                android:layout_height="match_parent">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_200"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/article_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/banner" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/article_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <com.scwang.smart.refresh.footer.ClassicsFooter
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
+            </RelativeLayout>
+        </com.ldc.wandroid.views.MyScrollViewScroll>
 
         <include
             android:id="@+id/layout_loading"
