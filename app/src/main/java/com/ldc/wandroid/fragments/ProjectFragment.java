@@ -18,6 +18,7 @@ import com.google.android.flexbox.JustifyContent;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ProjectInfoActivity;
 import com.ldc.wandroid.adapter.ProjectsAdapter;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.ProjectContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentProjectBinding;
@@ -154,5 +155,15 @@ public class ProjectFragment extends BaseFragment<FragmentProjectBinding, Projec
             }
         });
 
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
     }
 }

@@ -186,4 +186,14 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
 
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

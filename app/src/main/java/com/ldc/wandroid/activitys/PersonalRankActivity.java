@@ -152,4 +152,14 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
             mPresenter.get_coin_rank_req(curr_index);
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

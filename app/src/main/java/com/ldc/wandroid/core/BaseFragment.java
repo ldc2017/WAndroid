@@ -12,12 +12,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
+import me.jessyan.autosize.internal.CustomAdapt;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseFragment<bind extends ViewDataBinding, P extends BasePresenter> extends SupportFragment implements IBaseView {
+public abstract class BaseFragment<bind extends ViewDataBinding, P extends BasePresenter> extends SupportFragment implements IBaseView, CustomAdapt {
     protected final String TAG = this.getClass().getName();
     protected bind mBinding;
     protected P mPresenter;

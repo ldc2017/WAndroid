@@ -266,4 +266,14 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 .show();
 
     }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

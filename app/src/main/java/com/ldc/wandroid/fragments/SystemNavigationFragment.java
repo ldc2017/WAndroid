@@ -17,6 +17,7 @@ import com.google.android.flexbox.JustifyContent;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.SystemNavigationAdapter;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SystemNavigationContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentSystemNavigationBinding;
@@ -157,5 +158,15 @@ public class SystemNavigationFragment extends BaseFragment<FragmentSystemNavigat
             }
         });
 
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
     }
 }

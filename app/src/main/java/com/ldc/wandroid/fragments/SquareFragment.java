@@ -223,4 +223,14 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
 
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

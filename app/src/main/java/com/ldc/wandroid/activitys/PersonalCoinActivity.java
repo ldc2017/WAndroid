@@ -203,4 +203,14 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
 
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

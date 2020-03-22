@@ -15,6 +15,7 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.ShowArticleWebContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityShowArticleWebBinding;
@@ -150,5 +151,13 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
             //do you work
         }
     };
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
 
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

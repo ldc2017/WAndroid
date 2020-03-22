@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.adapter.SystemAdapter;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SystemContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentSystemBinding;
@@ -119,4 +120,13 @@ public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPr
         });
     }
 
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

@@ -26,6 +26,7 @@ import com.ldc.wandroid.activitys.SearchActivity;
 import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.HomeArticleAdapter;
 import com.ldc.wandroid.adapter.HomeBannerAdapter;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.HomeContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentHomeBinding;
@@ -240,6 +241,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         mBinding.articleList.setHasFixedSize(true);
         mBinding.articleList.setLayoutManager(article_layout_manager);
         mBinding.articleList.setAdapter(article_adapter);
+        mBinding.articleList.setNestedScrollingEnabled(true);
         article_adapter.setAnimationEnable(true);
         article_adapter.setAnimationFirstOnly(false);
         article_adapter.setAdapterAnimation(new BaseAnimation() {
@@ -343,4 +345,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             }
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

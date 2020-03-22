@@ -115,6 +115,16 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         }
     }
 
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
+
 
     //点击事件
     public class Events {

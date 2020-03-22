@@ -4,6 +4,7 @@ import androidx.navigation.Navigation;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.FirstContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityFirstBinding;
@@ -55,5 +56,15 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
             super.onBackPressedSupport();
         }
 
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
     }
 }

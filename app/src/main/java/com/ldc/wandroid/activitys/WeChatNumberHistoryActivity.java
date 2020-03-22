@@ -199,4 +199,14 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
             mPresenter.get_wechat_number_hiostory_req(weChat_id, curr_page);
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

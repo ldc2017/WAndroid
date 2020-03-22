@@ -1,5 +1,7 @@
 package com.ldc.wandroid.activitys;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.animation.BaseAnimation;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
@@ -138,6 +141,16 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
         mBinding.dataList.setLayoutManager(layoutManager);
         mBinding.dataList.setAdapter(search_adapter);
         //
+        search_adapter.setAnimationEnable(true);
+        search_adapter.setAnimationFirstOnly(false);
+        search_adapter.setAdapterAnimation(new BaseAnimation() {
+            @Override
+            public Animator[] animators(View view) {
+                return new Animator[]{
+                        ObjectAnimator.ofFloat(view, "scaleY", 0.25f, 1)
+                };
+            }
+        });
         search_adapter.setEmptyView(R.layout.layout_no_data);
         search_adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -234,4 +247,14 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
 
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

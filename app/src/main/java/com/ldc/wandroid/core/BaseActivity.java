@@ -12,9 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import me.jessyan.autosize.internal.CustomAdapt;
 import me.yokeyword.fragmentation.SupportActivity;
 
-public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePresenter> extends SupportActivity implements IBaseView {
+public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePresenter> extends SupportActivity implements IBaseView , CustomAdapt {
     protected Activity activity;
     protected B mBinding;
     protected P mPresenter;

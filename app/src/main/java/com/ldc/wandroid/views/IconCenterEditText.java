@@ -56,17 +56,17 @@ public class IconCenterEditText extends AppCompatEditText implements View.OnFocu
         if (isLeft) { // 如果是默认样式，则直接绘制
             super.onDraw(canvas);
         } else { // 如果不是默认样式，需要将图标绘制在中间
-            Drawable[] drawables = getCompoundDrawables();
-            if (drawables != null) {
-                Drawable drawableLeft = drawables[0];
-                if (drawableLeft != null) {
-                    float textWidth = getPaint().measureText(getHint().toString());
-                    int drawablePadding = getCompoundDrawablePadding();
-                    int drawableWidth = drawableLeft.getIntrinsicWidth();
-                    float bodyWidth = textWidth + drawableWidth + drawablePadding;
-                    canvas.translate((getWidth() - bodyWidth - getPaddingLeft() - getPaddingRight()) / 2, 0);
-                }
+            final Drawable[] drawables = getCompoundDrawables();
+            if (null == drawables) return;
+            Drawable drawableLeft = drawables[0];
+            if (drawableLeft != null) {
+                float textWidth = getPaint().measureText(getHint().toString());
+                int drawablePadding = getCompoundDrawablePadding();
+                int drawableWidth = drawableLeft.getIntrinsicWidth();
+                float bodyWidth = textWidth + drawableWidth + drawablePadding;
+                canvas.translate((getWidth() - bodyWidth - getPaddingLeft() - getPaddingRight()) / 2, 0);
             }
+
             super.onDraw(canvas);
         }
     }

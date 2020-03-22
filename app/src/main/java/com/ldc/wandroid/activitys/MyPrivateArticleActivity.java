@@ -187,4 +187,14 @@ public class MyPrivateArticleActivity extends BaseActivity<ActivityMyPrivateArti
             show_toast(dt.getErrorMsg());
         }
     }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

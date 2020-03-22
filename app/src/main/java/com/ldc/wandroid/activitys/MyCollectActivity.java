@@ -208,4 +208,14 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
 
         }
     };
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
+    }
 }

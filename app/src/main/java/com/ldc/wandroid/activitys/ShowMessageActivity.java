@@ -12,7 +12,7 @@ import com.ldc.wandroid.R;
 import com.ldc.wandroid.databinding.ActivityShowMessageBinding;
 
 public class ShowMessageActivity extends AppCompatActivity {
-    ActivityShowMessageBinding binding;
+    private ActivityShowMessageBinding binding;
 
 
     private static volatile String str_title = "";

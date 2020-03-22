@@ -17,6 +17,7 @@ import com.google.android.flexbox.JustifyContent;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.activitys.SystemInfoActivity;
 import com.ldc.wandroid.adapter.SystemSystemAdapter;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SystemSystemContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentSystemSystemBinding;
@@ -148,5 +149,15 @@ public class SystemSystemFragment extends BaseFragment<FragmentSystemSystemBindi
 
             }
         });
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return cmConstants.isBaseOnWidth;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return cmConstants.SizeInDp;
     }
 }

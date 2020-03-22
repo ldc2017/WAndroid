@@ -134,5 +134,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     //接入微信分享
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.5.8'
+    //屏幕适配
+    implementation 'me.jessyan:autosize:1.2.1'
 
 }
