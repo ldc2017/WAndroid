@@ -57,7 +57,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     //
     private MePersonalItemsAdapter me_personal_items_adapter = new MePersonalItemsAdapter();
     private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-    static final MePersonalModel[] dt_items = {
+    private static final MePersonalModel[] dt_items = {
             new MePersonalModel("个人积分", R.drawable.icon_integral),
             new MePersonalModel("积分排名", R.drawable.icon_rank),
             new MePersonalModel("我的分享", R.drawable.icon_shared),
