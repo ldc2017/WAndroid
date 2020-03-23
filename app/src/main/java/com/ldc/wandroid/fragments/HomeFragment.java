@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +33,8 @@ import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.model.TopArticleModel;
 import com.ldc.wandroid.presenters.HomePresenter;
 import com.ldc.wandroid.views.IconCenterEditText;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.config.IndicatorConfig;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
@@ -122,8 +124,18 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     protected void init_view() {
-        mBinding.myScrollviewScroll.setOnScrollChangeListener(onScrollChangeListener);
-        mBinding.myScrollviewScroll.setNeedScroll(true);
+        mBinding.refreshView.setEnableAutoLoadMore(true);
+        mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
+        mBinding.articleList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private volatile int offsetY = 0;
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                offsetY += dy;
+                Log.d(TAG, String.format("onScrolled: ---offsetY=%s\n---dy=%s", offsetY, dy));
+               
+            }
+        });
         init_search_view();
 
     }
@@ -159,6 +171,25 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     public void hide_loading() {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
     }
+
+
+    //刷新事件
+    private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
+        @Override
+        public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+            refreshLayout.finishLoadMore(cmConstants.refresh_time);
+            curr_article_index++;
+            mPresenter.get_article_req(curr_article_index);
+
+        }
+
+        @Override
+        public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+            refreshLayout.finishRefresh(cmConstants.refresh_time);
+            curr_article_index = 0;
+            mPresenter.get_article_req(curr_article_index);
+        }
+    };
 
     @Override
     public void get_top_article_resp(BaseModel<List<TopArticleModel>> data) {
@@ -319,17 +350,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
         @Override
         public void onBannerChanged(int position) {
-        }
-    };
-    //加载更多
-    private NestedScrollView.OnScrollChangeListener onScrollChangeListener = new NestedScrollView.OnScrollChangeListener() {
-        @Override
-        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-            if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-                //滑动到底部
-                curr_article_index++;
-                mPresenter.get_article_req(curr_article_index);
-            }
         }
     };
 
