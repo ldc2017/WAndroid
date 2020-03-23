@@ -133,7 +133,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 offsetY += dy;
                 Log.d(TAG, String.format("onScrolled: ---offsetY=%s\n---dy=%s", offsetY, dy));
-               
+
             }
         });
         init_search_view();
