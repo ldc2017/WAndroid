@@ -1,7 +1,5 @@
 package com.ldc.wandroid.fragments;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.animation.BaseAnimation;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
@@ -127,16 +124,6 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
         mBinding.dataList.setItemViewCacheSize(10);
         mBinding.dataList.setHasFixedSize(true);
         system_info_adapter.setEmptyView(R.layout.layout_no_data);
-        system_info_adapter.setAnimationEnable(true);
-        system_info_adapter.setAnimationFirstOnly(false);
-        system_info_adapter.setAdapterAnimation(new BaseAnimation() {
-            @Override
-            public Animator[] animators(View view) {
-                return new Animator[]{
-                        ObjectAnimator.ofFloat(view, "scaleY", 0.25f, 1)
-                };
-            }
-        });
         system_info_adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {

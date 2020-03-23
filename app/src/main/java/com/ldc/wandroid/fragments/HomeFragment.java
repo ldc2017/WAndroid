@@ -1,8 +1,6 @@
 package com.ldc.wandroid.fragments;
 
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.animation.BaseAnimation;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
@@ -242,16 +239,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         mBinding.articleList.setLayoutManager(article_layout_manager);
         mBinding.articleList.setAdapter(article_adapter);
         mBinding.articleList.setNestedScrollingEnabled(true);
-        article_adapter.setAnimationEnable(true);
-        article_adapter.setAnimationFirstOnly(false);
-        article_adapter.setAdapterAnimation(new BaseAnimation() {
-            @Override
-            public Animator[] animators(View view) {
-                return new Animator[]{
-                        ObjectAnimator.ofFloat(view, "scaleY", 0.25f, 1)
-                };
-            }
-        });
         article_adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
