@@ -141,15 +141,14 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
 
     @Override
     public void show_loading(String message) {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
-        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
-        //mBinding.dataList.setVisibility(View.GONE);
     }
 
     @Override
     public void hide_loading() {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
-        //mBinding.dataList.setVisibility(View.VISIBLE);
+        if (mBinding.refreshView.getState().isOpening) {
+            mBinding.refreshView.finishLoadMore();
+            mBinding.refreshView.finishRefresh();
+        }
 
     }
 
@@ -197,7 +196,6 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
     private OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_coinCount_req(curr_index);
 

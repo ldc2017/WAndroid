@@ -6,8 +6,6 @@ public class cmConstants {
     //
     public static final int SizeInDp = 720;
     //
-    public static final int refresh_time = 1000;
-    //
     public static final String user_id_key = "user_id";
     //
     public static final String login_cookie_key = "user_cookie";

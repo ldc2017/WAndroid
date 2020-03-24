@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fillViewport="true"
-                    android:overScrollMode="never"
+                    android:overScrollMode="always"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <LinearLayout
@@ -108,14 +108,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
-
-        <include
-            android:id="@+id/layout_loading"
-            layout="@layout/layout_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            tools:visibility="visible" />
     </FrameLayout>
 </layout>

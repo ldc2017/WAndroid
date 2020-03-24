@@ -119,13 +119,14 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
 
     @Override
     public void show_loading(String message) {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
-        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
     }
 
     @Override
     public void hide_loading() {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        if (mBinding.refreshView.getState().isOpening) {
+            mBinding.refreshView.finishLoadMore();
+            mBinding.refreshView.finishRefresh();
+        }
     }
 
     @Override
@@ -202,7 +203,6 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
     private OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_my_collect_req(curr_index);
 

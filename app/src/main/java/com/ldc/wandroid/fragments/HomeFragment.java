@@ -1,7 +1,6 @@
 package com.ldc.wandroid.fragments;
 
 
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -126,10 +125,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     protected void init_view() {
         mBinding.refreshView.setEnableAutoLoadMore(true);
         mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mBinding.etSearch.setElevation(10f);
-            mBinding.articleList.setNestedScrollingEnabled(false);
-        }
+        mBinding.articleList.setNestedScrollingEnabled(false);
         init_search_view();
 
     }
@@ -156,14 +152,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     public void show_loading(String message) {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
-        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
 
     }
 
     @Override
     public void hide_loading() {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        dismissRefresh();
     }
 
 
@@ -171,7 +165,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_article_index++;
             mPresenter.get_article_req(curr_article_index);
 
@@ -179,11 +172,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(cmConstants.refresh_time);
             curr_article_index = 0;
             mPresenter.get_article_req(curr_article_index);
         }
     };
+
+    //结束刷新
+    private void dismissRefresh() {
+        if (mBinding.refreshView.getState().isOpening) {
+            mBinding.refreshView.finishRefresh();
+            mBinding.refreshView.finishLoadMore();
+
+        }
+    }
 
     @Override
     public void get_top_article_resp(BaseModel<List<TopArticleModel>> data) {
@@ -259,6 +260,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     //数据适配器
     private void init_article_adapter() {
+        article_layout_manager.setSmoothScrollbarEnabled(true);
         mBinding.articleList.setItemViewCacheSize(10);
         mBinding.articleList.setHasFixedSize(true);
         mBinding.articleList.setLayoutManager(article_layout_manager);

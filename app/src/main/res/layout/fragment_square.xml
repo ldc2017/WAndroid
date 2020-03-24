@@ -8,15 +8,6 @@
         android:layout_height="match_parent"
         tools:context=".fragments.SquareFragment">
 
-        <include
-            android:id="@+id/layout_loading"
-            layout="@layout/layout_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_view"
             android:layout_width="match_parent"

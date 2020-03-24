@@ -20,15 +20,6 @@
             android:layout_below="@+id/search_bar"
             tools:context=".fragments.ProjectArticleFragment">
 
-            <include
-                android:id="@+id/layout_loading"
-                layout="@layout/layout_loading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
             <com.scwang.smart.refresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh_view"
                 android:layout_width="match_parent"

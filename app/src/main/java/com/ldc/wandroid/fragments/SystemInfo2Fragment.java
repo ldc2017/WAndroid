@@ -24,8 +24,6 @@ import com.ldc.wandroid.databinding.FragmentSystemInfo2Binding;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.presenters.SystemInfo2Presenter;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.List;
 
@@ -108,13 +106,11 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
     public void show_loading(String message) {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
         mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
-        mBinding.dataList.setVisibility(View.GONE);
     }
 
     @Override
     public void hide_loading() {
         mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
-        mBinding.dataList.setVisibility(View.VISIBLE);
     }
 
     // 初始化适配器
@@ -155,24 +151,6 @@ public class SystemInfo2Fragment extends BaseFragment<FragmentSystemInfo2Binding
 
 
     }
-
-
-    //刷新事件
-    private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
-        @Override
-        public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
-            curr_index += 1;
-            mPresenter.get_system_info_req(curr_index, cid);
-        }
-
-        @Override
-        public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(cmConstants.refresh_time);
-            curr_index = 0;
-            mPresenter.get_system_info_req(curr_index, cid);
-        }
-    };
 
     @Override
     public void get_system_info_resp(BaseModel<SystemInfoModel> dts) {

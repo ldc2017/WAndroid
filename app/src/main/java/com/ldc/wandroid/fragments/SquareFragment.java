@@ -107,13 +107,11 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
 
     @Override
     public void show_loading(String message) {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
-        mBinding.layoutLoading.tvLoadingText.setText(message);
     }
 
     @Override
     public void hide_loading() {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        dismissRefresh();
     }
 
     @Override
@@ -158,7 +156,7 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
                 @Override
                 public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                     List<SquareArticleModel.DatasBean> dts = adapter.getData();
-                    if (null == dts)return;
+                    if (null == dts) return;
                     SquareArticleModel.DatasBean dt = dts.get(position);
                     if (null == dt) {
                         return;
@@ -195,7 +193,6 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
     private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_user_article_req(curr_index);
 
@@ -203,13 +200,21 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(cmConstants.refresh_time);
             curr_index = 0;
             mPresenter.get_user_article_req(curr_index);
 
 
         }
     };
+
+    //结束刷新
+    private void dismissRefresh() {
+        if (mBinding.refreshView.getState().isOpening) {
+            mBinding.refreshView.finishRefresh();
+            mBinding.refreshView.finishLoadMore();
+
+        }
+    }
 
     @Override
     public boolean isBaseOnWidth() {

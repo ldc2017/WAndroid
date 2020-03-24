@@ -7,8 +7,8 @@ android {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 31
-        versionName "V0.0.31"
+        versionCode 32
+        versionName "V0.0.32"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true
@@ -82,13 +82,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
-    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.7.1'
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.7.2'
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
-    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.7.1'
+    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.7.2'
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava2
-    implementation group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: '2.7.1'
+    implementation group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: '2.7.2'
     //
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.3'
     //
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
 

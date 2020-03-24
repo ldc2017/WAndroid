@@ -40,14 +40,14 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
     //
     private ProjectsArticleAdapter projects_article_adapter = new ProjectsArticleAdapter();
     private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-    private static volatile int curr_index = 0;
+    private static volatile int curr_index = 1;
     private static volatile String curr_cid = "";
     private static volatile String curr_title = "";
 
     public static void actionStart(Activity activity, final String cid, String title) {
         curr_cid = cid;
         curr_title = title;
-        curr_index = 0;
+        curr_index = 1;
         Intent intent = new Intent(activity, ProjectInfoActivity.class);
         activity.startActivity(intent);
     }
@@ -119,14 +119,15 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
 
     @Override
     public void show_loading(String message) {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
-        mBinding.layoutLoading.tvLoadingText.setText(String.format("%s", message));
 
     }
 
     @Override
     public void hide_loading() {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        if (mBinding.refreshView.getState().isOpening) {
+            mBinding.refreshView.finishLoadMore();
+            mBinding.refreshView.finishRefresh();
+        }
     }
 
 
@@ -223,7 +224,6 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
     private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_index += 1;
             mPresenter.get_projects_article_req(curr_index, curr_cid);
 
@@ -231,8 +231,7 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(cmConstants.refresh_time);
-            curr_index = 0;
+            curr_index = 1;
             mPresenter.get_projects_article_req(curr_index, curr_cid);
 
 

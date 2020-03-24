@@ -136,14 +136,15 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
 
     @Override
     public void show_loading(String message) {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
-        mBinding.layoutLoading.tvLoadingText.setText(message);
 
     }
 
     @Override
     public void hide_loading() {
-        mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        if (mBinding.refreshView.getState().isOpening) {
+            mBinding.refreshView.finishRefresh();
+            mBinding.refreshView.finishLoadMore();
+        }
     }
 
 
@@ -186,7 +187,6 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
     private OnRefreshLoadMoreListener onRefreshLoadMoreListener = new OnRefreshLoadMoreListener() {
         @Override
         public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishLoadMore(cmConstants.refresh_time);
             curr_page++;
             mPresenter.get_wechat_number_hiostory_req(weChat_id, curr_page);
 
@@ -194,7 +194,6 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            refreshLayout.finishRefresh(cmConstants.refresh_time);
             curr_page = 0;
             mPresenter.get_wechat_number_hiostory_req(weChat_id, curr_page);
         }
