@@ -1,8 +1,6 @@
 package com.ldc.wandroid.activitys;
 
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.animation.BaseAnimation;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
@@ -171,16 +168,6 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
             mBinding.projectArticleDataList.setItemViewCacheSize(10);
             mBinding.projectArticleDataList.setLayoutManager(layoutManager);
             projects_article_adapter.setEmptyView(R.layout.layout_no_data);
-            projects_article_adapter.setAnimationEnable(true);
-            projects_article_adapter.setAnimationFirstOnly(false);
-            projects_article_adapter.setAdapterAnimation(new BaseAnimation() {
-                @Override
-                public Animator[] animators(View view) {
-                    return new Animator[]{
-                            ObjectAnimator.ofFloat(view, "scaleY", 0.25f, 1)
-                    };
-                }
-            });
             projects_article_adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {

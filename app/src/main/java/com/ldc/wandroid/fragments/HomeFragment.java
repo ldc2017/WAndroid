@@ -1,11 +1,11 @@
 package com.ldc.wandroid.fragments;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -126,16 +126,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     protected void init_view() {
         mBinding.refreshView.setEnableAutoLoadMore(true);
         mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
-        mBinding.articleList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private volatile int offsetY = 0;
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                offsetY += dy;
-                Log.d(TAG, String.format("onScrolled: ---offsetY=%s\n---dy=%s", offsetY, dy));
-
-            }
-        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBinding.etSearch.setElevation(10f);
+            mBinding.articleList.setNestedScrollingEnabled(false);
+        }
         init_search_view();
 
     }
