@@ -126,8 +126,6 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
     @Override
     protected void init_data() {
         mPresenter.get_coinCount_req(curr_index);
-        //
-        //mBinding.tvCoin.setText(String.format("%s", curr_coin));
         dynamic_show_coin();
 
 
@@ -141,10 +139,17 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
 
     @Override
     public void show_loading(String message) {
+        if (0 == curr_index) {
+            mBinding.loadingBar.layoutLoading.setVisibility(View.VISIBLE);
+            mBinding.loadingBar.tvLoadingText.setText(message);
+        }
     }
 
     @Override
     public void hide_loading() {
+        if (View.GONE != mBinding.loadingBar.layoutLoading.getVisibility()) {
+            mBinding.loadingBar.layoutLoading.setVisibility(View.GONE);
+        }
         if (mBinding.refreshView.getState().isOpening) {
             mBinding.refreshView.finishLoadMore();
             mBinding.refreshView.finishRefresh();

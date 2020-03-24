@@ -108,10 +108,17 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
 
     @Override
     public void show_loading(String message) {
+        if (1 >= curr_index) {
+            mBinding.loadingBar.layoutLoading.setVisibility(View.VISIBLE);
+            mBinding.loadingBar.tvLoadingText.setText(message);
+        }
     }
 
     @Override
     public void hide_loading() {
+        if (View.GONE != mBinding.loadingBar.layoutLoading.getVisibility()) {
+            mBinding.loadingBar.layoutLoading.setVisibility(View.GONE);
+        }
         if (mBinding.refreshView.getState().isOpening) {
             mBinding.refreshView.finishLoadMore();
             mBinding.refreshView.finishRefresh();
