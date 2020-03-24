@@ -79,8 +79,6 @@
             android:layout_below="@+id/rl_head"
             android:background="@color/color_f5f5f5"
             android:nestedScrollingEnabled="false"
-            android:paddingTop="@dimen/dp_1"
-            android:paddingBottom="@dimen/dp_10"
             tools:listitem="@layout/layout_item_personal_item"
             tools:targetApi="lollipop" />
     </RelativeLayout>
