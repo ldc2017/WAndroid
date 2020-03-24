@@ -1,0 +1,159 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "0b50d227f99b7943fa22491e45a6daab",
+    "entities": [
+      {
+        "tableName": "tb_integral",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `coinCount` INTEGER NOT NULL, `level` INTEGER NOT NULL, `rank` INTEGER NOT NULL, `userId` INTEGER NOT NULL, `username` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coinCount",
+            "columnName": "coinCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_tb_integral_id_coinCount_level_rank_userId_username",
+            "unique": false,
+            "columnNames": [
+              "id",
+              "coinCount",
+              "level",
+              "rank",
+              "userId",
+              "username"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_integral_id_coinCount_level_rank_userId_username` ON `${TABLE_NAME}` (`id`, `coinCount`, `level`, `rank`, `userId`, `username`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_user",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `email` TEXT, `username` TEXT, `nickname` TEXT, `publicName` TEXT, `type` INTEGER NOT NULL, `token` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nickname",
+            "columnName": "nickname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publicName",
+            "columnName": "publicName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "token",
+            "columnName": "token",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_tb_user_id",
+            "unique": false,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_user_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_tb_user_nickname",
+            "unique": false,
+            "columnNames": [
+              "nickname"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_user_nickname` ON `${TABLE_NAME}` (`nickname`)"
+          },
+          {
+            "name": "index_tb_user_token",
+            "unique": false,
+            "columnNames": [
+              "token"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tb_user_token` ON `${TABLE_NAME}` (`token`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b50d227f99b7943fa22491e45a6daab')"
+    ]
+  }
+}
