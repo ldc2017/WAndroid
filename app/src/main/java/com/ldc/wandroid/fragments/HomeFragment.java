@@ -125,7 +125,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     protected void init_view() {
         mBinding.refreshView.setEnableAutoLoadMore(true);
         mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
-        mBinding.articleList.setNestedScrollingEnabled(false);
         init_search_view();
 
     }

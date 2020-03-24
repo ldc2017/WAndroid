@@ -10,7 +10,7 @@ import java.util.Random;
 public class SystemSystemAdapter extends BaseQuickAdapter<SystemModel, BaseViewHolder> {
 
     public SystemSystemAdapter() {
-        super(R.layout.layout_item_system_system);
+        super(R.layout.layout_item_system_tag);
     }
 
     private final int[] colros = {

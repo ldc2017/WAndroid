@@ -82,26 +82,12 @@
                     android:layout_marginTop="@dimen/dp_50"
                     android:focusable="true"
                     android:focusableInTouchMode="true" />
-
-                <!--滑动-->
-                <androidx.core.widget.NestedScrollView
+                <!--数据-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/article_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fillViewport="true"
-                    android:overScrollMode="always"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <!--数据-->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/article_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             <com.scwang.smart.refresh.footer.ClassicsFooter
