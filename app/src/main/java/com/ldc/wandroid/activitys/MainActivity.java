@@ -27,6 +27,7 @@ import com.ldc.wandroid.databinding.ActivityMainBinding;
 import com.ldc.wandroid.db.entitis.IntegralEntity;
 import com.ldc.wandroid.fragments.HomeFragment;
 import com.ldc.wandroid.fragments.MeFragment;
+import com.ldc.wandroid.fragments.ProjectTabFragment;
 import com.ldc.wandroid.fragments.SquareFragment;
 import com.ldc.wandroid.fragments.SystemFragment;
 import com.ldc.wandroid.mApp;
@@ -59,16 +60,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     });
 
     //
+    private static final String[] tabs = {"首页", "项目", "体系", "广场", "我的"};
     private volatile SupportFragment curr_fragment = null;
     private volatile int curr_selected_position = 0;
-    private SupportFragment[] fragments = new SupportFragment[4];
-    //
-    private static final int fragment_page0 = 0;
-    private static final int fragment_page1 = 1;
-    private static final int fragment_page2 = 2;
-    private static final int fragment_page3 = 3;
-    //
-    private static final String[] tabs = {"首页", "体系", "广场", "我的"};
+    private SupportFragment[] fragments = new SupportFragment[tabs.length];
 
     //
     private final Handler mHandler = new Handler(new Handler.Callback() {
@@ -148,9 +143,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         mBinding.bottomBar
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .addItem(new BottomNavigationItem(R.drawable.icon_home, tabs[0]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_system, tabs[1]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_projects, tabs[2]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_me, tabs[3]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_home, tabs[1]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_system, tabs[2]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_projects, tabs[3]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_me, tabs[4]))
                 .setFirstSelectedPosition(curr_selected_position)
                 .setTabSelectedListener(onTabSelectedListener)
                 .initialise();
@@ -182,21 +178,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private void init_fragment() {
         curr_fragment = findFragment(HomeFragment.class);
         if (null == curr_fragment) {
-            fragments[fragment_page0] = HomeFragment.newInstance(null);
-            fragments[fragment_page1] = SystemFragment.newInstance(null);
-            fragments[fragment_page2] = SquareFragment.newInstance();
-            fragments[fragment_page3] = MeFragment.newInstance(null);
+            fragments[0] = HomeFragment.newInstance(null);
+            fragments[1] = new ProjectTabFragment();
+            fragments[2] = SystemFragment.newInstance(null);
+            fragments[3] = SquareFragment.newInstance();
+            fragments[4] = MeFragment.newInstance(null);
             loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
-                    fragments[fragment_page0],
-                    fragments[fragment_page1],
-                    fragments[fragment_page2],
-                    fragments[fragment_page3]);
+                    fragments[0],
+                    fragments[1],
+                    fragments[2],
+                    fragments[3],
+                    fragments[4]);
         } else {
 
-            fragments[fragment_page0] = curr_fragment;
-            fragments[fragment_page1] = findFragment(SystemFragment.class);
-            fragments[fragment_page2] = findFragment(SquareFragment.class);
-            fragments[fragment_page3] = findFragment(MeFragment.class);
+            fragments[0] = curr_fragment;
+            fragments[1] = findFragment(ProjectTabFragment.class);
+            fragments[2] = findFragment(SystemFragment.class);
+            fragments[3] = findFragment(SquareFragment.class);
+            fragments[4] = findFragment(MeFragment.class);
 
             showHideFragment(curr_fragment);
         }

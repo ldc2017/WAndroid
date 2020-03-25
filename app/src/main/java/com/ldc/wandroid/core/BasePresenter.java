@@ -19,11 +19,11 @@ public abstract class BasePresenter<V extends IBaseView> {
         return mViews.get();
     }
 
-    protected void onBinding(V v) {
+    void onBinding(V v) {
         mViews = new SoftReference<V>(v);
     }
 
-    protected void unBinding() {
+    void unBinding() {
         if (null != mViews) {
             mViews.clear();
             mViews = null;

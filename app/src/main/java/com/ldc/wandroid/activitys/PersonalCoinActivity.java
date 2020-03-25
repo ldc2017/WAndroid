@@ -168,7 +168,7 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
                 if (!Thread.currentThread().isInterrupted()) {
                     //遍历数据
                     for (; ; ) {
-                        value += 89;
+                        value += 46;
                         final Message message = mHandler.obtainMessage(refresh_ui_coin_code);
                         if (value < curr_coin) {
                             message.arg1 = value;
