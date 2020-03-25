@@ -51,7 +51,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
             if (msg.what == refresh_code) {
                 List<ProjectsArticleModel.DatasBean> dts = (List<ProjectsArticleModel.DatasBean>) msg.obj;
                 if (null == dts) return false;
-                if (0 == curr_index) {
+                if (1 >= curr_index) {
                     projects_article_adapter.setNewData(dts);
                 } else {
                     projects_article_adapter.addData(dts);

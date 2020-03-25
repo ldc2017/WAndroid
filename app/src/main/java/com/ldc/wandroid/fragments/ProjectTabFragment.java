@@ -29,6 +29,9 @@ import me.yokeyword.fragmentation.SupportFragment;
  * A simple {@link Fragment} subclass.
  */
 public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, ProjectTabPresenter> implements ProjectTabContract.V {
+
+    private volatile boolean is_loading = false;
+    //
     private static final int refresh_data_code = 0x00;
     private final Handler uiHandler = new Handler(new Handler.Callback() {
         @Override
@@ -46,7 +49,7 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (!hidden){
+        if (!hidden) {
             mPresenter.get_project_req();
         }
     }
@@ -117,9 +120,11 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
     }
 
     //初始化适配器
-    private void init_adapter(List<ProjectsModel> dts) {
+    private synchronized void init_adapter(List<ProjectsModel> dts) {
+        if (is_loading) return;
         final ArrayList<String> tabs = new ArrayList<>(16);
         final ArrayList<SupportFragment> fragments = new ArrayList<>(16);
+        // mBinding.tabLayout.removeAllTabs();
         for (ProjectsModel model : dts) {
             if (null == model) return;
             final SupportFragment fragment = new ProjectInfoFragment();
@@ -134,9 +139,13 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
             SystemClock.sleep(1);
         }
         final ProjectTabAdapter projectTabAdapter = new ProjectTabAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments, tabs);
-        mBinding.fragmentContainer.setOffscreenPageLimit(6);
+        mBinding.fragmentContainer.setOffscreenPageLimit(fragments.size() - 1);
         mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
         mBinding.fragmentContainer.setAdapter(projectTabAdapter);
+
+
+        //判断是否加载过
+        is_loading = true;
 
     }
 }
