@@ -40,13 +40,32 @@
                         android:layout_height="match_parent"
                         app:contentScrim="@android:color/transparent"
                         app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                        <!--搜索框-->
+                        <RelativeLayout
+                            android:id="@+id/tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_50"
+                            android:background="@color/color_00574b"
+                            app:layout_collapseMode="pin">
+
+                            <com.ldc.wandroid.views.IconCenterEditText
+                                android:id="@+id/et_search"
+                                style="@style/StyleEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_40"
+                                android:layout_centerInParent="true"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:layout_marginRight="@dimen/dp_10"
+                                android:imeOptions="actionSearch"
+                                android:paddingStart="@dimen/dp_10"
+                                android:paddingEnd="@dimen/dp_10" />
+                        </RelativeLayout>
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/icon_image_helper"
                             app:layout_collapseMode="parallax"
                             app:layout_collapseParallaxMultiplier="0.99999" />
 
@@ -55,25 +74,6 @@
                 </com.google.android.material.appbar.AppBarLayout>
 
 
-                <!--搜索框-->
-                <RelativeLayout
-                    android:id="@+id/tool_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50"
-                    android:background="@color/color_00574b">
-
-                    <com.ldc.wandroid.views.IconCenterEditText
-                        android:id="@+id/et_search"
-                        style="@style/StyleEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_40"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:imeOptions="actionSearch"
-                        android:paddingStart="@dimen/dp_10"
-                        android:paddingEnd="@dimen/dp_10" />
-                </RelativeLayout>
                 <!--banner-->
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
