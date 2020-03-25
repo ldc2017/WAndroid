@@ -11,13 +11,17 @@ import java.util.ArrayList;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class ProjectTabAdapter extends FragmentPagerAdapter {
-    private final ArrayList<String> tabs;
-    private final ArrayList<SupportFragment> fragments;
+    private ArrayList<String> tabs;
+    private ArrayList<SupportFragment> fragments;
 
-    public ProjectTabAdapter(@NonNull FragmentManager fm, int behavior, final ArrayList<SupportFragment> fragments, final ArrayList<String> tabs) {
+    public ProjectTabAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
+    }
+
+    public void setNewData(final ArrayList<SupportFragment> fragments, final ArrayList<String> tabs) {
         this.fragments = new ArrayList<>(fragments);
         this.tabs = new ArrayList<>(tabs);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -28,7 +32,7 @@ public class ProjectTabAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return null == fragments ? 0 : fragments.size();
     }
 
 

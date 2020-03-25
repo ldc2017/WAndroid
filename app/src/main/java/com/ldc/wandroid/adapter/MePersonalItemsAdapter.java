@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.MePersonalModel;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 public class MePersonalItemsAdapter extends BaseQuickAdapter<MePersonalModel, BaseViewHolder> {
@@ -22,6 +23,8 @@ public class MePersonalItemsAdapter extends BaseQuickAdapter<MePersonalModel, Ba
                 .setText(R.id.tv_info, s.getInfo())
                 .setTextColorRes(R.id.tv_info, R.color.color_f34133);
         Picasso.get().load(s.getIcon())
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .resize(100, 80)
                 .into((ImageView) baseViewHolder.getView(R.id.iv_image));
 
 

@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.ProjectsArticleModel;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
@@ -47,6 +48,8 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                     Picasso.get().load(bean.getEnvelopePic())
                             .placeholder(R.drawable.icon_image_helper)
                             .tag(image_tag)
+                            .resize(100, 80)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 } else {
                     baseViewHolder.findView(R.id.icon_pic).setVisibility(View.GONE);

@@ -29,9 +29,8 @@ import me.yokeyword.fragmentation.SupportFragment;
  * A simple {@link Fragment} subclass.
  */
 public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, ProjectTabPresenter> implements ProjectTabContract.V {
-
-    private volatile boolean is_loading = false;
     //
+    private volatile ProjectTabAdapter projectTabAdapter;
     private static final int refresh_data_code = 0x00;
     private final Handler uiHandler = new Handler(new Handler.Callback() {
         @Override
@@ -72,12 +71,13 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
 
     @Override
     protected void init_view() {
-        mPresenter.get_project_req();
+        projectTabAdapter= new ProjectTabAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
     }
 
     @Override
     protected void init_data() {
-
+        mPresenter.get_project_req();
     }
 
     @Override
@@ -121,10 +121,9 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
 
     //初始化适配器
     private synchronized void init_adapter(List<ProjectsModel> dts) {
-        if (is_loading) return;
         final ArrayList<String> tabs = new ArrayList<>(16);
         final ArrayList<SupportFragment> fragments = new ArrayList<>(16);
-        // mBinding.tabLayout.removeAllTabs();
+        mBinding.tabLayout.removeAllTabs();
         for (ProjectsModel model : dts) {
             if (null == model) return;
             final SupportFragment fragment = new ProjectInfoFragment();
@@ -136,16 +135,18 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
             mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(model.getName()));
             fragments.add(fragment);
             tabs.add(model.getName());
-            SystemClock.sleep(1);
+            SystemClock.sleep(10);
         }
-        final ProjectTabAdapter projectTabAdapter = new ProjectTabAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments, tabs);
-        mBinding.fragmentContainer.setOffscreenPageLimit(fragments.size() - 1);
-        mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
+        if (null == projectTabAdapter) {
+            projectTabAdapter = new ProjectTabAdapter(
+                    getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        } else {
+            projectTabAdapter.setNewData(fragments, tabs);
+        }
+        mBinding.fragmentContainer.setOffscreenPageLimit(6);
+        mBinding.fragmentContainer.setCurrentItem(0);
         mBinding.fragmentContainer.setAdapter(projectTabAdapter);
-
-
-        //判断是否加载过
-        is_loading = true;
+        mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
 
     }
 }

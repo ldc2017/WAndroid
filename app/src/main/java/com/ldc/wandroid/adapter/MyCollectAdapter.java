@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.MyCollectModel;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -32,7 +33,10 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
         ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);
         // 显示图片
         if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
-            Picasso.get().load(dt.getEnvelopePic()).placeholder(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
+            Picasso.get().load(dt.getEnvelopePic())
+                    .resize(100,80)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .placeholder(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
         } else {
             Picasso.get().load(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
 
@@ -41,6 +45,9 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
         if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
             baseViewHolder.findView(R.id.iv_icon_pic).setVisibility(View.VISIBLE);
             Picasso.get().load(dt.getEnvelopePic())
+                    .resize(100,100)
+                    .centerCrop()
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .placeholder(R.drawable.icon_image_helper)
                     .into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
         } else {

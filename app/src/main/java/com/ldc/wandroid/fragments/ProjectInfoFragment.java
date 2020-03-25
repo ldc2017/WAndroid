@@ -7,7 +7,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -38,8 +37,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
 
 
     //
-    private ProjectsArticleAdapter projects_article_adapter = new ProjectsArticleAdapter();
-    private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+    private volatile ProjectsArticleAdapter projects_article_adapter = new ProjectsArticleAdapter();
     private static volatile int curr_index = 1;
     private static volatile String curr_cid = "";
 
@@ -51,7 +49,7 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
             if (msg.what == refresh_code) {
                 List<ProjectsArticleModel.DatasBean> dts = (List<ProjectsArticleModel.DatasBean>) msg.obj;
                 if (null == dts) return false;
-                if (1 >= curr_index) {
+                if (1 == curr_index) {
                     projects_article_adapter.setNewData(dts);
                 } else {
                     projects_article_adapter.addData(dts);
@@ -102,11 +100,18 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
 
     @Override
     public void show_loading(String message) {
+        if (curr_index == 1) {
+            mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
+            mBinding.layoutLoading.tvLoadingText.setText(message);
+        }
 
     }
 
     @Override
     public void hide_loading() {
+        if (View.GONE != mBinding.layoutLoading.layoutLoading.getVisibility()) {
+            mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        }
         if (mBinding.refreshView.getState().isOpening) {
             mBinding.refreshView.finishLoadMore();
             mBinding.refreshView.finishRefresh();
@@ -150,7 +155,6 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
             mBinding.projectArticleDataList.setAdapter(projects_article_adapter);
             mBinding.projectArticleDataList.setHasFixedSize(true);
             mBinding.projectArticleDataList.setItemViewCacheSize(10);
-            mBinding.projectArticleDataList.setLayoutManager(layoutManager);
             projects_article_adapter.setEmptyView(R.layout.layout_no_data);
             projects_article_adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.BannerModel;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.adapter.BannerAdapter;
 
@@ -35,6 +36,7 @@ public class HomeBannerAdapter extends BannerAdapter<BannerModel, HomeBannerAdap
             holder.mTvWord.setText(String.format("%s", data.getTitle()));
             Picasso.get()
                     .load(data.getImagePath())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .placeholder(R.drawable.icon_image_helper)
                     .into(holder.mIvImage);
         }
