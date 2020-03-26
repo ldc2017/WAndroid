@@ -54,13 +54,6 @@ public class WeChatNumberFragment extends BaseFragment<FragmentWeChatNumberBindi
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        if (!hidden) {
-            mPresenter.get_wechat_number_req();
-        }
-    }
-
-    @Override
     protected int ui() {
         return R.layout.fragment_we_chat_number;
     }
