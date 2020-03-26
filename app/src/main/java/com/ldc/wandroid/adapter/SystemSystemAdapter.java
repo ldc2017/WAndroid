@@ -6,7 +6,7 @@ import com.ldc.wandroid.R;
 import com.ldc.wandroid.model.SystemModel;
 
 import java.util.Random;
-
+@Deprecated
 public class SystemSystemAdapter extends BaseQuickAdapter<SystemModel, BaseViewHolder> {
 
     public SystemSystemAdapter() {

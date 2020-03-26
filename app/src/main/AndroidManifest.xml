@@ -33,7 +33,6 @@
             android:name=".activitys.ShowArticleWebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".activitys.PersonalCoinActivity" />
-        <activity android:name=".activitys.SystemInfoActivity" />
         <activity android:name=".activitys.MainActivity" />
         <activity android:name=".activitys.FirstActivity">
             <intent-filter>

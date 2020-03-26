@@ -45,12 +45,6 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
         }
     });
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        if (!hidden) {
-            mPresenter.get_project_req();
-        }
-    }
 
     @Override
     public void onDestroy() {
