@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -30,6 +29,7 @@ import com.ldc.wandroid.fragments.MeFragment;
 import com.ldc.wandroid.fragments.ProjectTabFragment;
 import com.ldc.wandroid.fragments.SquareFragment;
 import com.ldc.wandroid.fragments.SystemFragment;
+import com.ldc.wandroid.fragments.WeChatNumberFragment;
 import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.IntegralModel;
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     });
 
     //
-    private static final String[] tabs = {"首页", "项目", "体系", "广场", "我的"};
+    private static final String[] tabs = {"首页", "项目", "体系", "公众号", "广场", "我的"};
     private volatile SupportFragment curr_fragment = null;
     private volatile int curr_selected_position = 0;
     private SupportFragment[] fragments = new SupportFragment[tabs.length];
@@ -80,12 +80,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         handler.removeCallbacksAndMessages(null);
     }
 
-    public static void actionStart(Activity activity, Bundle args) {
+    public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
-        if (null != args) {
-            intent.putExtras(args);
-        }
         activity.startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.finish();
     }
 
@@ -143,10 +141,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         mBinding.bottomBar
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .addItem(new BottomNavigationItem(R.drawable.icon_home, tabs[0]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_home, tabs[1]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_project, tabs[1]))
                 .addItem(new BottomNavigationItem(R.drawable.icon_system, tabs[2]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_projects, tabs[3]))
-                .addItem(new BottomNavigationItem(R.drawable.icon_me, tabs[4]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_weixin, tabs[3]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_squera, tabs[4]))
+                .addItem(new BottomNavigationItem(R.drawable.icon_me, tabs[5]))
                 .setFirstSelectedPosition(curr_selected_position)
                 .setTabSelectedListener(onTabSelectedListener)
                 .initialise();
@@ -178,24 +177,27 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private void init_fragment() {
         curr_fragment = findFragment(HomeFragment.class);
         if (null == curr_fragment) {
-            fragments[0] = HomeFragment.newInstance();
+            fragments[0] = new HomeFragment();
             fragments[1] = new ProjectTabFragment();
-            fragments[2] = SystemFragment.newInstance();
-            fragments[3] = SquareFragment.newInstance();
-            fragments[4] = MeFragment.newInstance();
+            fragments[2] = new SystemFragment();
+            fragments[3] = new WeChatNumberFragment();
+            fragments[4] = new SquareFragment();
+            fragments[5] = new MeFragment();
             loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
                     fragments[0],
                     fragments[1],
                     fragments[2],
                     fragments[3],
-                    fragments[4]);
+                    fragments[4],
+                    fragments[5]);
         } else {
 
             fragments[0] = curr_fragment;
             fragments[1] = findFragment(ProjectTabFragment.class);
             fragments[2] = findFragment(SystemFragment.class);
-            fragments[3] = findFragment(SquareFragment.class);
-            fragments[4] = findFragment(MeFragment.class);
+            fragments[3] = findFragment(WeChatNumberFragment.class);
+            fragments[4] = findFragment(SquareFragment.class);
+            fragments[5] = findFragment(MeFragment.class);
 
             showHideFragment(curr_fragment);
         }

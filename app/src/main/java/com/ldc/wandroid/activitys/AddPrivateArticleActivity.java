@@ -19,6 +19,7 @@ public class AddPrivateArticleActivity extends BaseActivity<ActivityAddPrivateAr
 
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, AddPrivateArticleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

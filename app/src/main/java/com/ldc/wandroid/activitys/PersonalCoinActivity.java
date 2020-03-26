@@ -33,6 +33,7 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
 
     public static void actionStart(Activity activity, int curr_coin) {
         Intent intent = new Intent(activity, PersonalCoinActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PersonalCoinActivity.curr_coin = curr_coin;
         activity.startActivity(intent);
     }

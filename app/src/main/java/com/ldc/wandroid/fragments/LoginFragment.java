@@ -103,7 +103,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
                         SPUtils.getInstance().put(cmConstants.user_name_key, curr_user_name);
                         SPUtils.getInstance().put(cmConstants.user_password_key, str_base_64_password);
                         save_user_data(data.getData());//保存数据
-                        MainActivity.actionStart(getActivity(), null);
+                        MainActivity.actionStart(getActivity());
                     }
                 }, 300);
             } else {

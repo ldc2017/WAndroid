@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.ldc.wandroid.contracts.SystemWeChatNumberContract;
+import com.ldc.wandroid.contracts.WeChatNumberContract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.WeChatNumberModel;
@@ -18,12 +18,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SystemWeChatNumberPresenter extends BasePresenter<SystemWeChatNumberContract.V> implements SystemWeChatNumberContract.P {
+public class WeChatNumberPresenter extends BasePresenter<WeChatNumberContract.V> implements WeChatNumberContract.P {
 
     private ApiServer apiServer;
 
 
-    public SystemWeChatNumberPresenter() {
+    public WeChatNumberPresenter() {
         apiServer = Api2Request.getInstance().createServer(ApiServer.class);
     }
 

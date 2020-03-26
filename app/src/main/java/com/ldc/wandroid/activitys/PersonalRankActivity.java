@@ -31,6 +31,7 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
     public static void actionStart(Activity activity) {
         PersonalRankActivity.curr_index = 1;
         Intent intent = new Intent(activity, PersonalRankActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

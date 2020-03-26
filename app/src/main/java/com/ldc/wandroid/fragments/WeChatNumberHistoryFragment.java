@@ -1,25 +1,22 @@
-package com.ldc.wandroid.activitys;
+package com.ldc.wandroid.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
+import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.WeChatNumberHistoryAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.WeChatNumberHistoryContract;
-import com.ldc.wandroid.core.BaseActivity;
-import com.ldc.wandroid.databinding.ActivityWeChatNumberHistoryBinding;
+import com.ldc.wandroid.core.BaseFragment;
+import com.ldc.wandroid.databinding.FragmentWeChatNumberHistoryBinding;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.WeChatNumberHistoryModel;
 import com.ldc.wandroid.presenters.WeChatNumberHistoryPresenter;
@@ -27,12 +24,14 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.List;
+import java.util.Objects;
 
-public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumberHistoryBinding, WeChatNumberHistoryPresenter> implements WeChatNumberHistoryContract.V {
+public class WeChatNumberHistoryFragment extends BaseFragment<FragmentWeChatNumberHistoryBinding, WeChatNumberHistoryPresenter> implements WeChatNumberHistoryContract.V {
 
 
-    //
-    private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
+    private volatile int curr_page = 0;
+    private volatile String weChat_id = "";
+    private volatile String weChat_name = "";
     private final WeChatNumberHistoryAdapter weChatNumberHistoryAdapter = new WeChatNumberHistoryAdapter();
     //
     private static final int refresh_code = 0x00;
@@ -53,22 +52,11 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
             return false;
         }
     });
-    private static volatile int curr_page = 0;
-    private static volatile String weChat_id = "";
-    private static volatile String weChat_name = "";
-
-    public static void actionStart(Activity activity, String weChatId, String weChatName) {
-        curr_page = 0;
-        weChat_id = weChatId;
-        weChat_name = weChatName;
-        Intent intent = new Intent(activity, WeChatNumberHistoryActivity.class);
-        activity.startActivity(intent);
-    }
 
 
     @Override
     protected int ui() {
-        return R.layout.activity_we_chat_number_history;
+        return R.layout.fragment_we_chat_number_history;
     }
 
     @Override
@@ -78,17 +66,12 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
 
     @Override
     protected void init_view() {
-        mBinding.topBar.tvTitle.setText(String.format("%s", weChat_name));
-        mBinding.topBar.lineMore.setVisibility(View.GONE);
-        mBinding.topBar.lineBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         //
         mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(true);
+        curr_page = 0;
+        weChat_id = Objects.requireNonNull(getArguments()).getString("cid");
+        weChat_name = Objects.requireNonNull(getArguments()).getString("name");
         //
         init_adapter();
 
@@ -136,11 +119,18 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
 
     @Override
     public void show_loading(String message) {
+        if (0 == curr_page) {
+            mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
+            mBinding.layoutLoading.tvLoadingText.setText(message);
+        }
 
     }
 
     @Override
     public void hide_loading() {
+        if (View.GONE != mBinding.layoutLoading.layoutLoading.getVisibility()) {
+            mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        }
         if (mBinding.refreshView.getState().isOpening) {
             mBinding.refreshView.finishRefresh();
             mBinding.refreshView.finishLoadMore();
@@ -150,7 +140,6 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
 
     //初始化适配器
     private void init_adapter() {
-        mBinding.dataList.setLayoutManager(layoutManager);
         mBinding.dataList.setHasFixedSize(true);
         mBinding.dataList.setItemViewCacheSize(10);
         mBinding.dataList.setAdapter(weChatNumberHistoryAdapter);
@@ -162,7 +151,7 @@ public class WeChatNumberHistoryActivity extends BaseActivity<ActivityWeChatNumb
                 if (null == dts) return;
                 WeChatNumberHistoryModel.DatasBean dt = dts.get(position);
                 if (null == dt) return;
-                ShowArticleWebActivity.actionStart(activity, dt.getTitle(), dt.getLink());
+                ShowArticleWebActivity.actionStart(getActivity(), dt.getTitle(), dt.getLink());
             }
         });
         weChatNumberHistoryAdapter.addChildClickViewIds(R.id.ck_collect);

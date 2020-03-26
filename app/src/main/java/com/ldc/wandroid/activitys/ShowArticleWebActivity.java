@@ -35,6 +35,7 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
         ShowArticleWebActivity.str_title = title;
         ShowArticleWebActivity.str_url = url;
         Intent intent = new Intent(activity, ShowArticleWebActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

@@ -10,7 +10,7 @@ import com.ldc.wandroid.model.TopArticleModel;
 
 import java.sql.Date;
 
-@Deprecated
+
 public class HomeTopArticleAdapter extends BaseQuickAdapter<TopArticleModel, BaseViewHolder> {
     public HomeTopArticleAdapter() {
         super(R.layout.layout_item_home_top_article);

@@ -36,6 +36,7 @@ public class MyPrivateArticleActivity extends BaseActivity<ActivityMyPrivateArti
     public static void actionStart(Activity activity) {
         MyPrivateArticleActivity.curr_index = 1;
         Intent intent = new Intent(activity, MyPrivateArticleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

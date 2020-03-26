@@ -38,6 +38,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
         SearchActivity.curr_index = 0;
         SearchActivity.curr_str_k = str_k;
         Intent intent = new Intent(activity, SearchActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
 
     }

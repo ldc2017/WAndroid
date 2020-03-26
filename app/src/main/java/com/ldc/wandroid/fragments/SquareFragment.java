@@ -1,6 +1,5 @@
 package com.ldc.wandroid.fragments;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -39,14 +38,6 @@ public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePr
     private final SquareArticleAdapter squareArticleAdapter = new SquareArticleAdapter();
     private final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
-    public static SquareFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        SquareFragment fragment = new SquareFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     //
     private static final int refresh_code = 0x000;

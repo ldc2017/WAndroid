@@ -1,7 +1,6 @@
 package com.ldc.wandroid.fragments;
 
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -44,14 +43,6 @@ import java.util.List;
  */
 public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> implements MeContract.V {
 
-
-    public static MeFragment newInstance() {
-
-        MeFragment fragment = new MeFragment();
-        final Bundle args =new Bundle();
-            fragment.setArguments(args);
-        return fragment;
-    }
 
     //
     private MePersonalItemsAdapter me_personal_items_adapter = new MePersonalItemsAdapter();

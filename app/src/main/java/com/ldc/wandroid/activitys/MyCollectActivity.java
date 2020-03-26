@@ -35,6 +35,7 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
     public static void actionStart(Activity activity) {
         MyCollectActivity.curr_index = 0;
         Intent intent = new Intent(activity, MyCollectActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

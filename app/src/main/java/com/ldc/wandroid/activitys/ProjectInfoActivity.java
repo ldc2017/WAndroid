@@ -49,6 +49,7 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
         curr_title = title;
         curr_index = 1;
         Intent intent = new Intent(activity, ProjectInfoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

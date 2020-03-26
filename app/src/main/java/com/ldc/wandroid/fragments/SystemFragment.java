@@ -1,7 +1,6 @@
 package com.ldc.wandroid.fragments;
 
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
@@ -59,15 +58,6 @@ public class SystemFragment extends BaseFragment<FragmentSystemBinding, SystemPr
             mPresenter.get_system_req();
         }
     }
-
-    public static SystemFragment newInstance() {
-        SystemFragment fragment = new SystemFragment();
-        final Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
 
     @Override
     protected int ui() {

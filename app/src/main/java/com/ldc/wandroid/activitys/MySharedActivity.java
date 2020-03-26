@@ -35,6 +35,7 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
     public static void actionStart(Activity activity) {
         MySharedActivity.curr_index = 1;
         Intent intent = new Intent(activity, MySharedActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

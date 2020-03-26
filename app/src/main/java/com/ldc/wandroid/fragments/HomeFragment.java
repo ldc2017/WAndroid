@@ -1,7 +1,6 @@
 package com.ldc.wandroid.fragments;
 
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -101,14 +100,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         if (!hidden) {
             mPresenter.get_article_req(curr_article_index);
         }
-    }
-
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-
-        final Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override

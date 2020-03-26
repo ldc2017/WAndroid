@@ -21,6 +21,7 @@ public class ShowMessageActivity extends AppCompatActivity {
 
     public static void actionStart(Context context, final String m_title, String m_message, String m_extra) {
         Intent intent = new Intent(context, ShowMessageActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         str_title = m_title;
         str_message = m_message;
         str_extra = m_extra;

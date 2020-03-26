@@ -38,8 +38,9 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
         curr_cid = cid;
         curr_name = name;
         curr_index = 0;
-        Intent it = new Intent(activity, SystemInfoActivity.class);
-        activity.startActivity(it);
+        Intent intent = new Intent(activity, SystemInfoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
 
     }
 

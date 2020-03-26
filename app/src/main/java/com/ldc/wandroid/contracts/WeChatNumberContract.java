@@ -6,7 +6,7 @@ import com.ldc.wandroid.model.WeChatNumberModel;
 
 import java.util.List;
 
-public interface SystemWeChatNumberContract {
+public interface WeChatNumberContract {
     interface V extends IBaseView{
         public void get_wechat_number_resp(BaseModel<List<WeChatNumberModel>> dts);
     }
