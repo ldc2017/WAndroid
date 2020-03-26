@@ -24,7 +24,7 @@
             android:layout_toStartOf="@id/ck_collect"
             android:layout_toLeftOf="@id/ck_collect"
             android:singleLine="true"
-            android:text="标题"
+            android:text="@string/str_title"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_14" />
 

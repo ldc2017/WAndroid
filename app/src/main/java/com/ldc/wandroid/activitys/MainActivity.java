@@ -178,11 +178,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     private void init_fragment() {
         curr_fragment = findFragment(HomeFragment.class);
         if (null == curr_fragment) {
-            fragments[0] = HomeFragment.newInstance(null);
+            fragments[0] = HomeFragment.newInstance();
             fragments[1] = new ProjectTabFragment();
-            fragments[2] = SystemFragment.newInstance(null);
+            fragments[2] = SystemFragment.newInstance();
             fragments[3] = SquareFragment.newInstance();
-            fragments[4] = MeFragment.newInstance(null);
+            fragments[4] = MeFragment.newInstance();
             loadMultipleRootFragment(mBinding.fragmentContainer.getId(), 0,
                     fragments[0],
                     fragments[1],

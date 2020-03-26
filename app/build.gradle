@@ -7,8 +7,8 @@ android {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 38
-        versionName "V0.0.38"
+        versionCode 39
+        versionName "V0.0.39"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true
@@ -136,5 +136,7 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.5.8'
     //屏幕适配
     implementation 'me.jessyan:autosize:1.2.1'
+    //label
+    implementation 'com.github.donkingliang:LabelsView:1.6.1'
 
 }

@@ -45,12 +45,11 @@ import java.util.List;
 public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> implements MeContract.V {
 
 
-    public static MeFragment newInstance(Bundle args) {
+    public static MeFragment newInstance() {
 
         MeFragment fragment = new MeFragment();
-        if (null != args) {
+        final Bundle args =new Bundle();
             fragment.setArguments(args);
-        }
         return fragment;
     }
 

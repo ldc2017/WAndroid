@@ -1,39 +1,33 @@
 package com.ldc.wandroid.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import android.widget.CheckBox;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.blankj.utilcode.util.TimeUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.ldc.wandroid.R;
+import com.ldc.wandroid.model.SystemInfoModel;
 
-import me.yokeyword.fragmentation.SupportFragment;
+import java.sql.Date;
 
-public class SystemInfoAdapter extends FragmentStatePagerAdapter {
-    private final List<SupportFragment> dts;
-    private final List<String> tabs;
-
-    public SystemInfoAdapter(@NonNull FragmentManager fm, int behavior, List<SupportFragment> ds, List<String> tabs) {
-        super(fm, behavior);
-        this.dts = new ArrayList<>(ds);
-        this.tabs = new ArrayList<>(tabs);
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return dts.get(position);
+public class SystemInfoAdapter extends BaseQuickAdapter<SystemInfoModel.DatasBean, BaseViewHolder> {
+    public SystemInfoAdapter() {
+        super(R.layout.layout_item_system_info);
     }
 
     @Override
-    public int getCount() {
-        return null == dts ? 0 : dts.size();
-    }
+    protected void convert(BaseViewHolder baseViewHolder, SystemInfoModel.DatasBean bean) {
+        if (null != bean) {
+            baseViewHolder.setText(R.id.tv_title, String.format("%s•%s", bean.getSuperChapterName(), bean.getChapterName()))
+                    .setText(R.id.tv_context, String.format("%s", bean.getTitle()))
+                    .setText(R.id.tv_author, String.format("%s", bean.getAuthor()))
+                    .setText(R.id.tv_time, String.format("%s", TimeUtils.date2String(new Date(bean.getPublishTime()), "yyyy/MM/dd")));
+            if (bean.isCollect()) {
+                ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(true);
+            } else {
+                ((CheckBox) baseViewHolder.getView(R.id.ck_collect)).setChecked(false);
+            }
+        }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return tabs.get(position);
     }
-
 }

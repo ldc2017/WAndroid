@@ -18,7 +18,7 @@ public class ProjectsAdapter extends BaseQuickAdapter<ProjectsModel, BaseViewHol
     };
 
     public ProjectsAdapter() {
-        super(R.layout.layout_item_system_tag);
+        super(R.layout.layout_item_system);
     }
 
     @Override

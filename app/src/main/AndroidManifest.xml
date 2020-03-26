@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".activitys.SystemInfoActivity"></activity>
         <activity android:name=".activitys.WeChatNumberHistoryActivity" />
         <activity android:name=".activitys.AddPrivateArticleActivity" />
         <activity android:name=".activitys.MyPrivateArticleActivity" />

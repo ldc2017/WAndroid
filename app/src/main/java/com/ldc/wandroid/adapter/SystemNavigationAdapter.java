@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class SystemNavigationAdapter extends BaseQuickAdapter<NetNavigationModel, BaseViewHolder> {
     public SystemNavigationAdapter() {
-        super(R.layout.layout_item_system_tag);
+        super(R.layout.layout_item_system);
     }
 
     private final int[] colors = {

@@ -103,11 +103,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         }
     }
 
-    public static HomeFragment newInstance(Bundle args) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
-        if (null != args) {
-            fragment.setArguments(args);
-        }
+
+        final Bundle args = new Bundle();
+        fragment.setArguments(args);
         return fragment;
     }
 

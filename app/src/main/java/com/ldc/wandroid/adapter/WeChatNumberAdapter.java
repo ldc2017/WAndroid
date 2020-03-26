@@ -17,7 +17,7 @@ public class WeChatNumberAdapter extends BaseQuickAdapter<WeChatNumberModel, Bas
     };
 
     public WeChatNumberAdapter() {
-        super(R.layout.layout_item_system_tag);
+        super(R.layout.layout_item_system);
     }
 
     @Override
