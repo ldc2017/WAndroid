@@ -80,8 +80,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        android:paddingEnd="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
         tools:ignore="RtlSymmetry">
 
         <TextView
@@ -93,7 +91,8 @@
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:text="@string/str_author"
-            android:textColor="@color/color_666666" />
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -103,7 +102,8 @@
             android:layout_alignParentRight="true"
             android:singleLine="true"
             android:text="@string/str_date"
-            android:textColor="@color/color_666666" />
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_12" />
 
     </RelativeLayout>
 

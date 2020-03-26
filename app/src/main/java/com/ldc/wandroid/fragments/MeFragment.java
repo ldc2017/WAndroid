@@ -34,6 +34,7 @@ import com.ldc.wandroid.db.entitis.UserEntity;
 import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.MePersonalModel;
 import com.ldc.wandroid.presenters.MePresenter;
+import com.ldc.wandroid.uts.WxSharedUts;
 
 import java.util.Arrays;
 import java.util.List;
@@ -198,7 +199,11 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 MyCollectActivity.actionStart(getActivity());
                 break;
             case R.drawable.icon_private_article:
-                show_toast("敬请期待");
+                boolean success = WxSharedUts.getInstance().wx_shared_url(getActivity(),
+                        "https://www.wanandroid.com/", "标题标题", "描述描述", WxSharedUts.WxScene.WXSceneTimeline);
+                if (!success) {
+                    show_toast("微信分享失败");
+                }
                 //MyPrivateArticleActivity.actionStart(getActivity());
                 break;
             case R.drawable.icon_author:

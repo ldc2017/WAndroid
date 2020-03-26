@@ -17,4 +17,6 @@ public class cmConstants {
     public static final String user_info_id = "user_info_id";
     //
     public static final String jg_app_key = "2d47fa3cd16d925f8174f9d5";
+    //
+    public static final String wx_app_id = "wx7b34a42b083395af";
 }

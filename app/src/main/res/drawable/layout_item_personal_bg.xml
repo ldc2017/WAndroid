@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:bottom="-2dp"
@@ -6,9 +7,9 @@
         android:right="-2dp">
         <shape android:shape="rectangle">
             <stroke
-                android:width="@dimen/dp_1"
-                android:color="@color/color_e6ffffff" />
-            <solid android:color="@color/color_ffffff" />
+                android:width="0.1dp"
+                android:color="@color/color_ffffff" />
+            <solid android:color="@color/color_e6ffffff" />
         </shape>
     </item>
 </layer-list>

@@ -4,7 +4,7 @@
     android:id="@+id/rl_my_shard"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_60"
-    android:background="@drawable/layout_item_bg_2"
+    android:background="@drawable/layout_item_personal_bg"
     android:paddingLeft="@dimen/dp_10"
     android:paddingRight="@dimen/dp_10"
     tools:targetApi="lollipop">

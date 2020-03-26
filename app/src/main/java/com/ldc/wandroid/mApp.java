@@ -8,8 +8,11 @@ import androidx.room.Room;
 
 import com.blankj.utilcode.util.Utils;
 import com.ldc.wandroid.common.ErrorCatch;
+import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.db.AppDatabase;
 import com.ldc.wandroid.db.DbDtMigrate;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import cn.jpush.android.api.JPushInterface;
 import me.yokeyword.fragmentation.Fragmentation;
@@ -19,8 +22,14 @@ public class mApp extends Application {
 
     private static AppDatabase database;
 
+    private static IWXAPI mWxApi;
+
     public static AppDatabase getDatabase() {
         return database;
+    }
+
+    public static IWXAPI getWxApi() {
+        return mWxApi;
     }
 
     @Override
@@ -46,6 +55,8 @@ public class mApp extends Application {
                 .debug(BuildConfig.DEBUG)
                 .stackViewMode(Fragmentation.BUBBLE)
                 .install();
+        //
+        mWxApi = WXAPIFactory.createWXAPI(this, cmConstants.wx_app_id, true);
         //
         Thread.setDefaultUncaughtExceptionHandler(new ErrorCatch());
     }
