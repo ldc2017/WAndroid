@@ -3,7 +3,6 @@ package com.ldc.wandroid.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -71,7 +70,7 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
 
     @Override
     protected void init_view() {
-        projectTabAdapter= new ProjectTabAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        projectTabAdapter = new ProjectTabAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
     }
 
@@ -120,33 +119,37 @@ public class ProjectTabFragment extends BaseFragment<FragmentProjectTabBinding, 
     }
 
     //初始化适配器
-    private synchronized void init_adapter(List<ProjectsModel> dts) {
-        final ArrayList<String> tabs = new ArrayList<>(16);
-        final ArrayList<SupportFragment> fragments = new ArrayList<>(16);
-        mBinding.tabLayout.removeAllTabs();
-        for (ProjectsModel model : dts) {
-            if (null == model) return;
-            final SupportFragment fragment = new ProjectInfoFragment();
-            final Bundle bundle = new Bundle();
-            bundle.putString("cid", String.format("%s", model.getId()));
-            bundle.putString("name", String.format("%s", model.getName()));
-            fragment.setArguments(bundle);
-            //
-            mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(model.getName()));
-            fragments.add(fragment);
-            tabs.add(model.getName());
-            SystemClock.sleep(10);
-        }
-        if (null == projectTabAdapter) {
-            projectTabAdapter = new ProjectTabAdapter(
-                    getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        } else {
-            projectTabAdapter.setNewData(fragments, tabs);
-        }
-        mBinding.fragmentContainer.setOffscreenPageLimit(6);
-        mBinding.fragmentContainer.setCurrentItem(0);
-        mBinding.fragmentContainer.setAdapter(projectTabAdapter);
-        mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
+    private void init_adapter(List<ProjectsModel> dts) {
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<String> tabs = new ArrayList<>(16);
+                final ArrayList<SupportFragment> fragments = new ArrayList<>(16);
+                mBinding.tabLayout.removeAllTabs();
+                for (ProjectsModel model : dts) {
+                    if (null == model) return;
+                    final SupportFragment fragment = new ProjectInfoFragment();
+                    final Bundle bundle = new Bundle();
+                    bundle.putString("cid", String.format("%s", model.getId()));
+                    bundle.putString("name", String.format("%s", model.getName()));
+                    fragment.setArguments(bundle);
+                    //
+                    mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(model.getName()));
+                    fragments.add(fragment);
+                    tabs.add(model.getName());
+                }
+                if (null == projectTabAdapter) {
+                    projectTabAdapter = new ProjectTabAdapter(
+                            getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+                } else {
+                    projectTabAdapter.setNewData(fragments, tabs);
+                }
+                mBinding.fragmentContainer.setOffscreenPageLimit(6);
+                mBinding.fragmentContainer.setCurrentItem(0);
+                mBinding.fragmentContainer.setAdapter(projectTabAdapter);
+                mBinding.tabLayout.setupWithViewPager(mBinding.fragmentContainer);
 
+            }
+        });
     }
 }

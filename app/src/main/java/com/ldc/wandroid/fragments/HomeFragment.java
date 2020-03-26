@@ -151,11 +151,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     @Override
     public void show_loading(String message) {
+        if (0 == curr_article_index) {
+            mBinding.layoutLoading.layoutLoading.setVisibility(View.VISIBLE);
+            mBinding.layoutLoading.tvLoadingText.setText(message);
+        }
+
 
     }
 
     @Override
     public void hide_loading() {
+        if (View.GONE != mBinding.layoutLoading.layoutLoading.getVisibility()) {
+            mBinding.layoutLoading.layoutLoading.setVisibility(View.GONE);
+        }
         dismissRefresh();
     }
 
@@ -298,7 +306,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                 }
             }
         });
-        article_adapter.setEmptyView(R.layout.layout_no_data);
+        //article_adapter.setEmptyView(R.layout.layout_no_data);
     }
 
     // 轮播信息

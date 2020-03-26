@@ -23,7 +23,7 @@ public class MePersonalItemsAdapter extends BaseQuickAdapter<MePersonalModel, Ba
                 .setText(R.id.tv_info, s.getInfo())
                 .setTextColorRes(R.id.tv_info, R.color.color_f34133);
         Picasso.get().load(s.getIcon())
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE)
                 .resize(100, 80)
                 .into((ImageView) baseViewHolder.getView(R.id.iv_image));
 

@@ -34,8 +34,8 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
         // 显示图片
         if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
             Picasso.get().load(dt.getEnvelopePic())
-                    .resize(100,80)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .resize(100, 80).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+
                     .placeholder(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
         } else {
             Picasso.get().load(R.drawable.icon_image_helper).into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
@@ -45,9 +45,9 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
         if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
             baseViewHolder.findView(R.id.iv_icon_pic).setVisibility(View.VISIBLE);
             Picasso.get().load(dt.getEnvelopePic())
-                    .resize(100,100)
-                    .centerCrop()
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .resize(100, 100)
+                    .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+
                     .placeholder(R.drawable.icon_image_helper)
                     .into((ImageView) baseViewHolder.getView(R.id.iv_icon_pic));
         } else {

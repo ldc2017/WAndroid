@@ -35,8 +35,8 @@ public class HomeBannerAdapter extends BannerAdapter<BannerModel, HomeBannerAdap
         if (null != data) {
             holder.mTvWord.setText(String.format("%s", data.getTitle()));
             Picasso.get()
-                    .load(data.getImagePath())
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .load(data.getImagePath()) .memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE)
+
                     .placeholder(R.drawable.icon_image_helper)
                     .into(holder.mIvImage);
         }

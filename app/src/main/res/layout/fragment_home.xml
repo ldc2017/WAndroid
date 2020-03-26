@@ -15,6 +15,13 @@
         android:focusableInTouchMode="true"
         tools:context=".fragments.HomeFragment">
 
+        <include
+            android:id="@+id/layout_loading"
+            layout="@layout/layout_loading"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <!--内容-->
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_view"
@@ -65,9 +72,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
+                            android:contentDescription="@string/str_title"
                             android:scaleType="centerCrop"
                             app:layout_collapseMode="parallax"
-                            app:layout_collapseParallaxMultiplier="0.99999" />
+                            app:layout_collapseParallaxMultiplier="0.1" />
 
                     </com.google.android.material.appbar.CollapsingToolbarLayout>
 

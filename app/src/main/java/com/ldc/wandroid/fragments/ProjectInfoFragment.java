@@ -3,6 +3,7 @@ package com.ldc.wandroid.fragments;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,6 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,8 +38,9 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
 
     //
     private volatile ProjectsArticleAdapter projects_article_adapter = new ProjectsArticleAdapter();
-    private static volatile int curr_index = 1;
-    private static volatile String curr_cid = "";
+    private volatile int curr_index = 1;
+    private volatile String curr_cid = "";
+    private volatile String curr_name = "";
 
     //
     private static final int refresh_code = 0x000;
@@ -81,8 +82,12 @@ public class ProjectInfoFragment extends BaseFragment<FragmentProjectInfoBinding
     protected void init_view() {
         mBinding.refreshView.setOnRefreshLoadMoreListener(onRefreshLoadMoreListener);
         mBinding.refreshView.setEnableAutoLoadMore(false);
-        //获取id
-        curr_cid = Objects.requireNonNull(getArguments()).getString("cid");
+        curr_cid = getArguments().getString("cid");
+        curr_name = getArguments().getString("name");
+
+
+        Log.d(TAG, String.format("init_view: ----- %s = %s", curr_name, curr_cid));
+
 
     }
 

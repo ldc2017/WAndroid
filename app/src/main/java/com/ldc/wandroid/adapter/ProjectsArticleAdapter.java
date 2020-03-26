@@ -49,7 +49,7 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                             .placeholder(R.drawable.icon_image_helper)
                             .tag(image_tag)
                             .resize(100, 80)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 } else {
                     baseViewHolder.findView(R.id.icon_pic).setVisibility(View.GONE);
