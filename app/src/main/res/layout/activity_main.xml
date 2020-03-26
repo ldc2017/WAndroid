@@ -22,6 +22,8 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="#541D282A"
+            app:bnbBackgroundStyle="background_style_static"
+            app:bnbAnimationDuration="@integer/config_navAnimTime"
             app:layout_anchor="@id/fragment_container"
             app:layout_anchorGravity="bottom" />
 
