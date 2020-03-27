@@ -123,6 +123,7 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
                 mBinding.hostFragment.setVisibility(View.GONE);
                 mBinding.welcomeLayout.setVisibility(View.VISIBLE);
                 MainActivity.actionStart(activity);
+                finish();
             } else {
                 mBinding.hostFragment.setVisibility(View.VISIBLE);
                 mBinding.welcomeLayout.setVisibility(View.GONE);

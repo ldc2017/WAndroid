@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.Utils;
 import com.ldc.wandroid.activitys.FirstActivity;
 import com.ldc.wandroid.model.BaseModel;
 
@@ -53,8 +54,8 @@ public class RequestLogStatusInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         final Request request = chain.request();
         final Response response = chain.proceed(request);
-        MediaType mediaType = response.body().contentType();
-        String content = response.body().string();
+        final MediaType mediaType = response.body().contentType();
+        final String content = response.body().string();
         //
         Message message = mHandler.obtainMessage(handle_code);
         message.obj = content;
@@ -71,9 +72,9 @@ public class RequestLogStatusInterceptor implements Interceptor {
             if (!TextUtils.isEmpty(json)) {
                 BaseModel dt = GsonUtils.fromJson(json, BaseModel.class);
                 if (errorCode == dt.getErrorCode()) {
-                    Intent intent = new Intent(ActivityUtils.getTopActivity(), FirstActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent intent = new Intent(Utils.getApp(), FirstActivity.class);
                     ActivityUtils.startActivity(intent);
+                    ActivityUtils.getTopActivity().finish();
                 }
             }
         } catch (Exception e) {

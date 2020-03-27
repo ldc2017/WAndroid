@@ -36,7 +36,7 @@
         <activity android:name=".activitys.PersonalCoinActivity" />
         <activity
             android:name=".activitys.FirstActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"/>
         <activity
             android:name=".activitys.MainActivity"
             android:launchMode="singleTop">
