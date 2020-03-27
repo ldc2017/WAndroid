@@ -67,8 +67,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
 
     @Override
     protected void init_data() {
-        //检测是否登录
-        check_login();
+        //检测是否登录 欢迎界面有判断了 屏蔽掉
+        // check_login();
 
     }
 

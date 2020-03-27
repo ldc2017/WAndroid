@@ -26,4 +26,6 @@
     <string name="str_sticky">置顶</string>
     <string name="str_wx_session">微信</string>
     <string name="str_wx_time_line">朋友圈</string>
+    <string name="str_welcome_back">一个专业的Android社区</string>
+    <string name="AndroidFunny">安卓玩</string>
 </resources>

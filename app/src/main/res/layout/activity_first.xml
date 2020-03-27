@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <include
+            android:id="@+id/welcome_layout"
+            layout="@layout/activity_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/host_fragment"
@@ -15,5 +24,5 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/login_register_nav_graph" />
 
-    </LinearLayout>
+    </FrameLayout>
 </layout>

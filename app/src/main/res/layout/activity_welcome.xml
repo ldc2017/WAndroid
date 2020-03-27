@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/icon_icon"
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_300"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_50"
+        android:src="@drawable/icon_user_pic"
+        app:riv_border_color="@color/color_ccf44336"
+        app:riv_border_width="@dimen/dp_3"
+        app:riv_corner_radius="@dimen/dp_10"
+        app:riv_oval="true" />
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/AndroidFunny"
+        android:textColor="@color/color_ccf44336"
+        android:textSize="@dimen/sp_30" />
+
+    <TextView
+        android:id="@+id/tv_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/str_welcome_back"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/sp_16" />
+
+</RelativeLayout>
