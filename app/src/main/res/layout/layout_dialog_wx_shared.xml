@@ -31,7 +31,7 @@
             android:layout_below="@+id/icon_wx_session"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_5"
-            android:text="@string/str_wx_time_line"
+            android:text="@string/str_wx_session"
             android:textColor="@color/color_222222"
             android:textSize="@dimen/sp_14" />
     </RelativeLayout>

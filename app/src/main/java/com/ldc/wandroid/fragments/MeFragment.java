@@ -266,7 +266,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 String.format("版本号:%s", BuildConfig.VERSION_CODE),
                 String.format("版本:%s", BuildConfig.VERSION_NAME),
                 String.format("接口地址:\n%s\n", "https://www.wanandroid.com/"),
-                String.format("项目地址:\n%s\n", "https://gitee.com/ldc456/WAndroid")
+                String.format("项目地址:\n%s\n", "https://github.com/ldc2017/WAndroid")
         };
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("关于")
