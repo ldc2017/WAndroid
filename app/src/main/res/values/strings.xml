@@ -24,4 +24,6 @@
     <string name="str_submit">提交</string>
     <string name="str_article_link">文章地址</string>
     <string name="str_sticky">置顶</string>
+    <string name="str_wx_session">微信</string>
+    <string name="str_wx_time_line">朋友圈</string>
 </resources>

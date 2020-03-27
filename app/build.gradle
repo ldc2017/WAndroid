@@ -1,14 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('E:\\androidJKS\\android-gr.jks')
+            storePassword '123456'
+            keyAlias = 'android'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.ldc.wandroid"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 42
-        versionName "V0.0.42"
+        versionCode 43
+        versionName "V0.0.43"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //
         multiDexEnabled true

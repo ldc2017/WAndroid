@@ -27,11 +27,11 @@ public class WxSharedUts {
 
     public enum WxScene {
 
-        WXSceneSession(0), WXSceneTimeline(1), WXSceneFavorite(2), WXSceneSpecifiedContact(3);
+        WXSceneSession(SendMessageToWX.Req.WXSceneSession), WXSceneTimeline(SendMessageToWX.Req.WXSceneTimeline), WXSceneFavorite(SendMessageToWX.Req.WXSceneFavorite), WXSceneSpecifiedContact(SendMessageToWX.Req.WXSceneSpecifiedContact);
 
         final int code;
 
-        private WxScene(int code) {
+        WxScene(int code) {
             this.code = code;
         }
 
@@ -42,41 +42,51 @@ public class WxSharedUts {
 
     public boolean wx_shared_text(final String text, WxScene wxScene) {
         if (!isAvailable()) return false;
-        //初始化一个 WXTextObject 对象，填写分享的文本内容
-        WXTextObject textObj = new WXTextObject();
-        textObj.text = text;
+        try {
+            //初始化一个 WXTextObject 对象，填写分享的文本内容
+            WXTextObject textObj = new WXTextObject();
+            textObj.text = text;
 
-        //用 WXTextObject 对象初始化一个 WXMediaMessage 对象
-        WXMediaMessage msg = new WXMediaMessage();
-        msg.mediaObject = textObj;
-        msg.description = text;
+            //用 WXTextObject 对象初始化一个 WXMediaMessage 对象
+            WXMediaMessage msg = new WXMediaMessage();
+            msg.mediaObject = textObj;
+            msg.description = text;
 
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = buildTransaction("text");
-        req.message = msg;
-        req.scene = wxScene.getCode();
-        //调用api接口，发送数据到微信
-        mApp.getWxApi().sendReq(req);
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
+            req.transaction = buildTransaction("text");
+            req.message = msg;
+            req.scene = wxScene.getCode();
+            //调用api接口，发送数据到微信
+            mApp.getWxApi().sendReq(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
     public boolean wx_shared_image(Bitmap bmp, WxScene wxScene) {
         if (!isAvailable()) return false;
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        try {
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
 
-        WXImageObject imageObject = new WXImageObject(bmp);
-        WXMediaMessage msg = new WXMediaMessage(imageObject);
-        msg.mediaObject = imageObject;
+            WXImageObject imageObject = new WXImageObject(bmp);
+            WXMediaMessage msg = new WXMediaMessage(imageObject);
+            msg.mediaObject = imageObject;
 
-        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+            Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
 
-        msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG);
-        req.transaction = buildTransaction("img");
+            msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG);
+            req.transaction = buildTransaction("img");
 
-        req.message = msg;
-        req.scene = wxScene.getCode();
+            req.message = msg;
+            req.scene = wxScene.getCode();
 
-        mApp.getWxApi().sendReq(req);
+            mApp.getWxApi().sendReq(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -85,25 +95,30 @@ public class WxSharedUts {
     public boolean wx_shared_url(Activity activity, final String str_url, final String str_title, String str_desc, WxScene wxScene) {
         if (null == activity) return false;
         if (!isAvailable()) return false;
-        //初始化一个WXWebpageObject，填写url
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = str_url;
+        try {
+            //初始化一个WXWebpageObject，填写url
+            WXWebpageObject webpage = new WXWebpageObject();
+            webpage.webpageUrl = str_url;
 
-        //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = str_title;
-        msg.description = str_desc;
-        Bitmap thumbBmp = BitmapFactory.decodeResource(activity.getResources(), R.drawable.icon_app_icon);
-        msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG);
+            //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
+            WXMediaMessage msg = new WXMediaMessage(webpage);
+            msg.title = str_title;
+            msg.description = str_desc;
+            Bitmap thumbBmp = BitmapFactory.decodeResource(activity.getResources(), R.drawable.icon_wx_app_shared);
+            msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG);
 
-        //构造一个Req
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = buildTransaction("webpage");
-        req.message = msg;
-        req.scene = wxScene.getCode();
+            //构造一个Req
+            SendMessageToWX.Req req = new SendMessageToWX.Req();
+            req.transaction = buildTransaction("webpage");
+            req.message = msg;
+            req.scene = wxScene.getCode();
 
-        //调用api接口，发送数据到微信
-        mApp.getWxApi().sendReq(req);
+            //调用api接口，发送数据到微信
+            mApp.getWxApi().sendReq(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 

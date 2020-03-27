@@ -35,6 +35,7 @@ import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.MePersonalModel;
 import com.ldc.wandroid.presenters.MePresenter;
 import com.ldc.wandroid.uts.WxSharedUts;
+import com.ldc.wandroid.views.WxSharedDialog;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,9 +54,9 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
             new MePersonalModel("积分排名", R.drawable.icon_rank),
             new MePersonalModel("我的分享", R.drawable.icon_shared),
             new MePersonalModel("我的收藏", R.drawable.icon_collect),
-            new MePersonalModel("分享文章", R.drawable.icon_private_article),
-            new MePersonalModel("作者", R.drawable.icon_author),
-            new MePersonalModel("关于", R.drawable.icon_about)
+            new MePersonalModel("分享项目", R.drawable.icon_demo_shared),
+            new MePersonalModel("关于作者", R.drawable.icon_author),
+            new MePersonalModel("关于程序", R.drawable.icon_about)
     };
     //
     private volatile int curr_coin = 0;
@@ -198,13 +199,8 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
             case R.drawable.icon_collect:
                 MyCollectActivity.actionStart(getActivity());
                 break;
-            case R.drawable.icon_private_article:
-                boolean success = WxSharedUts.getInstance().wx_shared_url(getActivity(),
-                        "https://www.wanandroid.com/", "标题标题", "描述描述", WxSharedUts.WxScene.WXSceneTimeline);
-                if (!success) {
-                    show_toast("微信分享失败");
-                }
-                //MyPrivateArticleActivity.actionStart(getActivity());
+            case R.drawable.icon_demo_shared:
+                show_wx_dialog();
                 break;
             case R.drawable.icon_author:
                 ShowArticleWebActivity.actionStart(getActivity(), "关于作者", "https://weibo.com/1785876814/profile?rightmod=1&wvr=6&mod=personinfo");
@@ -247,12 +243,46 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
 
     }
 
+    //显示分享
+    private void show_wx_dialog() {
+        WxSharedDialog dialog = new WxSharedDialog();
+        dialog.setListener(new View.OnClickListener() {
+
+            private boolean success = false;
+
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.icon_wx_session:
+                        success = WxSharedUts.getInstance().wx_shared_url(getActivity(),
+                                "https://gitee.com/ldc456/WAndroid", "WanAndroid项目", "码云练手Demo,欢迎吐槽或start,哈哈哈", WxSharedUts.WxScene.WXSceneSession);
+
+                        return;
+                    case R.id.icon_wx_timeline:
+                        success = WxSharedUts.getInstance().wx_shared_url(getActivity(),
+                                "https://gitee.com/ldc456/WAndroid", "WanAndroid项目", "码云练手Demo,欢迎吐槽或start,哈哈哈", WxSharedUts.WxScene.WXSceneTimeline);
+                        return;
+                    default:
+                        break;
+                }
+                if (!success) {
+                    show_toast("微信分享失败");
+                }
+            }
+        });
+        dialog.show(getChildFragmentManager(), "wxDialog");
+    }
+
 
     //显示 关于
     private void show_about_dialog() {
         final String[] items = {
+                String.format("%s", getString(R.string.app_name)),
+                String.format("%s", BuildConfig.BUILD_TYPE),
                 String.format("版本号:%s", BuildConfig.VERSION_CODE),
-                String.format("版本:%s", BuildConfig.VERSION_NAME)
+                String.format("版本:%s", BuildConfig.VERSION_NAME),
+                String.format("接口地址:\n%s\n", "https://www.wanandroid.com/"),
+                String.format("项目地址:\n%s\n", "https://gitee.com/ldc456/WAndroid")
         };
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("关于")

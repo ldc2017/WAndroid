@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".mApp"
@@ -24,7 +25,6 @@
         <activity android:name=".activitys.SystemInfoActivity" />
         <activity android:name=".fragments.WeChatNumberHistoryFragment" />
         <activity android:name=".activitys.AddPrivateArticleActivity" />
-        <activity android:name=".activitys.MyPrivateArticleActivity" />
         <activity android:name=".activitys.ShowMessageActivity" />
         <activity android:name=".activitys.AuthorActivity" />
         <activity android:name=".activitys.SearchActivity" />
@@ -34,8 +34,12 @@
             android:name=".activitys.ShowArticleWebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".activitys.PersonalCoinActivity" />
-        <activity android:name=".activitys.MainActivity" />
-        <activity android:name=".activitys.FirstActivity">
+        <activity
+            android:name=".activitys.MainActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activitys.FirstActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -57,6 +57,7 @@ public class mApp extends Application {
                 .install();
         //
         mWxApi = WXAPIFactory.createWXAPI(this, cmConstants.wx_app_id, true);
+        mWxApi.registerApp(cmConstants.wx_app_id);
         //
         Thread.setDefaultUncaughtExceptionHandler(new ErrorCatch());
     }
