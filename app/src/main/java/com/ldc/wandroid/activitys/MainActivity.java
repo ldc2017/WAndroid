@@ -23,16 +23,13 @@ import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.MainContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityMainBinding;
-import com.ldc.wandroid.db.entitis.IntegralEntity;
 import com.ldc.wandroid.fragments.HomeFragment;
 import com.ldc.wandroid.fragments.MeFragment;
 import com.ldc.wandroid.fragments.ProjectTabFragment;
 import com.ldc.wandroid.fragments.SquareFragment;
 import com.ldc.wandroid.fragments.SystemFragment;
 import com.ldc.wandroid.fragments.WeChatNumberFragment;
-import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
-import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.presenters.MainPresenter;
 import com.yanzhenjie.permission.AndPermission;
 
@@ -116,7 +113,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     @Override
     protected void init_data() {
         init_jg_plush_alias();
-        mPresenter.get_integral_req();
 
     }
 
@@ -224,22 +220,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         }
     }
 
-    @Override
-    public void get_integral_resp(BaseModel<IntegralModel> dt) {
-        if (null == dt) {
-            return;
-        }
-        if (0 == dt.getErrorCode()) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    save_integral_data(dt.getData());
-                }
-            });
-        } else {
-            show_toast(dt.getErrorMsg());
-        }
-    }
+
 
     @Override
     public void get_logout_resp(BaseModel<Object> dt) {
@@ -256,37 +237,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     }
 
 
-    //保存用户积分信息
-    private void save_integral_data(IntegralModel model) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (null == model) {
-                    return;
-                }
-                try {
-                    IntegralEntity et1 = mApp.getDatabase().integralDao().find_by_user_id(String.format("%s", model.getUserId()));
-                    if (null == et1) {
-                        IntegralEntity entity = new IntegralEntity(System.currentTimeMillis(),
-                                model.getCoinCount(),
-                                model.getLevel(),
-                                model.getRank(), model.getUserId(), model.getUsername()
-                        );
-                        //
-                        mApp.getDatabase().integralDao().insert(entity);
-                    } else {
-                        et1.setCoinCount(model.getCoinCount());
-                        et1.setLevel(model.getLevel());
-                        et1.setRank(model.getRank());
-                        mApp.getDatabase().integralDao().update(et1);
-                    }
-                    //
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     @Override
     public void onBackPressedSupport() {

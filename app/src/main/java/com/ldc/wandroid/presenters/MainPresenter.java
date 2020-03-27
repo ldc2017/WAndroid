@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import com.ldc.wandroid.contracts.MainContract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
-import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.net.Api2Request;
 import com.ldc.wandroid.net.ApiServer;
 
@@ -48,37 +47,7 @@ public class MainPresenter extends BasePresenter<MainContract.V> implements Main
 
     }
 
-    @Override
-    public void get_integral_req() {
-        apiServer.get_integral()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<BaseModel<IntegralModel>>() {
-                    Disposable disposable;
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
-                    }
-
-                    @Override
-                    public void onNext(BaseModel<IntegralModel> integralModelBaseModel) {
-                        getView().get_integral_resp(integralModelBaseModel);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        release_disposable(disposable);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        release_disposable(disposable);
-
-                    }
-                });
-    }
 
     @Override
     public void get_logout_req() {

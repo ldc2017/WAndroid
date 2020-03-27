@@ -56,6 +56,7 @@ public class Api2Request {
                     .readTimeout(35000, TimeUnit.SECONDS)
                     .writeTimeout(35000, TimeUnit.SECONDS)
                     .addInterceptor(getLoggingInterceptor())
+                    .addInterceptor(new RequestLogStatusInterceptor())
                     .cookieJar(new ApiCookie()) //保存配置登录信息
                     .build();
         }

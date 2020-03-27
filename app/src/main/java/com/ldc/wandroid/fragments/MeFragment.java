@@ -29,9 +29,10 @@ import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.MeContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentMeBinding;
-import com.ldc.wandroid.db.entitis.IntegralEntity;
 import com.ldc.wandroid.db.entitis.UserEntity;
 import com.ldc.wandroid.mApp;
+import com.ldc.wandroid.model.BaseModel;
+import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.MePersonalModel;
 import com.ldc.wandroid.presenters.MePresenter;
 import com.ldc.wandroid.uts.WxSharedUts;
@@ -69,11 +70,11 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
         public boolean handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case refresh_code:
-                    IntegralEntity dt = (IntegralEntity) msg.obj;
+                    IntegralModel dt = (IntegralModel) msg.obj;
                     if (null == dt) {
                         return false;
                     }
-                    mBinding.tvUserId.setText(String.format("ID:\t%s", dt.getId()));
+                    mBinding.tvUserId.setText(String.format("ID:\t%s", dt.getUserId()));
                     mBinding.tvRank.setText(String.format("当前排名:\t%s", dt.getRank()));
                     curr_coin = dt.getCoinCount();
                     try {
@@ -113,7 +114,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            get_integral_data();
+            mPresenter.get_integral_req();
             get_user_data();
         }
     }
@@ -136,7 +137,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
 
     @Override
     protected void init_data() {
-        get_integral_data();
+        //mPresenter.get_integral_req();
         //
         get_user_data();
 
@@ -172,9 +173,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                 List<MePersonalModel> dts = adapter.getData();
-                if (null == dts) {
-                    return;
-                }
+                if (null == dts) return;
                 MePersonalModel dt = dts.get(position);
                 if (null == dt) {
                     return;
@@ -210,21 +209,6 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
                 break;
         }
 
-    }
-
-    //获取数据
-    private void get_integral_data() {
-        final String user_id = SPUtils.getInstance().getString(cmConstants.user_id_key);
-        if (TextUtils.isEmpty(user_id)) {
-            return;
-        }
-        IntegralEntity entity = mApp.getDatabase().integralDao().find_by_user_id(user_id);
-        if (null == entity) {
-            return;
-        }
-        Message message = mHandler.obtainMessage(refresh_code);
-        message.obj = entity;
-        mHandler.sendMessage(message);
     }
 
     //获取用户信息
@@ -300,5 +284,19 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     @Override
     public float getSizeInDp() {
         return cmConstants.SizeInDp;
+    }
+
+    @Override
+    public void get_integral_resp(BaseModel<IntegralModel> dt) {
+        if (null == dt) {
+            return;
+        }
+        if (0 == dt.getErrorCode()) {
+            Message message = mHandler.obtainMessage(refresh_code);
+            message.obj = dt.getData();
+            mHandler.sendMessage(message);
+        } else {
+            show_toast(dt.getErrorMsg());
+        }
     }
 }

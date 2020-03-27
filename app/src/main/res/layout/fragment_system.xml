@@ -18,7 +18,7 @@
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <com.scwang.smart.refresh.header.MaterialHeader
                 android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:id="@+id/sys_list"
                 android:layout_width="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
             <com.scwang.smart.refresh.footer.ClassicsFooter
                 android:layout_width="match_parent"
