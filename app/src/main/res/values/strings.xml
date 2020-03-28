@@ -28,4 +28,6 @@
     <string name="str_wx_time_line">朋友圈</string>
     <string name="str_welcome_back">一个专业的Android社区</string>
     <string name="AndroidFunny">安卓玩</string>
+    <string name="str_please_enter_title">请输入标题</string>
+    <string name="str_please_enter_address">请输入地址</string>
 </resources>
