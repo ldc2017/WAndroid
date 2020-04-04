@@ -1,6 +1,7 @@
 package com.ldc.wandroid.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -270,7 +271,17 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
         };
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("关于")
-                .setItems(items, null)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (4 == which) {
+                            ShowArticleWebActivity.actionStart(getActivity(), "接口地址", "https://www.wanandroid.com/");
+                        } else if (5 == which) {
+                            ShowArticleWebActivity.actionStart(getActivity(), "项目地址", "https://github.com/ldc2017/WAndroid");
+
+                        }
+                    }
+                })
                 .create()
                 .show();
 
