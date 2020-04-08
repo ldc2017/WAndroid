@@ -1,15 +1,24 @@
 package com.ldc.wandroid.core;
 
-import android.os.Bundle;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import java.lang.ref.SoftReference;
 
 import io.reactivex.disposables.Disposable;
 
-public abstract class BasePresenter<V extends IBaseView> {
+/**
+ * 添加声明周期监听
+ *
+ * @param <V>
+ */
+public abstract class BasePresenter<V extends IBaseView> implements LifecycleObserver {
     private SoftReference<V> mViews;
+    private final String TAG = getClass().getName();
 
 
     public V getView() {
@@ -37,13 +46,42 @@ public abstract class BasePresenter<V extends IBaseView> {
         }
     }
 
-    protected abstract void onStart();
 
-    protected abstract void onResume();
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_CREATE)
+    protected void onCreate(LifecycleOwner owner) {
+        Log.d(TAG, "onCreate: ");
 
-    protected abstract void onPause();
+    }
 
-    protected abstract void onStop();
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_START)
+    protected void onStart(LifecycleOwner owner) {
+        Log.d(TAG, "onStart: ");
+    }
 
-    protected abstract void onSaveInstanceState(@NonNull Bundle outState);
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_RESUME)
+    protected void onResume(LifecycleOwner owner) {
+        Log.d(TAG, "onResume: ");
+    }
+
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_PAUSE)
+    protected void onPause(LifecycleOwner owner) {
+        Log.d(TAG, "onPause: ");
+    }
+
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_STOP)
+    protected void onStop(LifecycleOwner owner) {
+        Log.d(TAG, "onStop: ");
+    }
+
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_DESTROY)
+    protected void onDestroy(LifecycleOwner owner) {
+        Log.d(TAG, "onDestroy: ");
+    }
+
+
+    @OnLifecycleEvent(value = Lifecycle.Event.ON_ANY)
+    protected void onAny(LifecycleOwner owner) {
+        //任何声明周期
+        Log.e(TAG, String.format("onAny: %s", owner.getLifecycle().getCurrentState().name()));
+    }
 }

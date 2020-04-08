@@ -35,52 +35,11 @@ public abstract class BaseFragment<bind extends ViewDataBinding, P extends BaseP
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (null != mPresenter) {
-            mPresenter.onStart();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (null != mPresenter) {
-            mPresenter.onResume();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (null != mPresenter) {
-            mPresenter.onPause();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (null != mPresenter) {
-            mPresenter.onStop();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        if (null != mPresenter) {
-            mPresenter.onSaveInstanceState(outState);
-        }
-        super.onSaveInstanceState(outState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, ui(), container, false);
         return mBinding.getRoot();
-        //super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -90,6 +49,7 @@ public abstract class BaseFragment<bind extends ViewDataBinding, P extends BaseP
             mPresenter = init_presenter();
             if (null != mPresenter) {
                 mPresenter.onBinding(this);
+                getLifecycle().addObserver(mPresenter);//添加声明观察
             }
             init_view();
             init_data();

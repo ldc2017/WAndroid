@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -15,7 +14,7 @@ import androidx.databinding.ViewDataBinding;
 import me.jessyan.autosize.internal.CustomAdapt;
 import me.yokeyword.fragmentation.SupportActivity;
 
-public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePresenter> extends SupportActivity implements IBaseView , CustomAdapt {
+public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePresenter> extends SupportActivity implements IBaseView, CustomAdapt {
     protected Activity activity;
     protected B mBinding;
     protected P mPresenter;
@@ -33,45 +32,6 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (null != mPresenter) {
-            mPresenter.onStart();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (null != mPresenter) {
-            mPresenter.onResume();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (null != mPresenter) {
-            mPresenter.onPause();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (null != mPresenter) {
-            mPresenter.onStop();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        if (null != mPresenter) {
-            mPresenter.onSaveInstanceState(outState);
-        }
-        super.onSaveInstanceState(outState);
-    }
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -85,6 +45,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
             mPresenter = init_presenter();
             if (null != mPresenter) {
                 mPresenter.onBinding(this);
+                getLifecycle().addObserver(mPresenter);
             }
             handleIntent(getIntent());
             init_view();

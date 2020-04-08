@@ -1,9 +1,5 @@
 package com.ldc.wandroid.presenters;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-
 import com.ldc.wandroid.contracts.LoginContract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
@@ -24,30 +20,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.V> implements Lo
     }
 
 
-    @Override
-    protected void onStart() {
 
-    }
-
-    @Override
-    protected void onResume() {
-
-    }
-
-    @Override
-    protected void onPause() {
-
-    }
-
-    @Override
-    protected void onStop() {
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-
-    }
 
     @Override
     public void login_req(String username, String password) {
