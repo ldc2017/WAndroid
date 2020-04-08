@@ -27,6 +27,7 @@
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_14" />
 
+
         <CheckBox
             android:id="@+id/ck_collect"
             android:layout_width="@dimen/dp_20"
@@ -56,16 +57,34 @@
         android:layout_marginTop="@dimen/dp_10">
 
         <TextView
-            android:id="@+id/tv_author"
+            android:id="@+id/tv_top_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_3"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@drawable/tv_sticky_bg"
+            android:padding="@dimen/dp_3"
             android:singleLine="true"
-            android:textSize="@dimen/sp_12"
+            android:text="@string/str_sticky"
+            android:textColor="@color/color_ccf44336"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toEndOf="@+id/tv_top_tag"
+            android:layout_toRightOf="@+id/tv_top_tag"
+            android:singleLine="true"
             android:text="@string/str_author"
-            android:textColor="@color/color_666666" />
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -73,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:singleLine="true"
             android:text="@string/str_date"
             android:textSize="@dimen/sp_12"

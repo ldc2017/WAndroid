@@ -2,6 +2,10 @@ package com.ldc.wandroid.common;
 
 public class cmConstants {
 
+    public static final int top_article_code =0x000;
+    public static final int home_article_code =0x001;
+    //
+
     public static final boolean isBaseOnWidth = false;
     //
     public static final int SizeInDp = 720;

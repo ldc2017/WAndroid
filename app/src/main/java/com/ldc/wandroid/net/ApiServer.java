@@ -18,7 +18,6 @@ import com.ldc.wandroid.model.SearchModel;
 import com.ldc.wandroid.model.SquareArticleModel;
 import com.ldc.wandroid.model.SystemInfoModel;
 import com.ldc.wandroid.model.SystemModel;
-import com.ldc.wandroid.model.TopArticleModel;
 import com.ldc.wandroid.model.WeChatNumberHistoryModel;
 import com.ldc.wandroid.model.WeChatNumberModel;
 
@@ -47,7 +46,7 @@ public interface ApiServer {
 
     // 获取置顶文章
     @GET(value = "/article/top/json")
-    Observable<BaseModel<List<TopArticleModel>>> getTopArticle();
+    Observable<BaseModel<List<HomeArticleModel.DatasBean>>> getTopArticle();
 
 
     //banner

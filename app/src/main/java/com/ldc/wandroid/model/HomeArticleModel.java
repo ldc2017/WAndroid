@@ -1,6 +1,8 @@
 package com.ldc.wandroid.model;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
+import com.ldc.wandroid.common.cmConstants;
 
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class HomeArticleModel {
         this.datas = datas;
     }
 
-    public static class DatasBean {
+    public static class DatasBean implements MultiItemEntity {
         /**
          * apkLink :
          * audit : 1
@@ -431,6 +433,11 @@ public class HomeArticleModel {
 
         public void setTags(List<?> tags) {
             this.tags = tags;
+        }
+
+        @Override
+        public int getItemType() {
+            return type == 1 ? cmConstants.top_article_code : cmConstants.home_article_code;
         }
     }
 }

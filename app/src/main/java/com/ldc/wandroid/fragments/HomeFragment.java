@@ -28,7 +28,6 @@ import com.ldc.wandroid.databinding.FragmentHomeBinding;
 import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
-import com.ldc.wandroid.model.TopArticleModel;
 import com.ldc.wandroid.presenters.HomePresenter;
 import com.ldc.wandroid.views.IconCenterEditText;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -53,7 +52,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
     //
     private static final int refresh_data_code = 0x000;
-    private final static int refresh_top_article_code = 0x001;
     private final Handler uiHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -63,14 +61,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                     if (null != dts || null != article_adapter) {
                         if (0 == curr_article_index) {
                             article_adapter.setNewData(dts);
+                        } else if (1 == curr_article_index) {
+                            article_adapter.addData(dts);
                         } else {
                             article_adapter.addData(dts);
                         }
                     }
-                    return true;
-                case refresh_top_article_code:
-                    List<TopArticleModel> top_dts = (List<TopArticleModel>) msg.obj;
-                    //  top_article_adapter.setNewData(top_dts);
                     return true;
             }
             return false;
@@ -127,7 +123,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
             public void run() {
                 mPresenter.get_top_article_req();
                 mPresenter.get_banner_req();
-                mPresenter.get_article_req(curr_article_index);
+                // mPresenter.get_article_req(curr_article_index);
             }
         }, 500);
         //适配器
@@ -170,7 +166,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
 
         @Override
         public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-            curr_article_index = 0;
+            curr_article_index = 1;
             mPresenter.get_article_req(curr_article_index);
         }
     };
@@ -185,13 +181,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
     }
 
     @Override
-    public void get_top_article_resp(BaseModel<List<TopArticleModel>> data) {
+    public void get_top_article_resp(BaseModel<List<HomeArticleModel.DatasBean>> data) {
         uiHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (null != data) {
                     if (0 == data.getErrorCode()) {
-                        Message message = uiHandler.obtainMessage(refresh_top_article_code);
+                        Message message = uiHandler.obtainMessage(refresh_data_code);
                         message.obj = data.getData();
                         uiHandler.sendMessage(message);
                     } else {

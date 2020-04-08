@@ -9,7 +9,6 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
-import com.ldc.wandroid.model.TopArticleModel;
 import com.ldc.wandroid.net.Api2Request;
 import com.ldc.wandroid.net.ApiServer;
 
@@ -57,7 +56,7 @@ public class HomePresenter extends BasePresenter<HomeContract.V> implements Home
         apiServer.getTopArticle()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<BaseModel<List<TopArticleModel>>>() {
+                .subscribe(new Observer<BaseModel<List<HomeArticleModel.DatasBean>>>() {
                     Disposable disposable;
 
                     @Override
@@ -66,7 +65,7 @@ public class HomePresenter extends BasePresenter<HomeContract.V> implements Home
                     }
 
                     @Override
-                    public void onNext(BaseModel<List<TopArticleModel>> listBaseModel) {
+                    public void onNext(BaseModel<List<HomeArticleModel.DatasBean>> listBaseModel) {
                         getView().get_top_article_resp(listBaseModel);
                     }
 

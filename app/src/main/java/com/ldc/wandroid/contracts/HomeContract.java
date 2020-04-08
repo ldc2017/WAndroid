@@ -4,13 +4,12 @@ import com.ldc.wandroid.core.IBaseView;
 import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
-import com.ldc.wandroid.model.TopArticleModel;
 
 import java.util.List;
 
 public interface HomeContract {
     interface V extends IBaseView {
-        void get_top_article_resp(BaseModel<List<TopArticleModel>> data);
+        void get_top_article_resp(BaseModel<List<HomeArticleModel.DatasBean>> data);
 
         void get_article_resp(BaseModel<HomeArticleModel> data);
 
