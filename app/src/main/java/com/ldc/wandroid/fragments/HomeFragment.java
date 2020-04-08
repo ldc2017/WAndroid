@@ -196,6 +196,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
                 }
             }
         });
+        curr_article_index = 1;
+        mPresenter.get_article_req(curr_article_index);
 
     }
 
