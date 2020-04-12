@@ -1,5 +1,5 @@
 
-# (感谢玩安卓)![https://www.wanandroid.com/] 开放接口支持
+# [感谢玩安卓](https://www.wanandroid.com/) 开放接口支持
 
 # *WAndroid App(MVP)*
   **界面展示**
