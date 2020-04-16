@@ -2,7 +2,6 @@ package com.ldc.wandroid.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
@@ -42,31 +41,24 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
     static volatile int curr_index = 1;
     //
     static final int refresh_dt_code = 0x000;
-    private final Handler mHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case refresh_dt_code:
-                    PersonalRankModel dt = (PersonalRankModel) msg.obj;
-                    if (null == dt) {
-                        return false;
-                    }
-                    List<PersonalRankModel.DatasBean> dtt = dt.getDatas();
-                    if (0 == curr_index) {
-                        persoanl_rank_adapter.setNewData(dtt);
-                    } else {
-                        persoanl_rank_adapter.addData(dtt);
-                    }
-                    return true;
-            }
-            return false;
-        }
-    });
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+    protected boolean uiHandleMessage(Message msg) {
+        switch (msg.what) {
+            case refresh_dt_code:
+                PersonalRankModel dt = (PersonalRankModel) msg.obj;
+                if (null == dt) {
+                    return false;
+                }
+                List<PersonalRankModel.DatasBean> dtt = dt.getDatas();
+                if (0 == curr_index) {
+                    persoanl_rank_adapter.setNewData(dtt);
+                } else {
+                    persoanl_rank_adapter.addData(dtt);
+                }
+                return true;
+        }
+        return super.uiHandleMessage(msg);
     }
 
     @Override
@@ -132,9 +124,9 @@ public class PersonalRankActivity extends BaseActivity<ActivityPersonalRankBindi
             return;
         }
         if (0 == dt.getErrorCode()) {
-            Message message = mHandler.obtainMessage(refresh_dt_code);
+            Message message = uiHandler.obtainMessage(refresh_dt_code);
             message.obj = dt.getData();
-            mHandler.sendMessage(message);
+            uiHandler.sendMessage(message);
         } else {
             show_toast(dt.getErrorMsg());
         }

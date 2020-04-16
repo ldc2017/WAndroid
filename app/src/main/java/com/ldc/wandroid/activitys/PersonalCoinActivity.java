@@ -2,7 +2,6 @@ package com.ldc.wandroid.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.view.View;
@@ -45,38 +44,31 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
     //
     static final int refresh_dt_code = 0x000;
     static final int refresh_ui_coin_code = 0x001;
-    private final Handler mHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case refresh_dt_code:
-                    PersonalCoinModel dt = (PersonalCoinModel) msg.obj;
-                    if (null == dt) {
-                        return false;
-                    }
-                    List<PersonalCoinModel.DatasBean> dtt = dt.getDatas();
-                    if (null == dtt) {
-                        return false;
-                    }
-                    if (0 == curr_index) {
-                        personal_coin_adapter.setNewData(dtt);
-                    } else {
-                        personal_coin_adapter.addData(dtt);
-                    }
-                    return true;
-                case refresh_ui_coin_code:
-                    int v = msg.arg1;
-                    mBinding.tvCoin.setText(String.format("%s", v));
-                    return true;
-            }
-            return false;
-        }
-    });
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+    protected boolean uiHandleMessage(Message msg) {
+        switch (msg.what) {
+            case refresh_dt_code:
+                PersonalCoinModel dt = (PersonalCoinModel) msg.obj;
+                if (null == dt) {
+                    return false;
+                }
+                List<PersonalCoinModel.DatasBean> dtt = dt.getDatas();
+                if (null == dtt) {
+                    return false;
+                }
+                if (0 == curr_index) {
+                    personal_coin_adapter.setNewData(dtt);
+                } else {
+                    personal_coin_adapter.addData(dtt);
+                }
+                return true;
+            case refresh_ui_coin_code:
+                int v = msg.arg1;
+                mBinding.tvCoin.setText(String.format("%s", v));
+                return true;
+        }
+        return super.uiHandleMessage(msg);
     }
 
     @Override
@@ -85,9 +77,9 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
             return;
         }
         if (0 == dt.getErrorCode()) {
-            Message message = mHandler.obtainMessage(refresh_dt_code);
+            Message message = uiHandler.obtainMessage(refresh_dt_code);
             message.obj = dt.getData();
-            mHandler.sendMessage(message);
+            uiHandler.sendMessage(message);
         } else {
             show_toast(dt.getErrorMsg());
         }
@@ -170,13 +162,13 @@ public class PersonalCoinActivity extends BaseActivity<ActivityPersonalCoinBindi
                     //遍历数据
                     for (; ; ) {
                         value += 46;
-                        final Message message = mHandler.obtainMessage(refresh_ui_coin_code);
+                        final Message message = uiHandler.obtainMessage(refresh_ui_coin_code);
                         if (value < curr_coin) {
                             message.arg1 = value;
-                            mHandler.sendMessage(message);
+                            uiHandler.sendMessage(message);
                         } else {
                             message.arg1 = curr_coin;
-                            mHandler.sendMessage(message);
+                            uiHandler.sendMessage(message);
                             break;
                         }
                         SystemClock.sleep(50);

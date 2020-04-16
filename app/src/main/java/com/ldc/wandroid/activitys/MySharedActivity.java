@@ -2,7 +2,6 @@ package com.ldc.wandroid.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
@@ -46,35 +45,28 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
 
     //
     private static final int refresh_dt_code = 0x000;
-    private final Handler mHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case refresh_dt_code:
-                    MySharedModel dt = (MySharedModel) msg.obj;
-                    if (null == dt) {
-                        return false;
-                    }
-                    MySharedModel.ShareArticlesBean dtt = dt.getShareArticles();
-                    if (null == dtt) {
-                        return false;
-                    }
-                    List<MySharedModel.ShareArticlesBean.DatasBean> dttt = dtt.getDatas();
-                    if (0 == curr_index) {
-                        my_shared_adapter.setNewData(dttt);
-                    } else {
-                        my_shared_adapter.addData(dttt);
-                    }
-                    break;
-            }
-            return false;
-        }
-    });
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+    protected boolean uiHandleMessage(Message msg) {
+        switch (msg.what) {
+            case refresh_dt_code:
+                MySharedModel dt = (MySharedModel) msg.obj;
+                if (null == dt) {
+                    return false;
+                }
+                MySharedModel.ShareArticlesBean dtt = dt.getShareArticles();
+                if (null == dtt) {
+                    return false;
+                }
+                List<MySharedModel.ShareArticlesBean.DatasBean> dttt = dtt.getDatas();
+                if (0 == curr_index) {
+                    my_shared_adapter.setNewData(dttt);
+                } else {
+                    my_shared_adapter.addData(dttt);
+                }
+                break;
+        }
+        return super.uiHandleMessage(msg);
     }
 
     //
@@ -140,9 +132,9 @@ public class MySharedActivity extends BaseActivity<ActivityMySharedBinding, MySh
             return;
         }
         if (0 == dt.getErrorCode()) {
-            Message message = mHandler.obtainMessage(refresh_dt_code);
+            Message message = uiHandler.obtainMessage(refresh_dt_code);
             message.obj = dt.getData();
-            mHandler.sendMessage(message);
+            uiHandler.sendMessage(message);
         } else {
             show_toast(dt.getErrorMsg());
         }

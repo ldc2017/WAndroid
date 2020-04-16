@@ -2,7 +2,6 @@ package com.ldc.wandroid.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
@@ -46,34 +45,26 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
 
     //
     private static final int refresh_dt_code = 0x000;
-    private final Handler mHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case refresh_dt_code:
-                    MyCollectModel dt = (MyCollectModel) msg.obj;
-                    if (null == dt) {
-                        return false;
-                    }
-                    List<MyCollectModel.DatasBean> dtt = dt.getDatas();
-                    if (null == dtt) {
-                        return false;
-                    }
-                    if (0 == curr_index) {
-                        my_collect_adapter.setNewData(dtt);
-                    } else {
-                        my_collect_adapter.addData(dtt);
-                    }
-                    break;
-            }
-            return false;
-        }
-    });
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+    protected boolean uiHandleMessage(Message msg) {
+        switch (msg.what) {
+            case refresh_dt_code:
+                MyCollectModel dt = (MyCollectModel) msg.obj;
+                if (null == dt) {
+                    return false;
+                }
+                List<MyCollectModel.DatasBean> dtt = dt.getDatas();
+                if (null == dtt) {
+                    return false;
+                }
+                if (0 == curr_index) {
+                    my_collect_adapter.setNewData(dtt);
+                } else {
+                    my_collect_adapter.addData(dtt);
+                }
+                break;
+        }
+        return super.uiHandleMessage(msg);
     }
 
     //
@@ -136,9 +127,9 @@ public class MyCollectActivity extends BaseActivity<ActivityMyCollectBinding, My
             return;
         }
         if (0 == dt.getErrorCode()) {
-            Message message = mHandler.obtainMessage(refresh_dt_code);
+            Message message = uiHandler.obtainMessage(refresh_dt_code);
             message.obj = dt.getData();
-            mHandler.sendMessage(message);
+            uiHandler.sendMessage(message);
         } else {
             show_toast(dt.getErrorMsg());
         }

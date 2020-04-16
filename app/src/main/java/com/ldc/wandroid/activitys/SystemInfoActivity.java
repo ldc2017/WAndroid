@@ -2,7 +2,6 @@ package com.ldc.wandroid.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
@@ -46,21 +45,20 @@ public class SystemInfoActivity extends BaseActivity<ActivitySystemInfoBinding, 
 
 
     private static final int refresh_code = 0x000;
-    private final Handler uiHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            if (refresh_code == msg.what) {
-                List<SystemInfoModel.DatasBean> dts = (List<SystemInfoModel.DatasBean>) msg.obj;
-                if (0 == curr_index) {
-                    systemInfoAdapter.setNewData(dts);
-                } else {
-                    systemInfoAdapter.addData(dts);
-                }
-                return true;
+
+    @Override
+    protected boolean uiHandleMessage(Message msg) {
+        if (refresh_code == msg.what) {
+            List<SystemInfoModel.DatasBean> dts = (List<SystemInfoModel.DatasBean>) msg.obj;
+            if (0 == curr_index) {
+                systemInfoAdapter.setNewData(dts);
+            } else {
+                systemInfoAdapter.addData(dts);
             }
-            return false;
+            return true;
         }
-    });
+        return super.uiHandleMessage(msg);
+    }
 
     @Override
     protected int ui() {

@@ -44,17 +44,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     //
     //
     private static final int close_jg_plush_code = 0x000;
-    private final Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case close_jg_plush_code:
-                    JPushInterface.deleteAlias(activity, jg_sequence);
-                    return true;
-            }
-            return false;
+
+    @Override
+    protected boolean uiHandleMessage(Message msg) {
+        switch (msg.what) {
+            case close_jg_plush_code:
+                JPushInterface.deleteAlias(activity, jg_sequence);
+                return true;
         }
-    });
+        return super.uiHandleMessage(msg);
+    }
 
     //
     private static final String[] tabs = {"首页", "项目", "体系", "公众号", "广场", "我的"};
@@ -69,13 +68,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             return false;
         }
     });
-    //
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
-    }
 
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
@@ -221,7 +213,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     }
 
 
-
     @Override
     public void get_logout_resp(BaseModel<Object> dt) {
         if (null == dt) {
@@ -235,7 +226,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
             show_toast(dt.getErrorMsg());
         }
     }
-
 
 
     @Override

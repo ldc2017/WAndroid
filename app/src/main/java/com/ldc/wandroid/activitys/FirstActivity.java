@@ -1,12 +1,10 @@
 package com.ldc.wandroid.activitys;
 
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -25,20 +23,13 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
 
     //
     private static final int check_login_code = 0x001;
-    private final Handler uiHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            if (check_login_code == msg.what) {
-                check_login();
-            }
-            return false;
-        }
-    });
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        uiHandler.removeCallbacksAndMessages(null);
+    protected boolean uiHandleMessage(Message msg) {
+        if (check_login_code == msg.what) {
+            check_login();
+        }
+        return super.uiHandleMessage(msg);
     }
 
     @Override

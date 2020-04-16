@@ -3,7 +3,6 @@ package com.ldc.wandroid.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
@@ -55,29 +54,22 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
 
     //
     private static final int refresh_code = 0x000;
-    private final Handler mHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case refresh_code:
-                    List<ProjectsArticleModel.DatasBean> dts = (List<ProjectsArticleModel.DatasBean>) msg.obj;
-                    if (null == dts) return false;
-                    if (0 == curr_index) {
-                        projects_article_adapter.setNewData(dts);
-                    } else {
-                        projects_article_adapter.addData(dts);
-                    }
-
-                    return true;
-            }
-            return false;
-        }
-    });
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+    protected boolean uiHandleMessage(Message msg) {
+        switch (msg.what) {
+            case refresh_code:
+                List<ProjectsArticleModel.DatasBean> dts = (List<ProjectsArticleModel.DatasBean>) msg.obj;
+                if (null == dts) return false;
+                if (0 == curr_index) {
+                    projects_article_adapter.setNewData(dts);
+                } else {
+                    projects_article_adapter.addData(dts);
+                }
+
+                return true;
+        }
+        return super.uiHandleMessage(msg);
     }
 
     @Override
@@ -138,9 +130,9 @@ public class ProjectInfoActivity extends BaseActivity<ActivityProjectInfoBinding
             return;
         }
         if (0 == dt.getErrorCode()) {
-            Message message = mHandler.obtainMessage(refresh_code);
+            Message message = uiHandler.obtainMessage(refresh_code);
             message.obj = dt.getData().getDatas();
-            mHandler.sendMessage(message);
+            uiHandler.sendMessage(message);
         } else {
             show_toast(dt.getErrorMsg());
         }

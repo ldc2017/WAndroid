@@ -5,8 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -19,6 +22,13 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
     protected B mBinding;
     protected P mPresenter;
     protected final String TAG = getClass().getName();
+    //ui消息处理器
+    protected final Handler uiHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            return uiHandleMessage(msg);
+        }
+    });
 
 
     @Override
@@ -30,6 +40,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
         if (null != mBinding) {
             mBinding.unbind();
         }
+        uiHandler.removeCallbacksAndMessages(null);
     }
 
 
@@ -65,6 +76,11 @@ public abstract class BaseActivity<B extends ViewDataBinding, P extends BasePres
     protected abstract void init_data();
 
     protected void handleIntent(Intent it) {
+    }
+
+    //处理消息
+    protected boolean uiHandleMessage(Message msg) {
+        return false;
     }
 
     protected void show_error(Exception e) {
