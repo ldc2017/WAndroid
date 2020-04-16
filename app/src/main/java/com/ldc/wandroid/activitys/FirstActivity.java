@@ -28,6 +28,7 @@ public class FirstActivity extends BaseActivity<ActivityFirstBinding, FirstPrese
     protected boolean uiHandleMessage(Message msg) {
         if (check_login_code == msg.what) {
             check_login();
+            return true;
         }
         return super.uiHandleMessage(msg);
     }
