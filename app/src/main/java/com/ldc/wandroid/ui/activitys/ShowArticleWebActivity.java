@@ -20,6 +20,9 @@ import com.ldc.wandroid.contracts.ShowArticleWebContract;
 import com.ldc.wandroid.core.BaseActivity;
 import com.ldc.wandroid.databinding.ActivityShowArticleWebBinding;
 import com.ldc.wandroid.presenters.ShowArticleWebPresenter;
+import com.ldc.wandroid.uts.WxSharedUts;
+import com.ldc.wandroid.views.WxSharedDialog;
+import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.AndPermission;
 
 public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebBinding, ShowArticleWebPresenter> implements ShowArticleWebContract.V {
@@ -79,12 +82,15 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
     @Override
     protected void init_view() {
         mBinding.topBar.tvTitle.setText(String.format("%s", str_title));
-        mBinding.topBar.lineMore.setVisibility(View.GONE);
+        Picasso.get().load(R.drawable.icon_shared_article).into(mBinding.topBar.ivMore);
         mBinding.topBar.lineBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
+        });
+        mBinding.topBar.lineMore.setOnClickListener((v) -> {
+            show_wx_dialog();
         });
         // 请求权限
         AndPermission.with(activity)
@@ -152,6 +158,7 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
             //do you work
         }
     };
+
     @Override
     public boolean isBaseOnWidth() {
         return cmConstants.isBaseOnWidth;
@@ -160,5 +167,41 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
     @Override
     public float getSizeInDp() {
         return cmConstants.SizeInDp;
+    }
+
+
+    /**
+     * @see "显示分享"
+     */
+    private void show_wx_dialog() {
+        WxSharedDialog dialog = new WxSharedDialog();
+        dialog.setListener(new WxSharedDialog.DialogClickListener() {
+
+            @Override
+            public void onClick(View view, int viewId) {
+                final String base_shared_desc = String.format("来自安卓玩客户端\t%s", "");
+                switch (viewId) {
+                    case R.id.rl_wx_session:
+                        boolean successA = WxSharedUts.getInstance().wx_shared_url(activity,
+                                str_url, str_title, base_shared_desc, WxSharedUts.WxScene.WXSceneSession);
+
+                        if (!successA) {
+                            show_toast("微信分享失败");
+                        }
+                        break;
+                    case R.id.rl_wx_timeline:
+                        boolean successB = WxSharedUts.getInstance().wx_shared_url(activity,
+                                str_url, str_url, base_shared_desc, WxSharedUts.WxScene.WXSceneTimeline);
+
+                        if (!successB) {
+                            show_toast("微信分享失败");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        dialog.show(getSupportFragmentManager(), "wxDialog");
     }
 }
