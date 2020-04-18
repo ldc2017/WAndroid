@@ -1,4 +1,4 @@
-package com.ldc.wandroid.fragments;
+package com.ldc.wandroid.ui.fragments;
 
 import android.os.Handler;
 import android.os.Message;
@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.WeChatNumberHistoryAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.WeChatNumberHistoryContract;
@@ -20,6 +19,7 @@ import com.ldc.wandroid.databinding.FragmentWeChatNumberHistoryBinding;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.WeChatNumberHistoryModel;
 import com.ldc.wandroid.presenters.WeChatNumberHistoryPresenter;
+import com.ldc.wandroid.ui.activitys.ShowArticleWebActivity;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 

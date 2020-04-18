@@ -1,4 +1,4 @@
-package com.ldc.wandroid.fragments;
+package com.ldc.wandroid.ui.fragments;
 
 
 import android.os.Handler;
@@ -15,7 +15,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.ProjectsArticleAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.ProjectInfoContract;
@@ -24,6 +23,7 @@ import com.ldc.wandroid.databinding.FragmentProjectInfoBinding;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.presenters.ProjectInfoPresenter;
+import com.ldc.wandroid.ui.activitys.ShowArticleWebActivity;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.squareup.picasso.Picasso;

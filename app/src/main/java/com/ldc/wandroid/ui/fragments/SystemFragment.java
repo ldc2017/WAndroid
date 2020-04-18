@@ -1,4 +1,4 @@
-package com.ldc.wandroid.fragments;
+package com.ldc.wandroid.ui.fragments;
 
 
 import android.os.Handler;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import com.blankj.utilcode.util.ToastUtils;
 import com.donkingliang.labels.LabelsView;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.SystemInfoActivity;
 import com.ldc.wandroid.adapter.SystemAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.SystemContract;
@@ -20,6 +19,7 @@ import com.ldc.wandroid.databinding.FragmentSystemBinding;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.presenters.SystemPresenter;
+import com.ldc.wandroid.ui.activitys.SystemInfoActivity;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ProjectTabFragment">
+        tools:context=".ui.fragments.ProjectTabFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"

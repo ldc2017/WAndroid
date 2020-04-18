@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.Utils;
-import com.ldc.wandroid.activitys.FirstActivity;
 import com.ldc.wandroid.model.BaseModel;
+import com.ldc.wandroid.ui.activitys.FirstActivity;
 
 import java.io.IOException;
 

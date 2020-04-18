@@ -1,4 +1,4 @@
-package com.ldc.wandroid.activitys;
+package com.ldc.wandroid.ui.activitys;
 
 import android.app.Activity;
 import android.content.Intent;

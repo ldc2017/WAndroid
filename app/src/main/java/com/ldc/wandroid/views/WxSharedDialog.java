@@ -21,10 +21,13 @@ public class WxSharedDialog extends DialogFragment implements View.OnClickListen
     private RelativeLayout mIconWxTimeline;
 
 
-    private View.OnClickListener listener;
+    private DialogClickListener listener;
 
+    public interface DialogClickListener{
+        void onClick(View view,int viewId);
+    }
 
-    public void setListener(View.OnClickListener listener) {
+    public void setListener(DialogClickListener listener) {
         this.listener = listener;
     }
 
@@ -53,9 +56,9 @@ public class WxSharedDialog extends DialogFragment implements View.OnClickListen
     public void onClick(View v) {
 
         if (null != listener) {
-            listener.onClick(v);
+            Objects.requireNonNull(getDialog()).dismiss();
+            listener.onClick(v,v.getId());
         }
-        Objects.requireNonNull(getDialog()).dismiss();
 
     }
 }

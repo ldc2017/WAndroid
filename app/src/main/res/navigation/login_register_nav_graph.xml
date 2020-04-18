@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.ldc.wandroid.fragments.LoginFragment"
+        android:name="com.ldc.wandroid.ui.fragments.LoginFragment"
         android:label="LoginFragment">
         <action
             app:enterAnim="@anim/in_from_right"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.ldc.wandroid.fragments.RegisterFragment"
+        android:name="com.ldc.wandroid.ui.fragments.RegisterFragment"
         android:label="RegisterFragment">
         <action
             app:enterAnim="@anim/in_from_right"

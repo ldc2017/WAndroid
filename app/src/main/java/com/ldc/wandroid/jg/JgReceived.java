@@ -12,7 +12,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.ShowMessageActivity;
+import com.ldc.wandroid.ui.activitys.ShowMessageActivity;
 
 import java.util.Objects;
 

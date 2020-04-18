@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.ProjectFragment">
+        tools:context=".ui.fragments.ProjectFragment">
 
         <include
             android:id="@+id/search_bar"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/search_bar"
-            tools:context=".fragments.ProjectArticleFragment">
+            tools:context=".ui.fragments.ProjectArticleFragment">
 
             <com.scwang.smart.refresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh_view"

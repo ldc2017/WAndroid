@@ -1,4 +1,4 @@
-package com.ldc.wandroid.fragments;
+package com.ldc.wandroid.ui.fragments;
 
 
 import android.content.DialogInterface;
@@ -20,11 +20,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.BuildConfig;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.MyCollectActivity;
-import com.ldc.wandroid.activitys.MySharedActivity;
-import com.ldc.wandroid.activitys.PersonalCoinActivity;
-import com.ldc.wandroid.activitys.PersonalRankActivity;
-import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.MePersonalItemsAdapter;
 import com.ldc.wandroid.common.cmConstants;
 import com.ldc.wandroid.contracts.MeContract;
@@ -36,6 +31,11 @@ import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.MePersonalModel;
 import com.ldc.wandroid.presenters.MePresenter;
+import com.ldc.wandroid.ui.activitys.MyCollectActivity;
+import com.ldc.wandroid.ui.activitys.MySharedActivity;
+import com.ldc.wandroid.ui.activitys.PersonalCoinActivity;
+import com.ldc.wandroid.ui.activitys.PersonalRankActivity;
+import com.ldc.wandroid.ui.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.uts.WxSharedUts;
 import com.ldc.wandroid.views.WxSharedDialog;
 
@@ -231,27 +231,32 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
     //显示分享
     private void show_wx_dialog() {
         WxSharedDialog dialog = new WxSharedDialog();
-        dialog.setListener(new View.OnClickListener() {
-
-            private boolean success = false;
+        dialog.setListener(new WxSharedDialog.DialogClickListener() {
 
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.icon_wx_session:
-                        success = WxSharedUts.getInstance().wx_shared_url(getActivity(),
-                                "https://gitee.com/ldc456/WAndroid", "WanAndroid项目", "码云练手Demo,欢迎吐槽或start,哈哈哈", WxSharedUts.WxScene.WXSceneSession);
+            public void onClick(View view, int viewId) {
+                final String base_shared_url = "https://github.com/ldc2017/WAndroid";
+                final String base_shared_desc = "已经上传Github,欢迎吐槽或start,哈哈哈···";
+                final String base_shared_title = "WanAndroid项目(MVP)";
+                switch (viewId) {
+                    case R.id.rl_wx_session:
+                        boolean successA = WxSharedUts.getInstance().wx_shared_url(getActivity(),
+                                base_shared_url, base_shared_title, base_shared_desc, WxSharedUts.WxScene.WXSceneSession);
 
-                        return;
-                    case R.id.icon_wx_timeline:
-                        success = WxSharedUts.getInstance().wx_shared_url(getActivity(),
-                                "https://gitee.com/ldc456/WAndroid", "WanAndroid项目", "码云练手Demo,欢迎吐槽或start,哈哈哈", WxSharedUts.WxScene.WXSceneTimeline);
-                        return;
+                        if (!successA) {
+                            show_toast("微信分享失败");
+                        }
+                        break;
+                    case R.id.rl_wx_timeline:
+                        boolean successB = WxSharedUts.getInstance().wx_shared_url(getActivity(),
+                                base_shared_url, base_shared_title, base_shared_desc, WxSharedUts.WxScene.WXSceneTimeline);
+
+                        if (!successB) {
+                            show_toast("微信分享失败");
+                        }
+                        break;
                     default:
                         break;
-                }
-                if (!success) {
-                    show_toast("微信分享失败");
                 }
             }
         });

@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activitys.PersonalRankActivity">
+        tools:context=".ui.activitys.PersonalRankActivity">
 
         <include
             android:id="@+id/topBar"

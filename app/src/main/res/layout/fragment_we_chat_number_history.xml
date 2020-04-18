@@ -6,7 +6,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.WeChatNumberHistoryFragment">
+        tools:context=".ui.fragments.WeChatNumberHistoryFragment">
 
         <include
             android:id="@+id/layout_loading"

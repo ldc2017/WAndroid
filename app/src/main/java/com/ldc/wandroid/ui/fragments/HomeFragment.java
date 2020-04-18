@@ -1,4 +1,4 @@
-package com.ldc.wandroid.fragments;
+package com.ldc.wandroid.ui.fragments;
 
 
 import android.os.Handler;
@@ -17,8 +17,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.activitys.SearchActivity;
-import com.ldc.wandroid.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.adapter.HomeArticleAdapter;
 import com.ldc.wandroid.adapter.HomeBannerAdapter;
 import com.ldc.wandroid.common.cmConstants;
@@ -29,6 +27,8 @@ import com.ldc.wandroid.model.BannerModel;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.HomeArticleModel;
 import com.ldc.wandroid.presenters.HomePresenter;
+import com.ldc.wandroid.ui.activitys.SearchActivity;
+import com.ldc.wandroid.ui.activitys.ShowArticleWebActivity;
 import com.ldc.wandroid.views.IconCenterEditText;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;

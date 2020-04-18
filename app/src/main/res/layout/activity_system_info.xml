@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activitys.SystemInfoActivity">
+        tools:context=".ui.activitys.SystemInfoActivity">
 
         <include
             android:id="@+id/layout_loading"

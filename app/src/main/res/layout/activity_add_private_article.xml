@@ -6,13 +6,13 @@
 
         <variable
             name="events"
-            type="com.ldc.wandroid.activitys.AddPrivateArticleActivity.Events" />
+            type="com.ldc.wandroid.ui.activitys.AddPrivateArticleActivity.Events" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activitys.AddPrivateArticleActivity">
+        tools:context=".ui.activitys.AddPrivateArticleActivity">
 
         <include
             android:id="@+id/topBar"

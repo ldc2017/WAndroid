@@ -22,23 +22,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activitys.SystemInfoActivity" />
-        <activity android:name=".fragments.WeChatNumberHistoryFragment" />
-        <activity android:name=".activitys.AddPrivateArticleActivity" />
-        <activity android:name=".activitys.ShowMessageActivity" />
-        <activity android:name=".activitys.AuthorActivity" />
-        <activity android:name=".activitys.SearchActivity" />
-        <activity android:name=".activitys.MySharedActivity" />
-        <activity android:name=".activitys.PersonalRankActivity" />
+        <activity android:name=".ui.activitys.SystemInfoActivity" />
+        <activity android:name=".ui.fragments.WeChatNumberHistoryFragment" />
+        <activity android:name=".ui.activitys.AddPrivateArticleActivity" />
+        <activity android:name=".ui.activitys.ShowMessageActivity" />
+        <activity android:name=".ui.activitys.AuthorActivity" />
+        <activity android:name=".ui.activitys.SearchActivity" />
+        <activity android:name=".ui.activitys.MySharedActivity" />
+        <activity android:name=".ui.activitys.PersonalRankActivity" />
         <activity
-            android:name=".activitys.ShowArticleWebActivity"
+            android:name=".ui.activitys.ShowArticleWebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".activitys.PersonalCoinActivity" />
+        <activity android:name=".ui.activitys.PersonalCoinActivity" />
         <activity
-            android:name=".activitys.FirstActivity"
+            android:name=".ui.activitys.FirstActivity"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".activitys.MainActivity"
+            android:name=".ui.activitys.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,10 +46,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.MyCollectActivity" />
-        <activity android:name=".activitys.ProjectInfoActivity" />
+        <activity android:name=".ui.activitys.MyCollectActivity" />
+        <activity android:name=".ui.activitys.ProjectInfoActivity" />
         <activity
-            android:name=".activitys.WXEntryActivity"
+            android:name=".ui.activitys.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <!--  -->
