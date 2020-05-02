@@ -15,16 +15,20 @@ public class ShowMessageActivity extends AppCompatActivity {
     private ActivityShowMessageBinding binding;
 
 
-    private static volatile String str_title = "";
-    private static volatile String str_message = "";
-    private static volatile String str_extra = "";
+    private final static String str_title = "KEY_TITLE";
+    private final static String str_message = "KEY_MESSAGE";
+    private final static String str_extra = "KEY_EXTRA";
+    //
+    private volatile String mmTitle;
+    private volatile String mmMessage;
+    private volatile String mmExtra;
 
     public static void actionStart(Context context, final String m_title, String m_message, String m_extra) {
         Intent intent = new Intent(context, ShowMessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        str_title = m_title;
-        str_message = m_message;
-        str_extra = m_extra;
+        intent.putExtra(str_title, m_title);
+        intent.putExtra(str_message, m_message);
+        intent.putExtra(str_extra, m_extra);
         context.startActivity(intent);
     }
 
@@ -33,9 +37,9 @@ public class ShowMessageActivity extends AppCompatActivity {
         if (null == intent) {
             return;
         }
-        str_title = intent.getStringExtra("m_title");
-        str_message = intent.getStringExtra("m_message");
-        str_extra = intent.getStringExtra("m_extra");
+        mmTitle = intent.getStringExtra(str_title);
+        mmMessage = intent.getStringExtra(str_message);
+        mmExtra = intent.getStringExtra(str_extra);
     }
 
     @Override
@@ -59,6 +63,6 @@ public class ShowMessageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        binding.tvMessage.setText(String.format("消息:\n\n\t%s\n\n扩展:\n\n\t%s", str_message, str_extra));
+        binding.tvMessage.setText(String.format("消息:\n\n\t%s\n\n扩展:\n\n\t%s", mmMessage, mmExtra));
     }
 }
