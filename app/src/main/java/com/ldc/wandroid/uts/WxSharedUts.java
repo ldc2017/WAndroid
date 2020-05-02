@@ -76,7 +76,7 @@ public class WxSharedUts {
 
             Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
 
-            msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG);
+            msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG,60);
             req.transaction = buildTransaction("img");
 
             req.message = msg;
@@ -105,7 +105,7 @@ public class WxSharedUts {
             msg.title = str_title;
             msg.description = str_desc;
             Bitmap thumbBmp = BitmapFactory.decodeResource(activity.getResources(), R.drawable.icon_wx_app_shared);
-            msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG);
+            msg.thumbData = ConvertUtils.bitmap2Bytes(thumbBmp, Bitmap.CompressFormat.PNG,60);
 
             //构造一个Req
             SendMessageToWX.Req req = new SendMessageToWX.Req();

@@ -94,12 +94,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
         init_bottom_bar();
 
         //请求权限
-        AndPermission.with(activity)
-                .runtime()
-                .permission(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_NETWORK_STATE).start();
+        if (!AndPermission.hasPermissions(activity, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_NETWORK_STATE)) {
+            AndPermission.with(activity)
+                    .runtime()
+                    .permission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.ACCESS_NETWORK_STATE).start();
+        }
     }
 
     @Override

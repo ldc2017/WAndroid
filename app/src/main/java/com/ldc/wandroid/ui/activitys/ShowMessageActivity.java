@@ -1,6 +1,5 @@
 package com.ldc.wandroid.ui.activitys;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,31 +14,22 @@ public class ShowMessageActivity extends AppCompatActivity {
     private ActivityShowMessageBinding binding;
 
 
-    private final static String str_title = "KEY_TITLE";
-    private final static String str_message = "KEY_MESSAGE";
-    private final static String str_extra = "KEY_EXTRA";
-    //
-    private volatile String mmTitle;
-    private volatile String mmMessage;
-    private volatile String mmExtra;
+    public final static String KEY_TITLE = "KEY_TITLE";
+    public final static String KEY_MESSAGE = "KEY_MESSAGE";
+    public final static String KEY_EXTRA = "KEY_EXTRA";
 
-    public static void actionStart(Context context, final String m_title, String m_message, String m_extra) {
-        Intent intent = new Intent(context, ShowMessageActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(str_title, m_title);
-        intent.putExtra(str_message, m_message);
-        intent.putExtra(str_extra, m_extra);
-        context.startActivity(intent);
-    }
 
     //获取数据
     private void handleIntent(Intent intent) {
         if (null == intent) {
             return;
         }
-        mmTitle = intent.getStringExtra(str_title);
-        mmMessage = intent.getStringExtra(str_message);
-        mmExtra = intent.getStringExtra(str_extra);
+        //
+        final String mmTitle = intent.getStringExtra(KEY_TITLE);
+        final String mmMessage = intent.getStringExtra(KEY_MESSAGE);
+        final String mmExtra = intent.getStringExtra(KEY_EXTRA);
+        //
+        binding.tvMessage.setText(String.format("消息:\n\n\t%s\n\n扩展:\n\n\t%s", mmMessage, mmExtra));
     }
 
     @Override
@@ -63,6 +53,5 @@ public class ShowMessageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        binding.tvMessage.setText(String.format("消息:\n\n\t%s\n\n扩展:\n\n\t%s", mmMessage, mmExtra));
     }
 }

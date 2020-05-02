@@ -108,12 +108,12 @@ public class JgReceived extends JPushMessageReceiver {
             final String channelID = String.format("%s", customMessage.appId);
             final String channelName = "channel_name";
             //跳转
-            Intent intent = new Intent(context, ShowMessageActivity.class);
+            final Intent intent = new Intent(context, ShowMessageActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("m_title", customMessage.title);
-            intent.putExtra("m_message", customMessage.message);
-            intent.putExtra("m_extra", customMessage.extra);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            intent.putExtra(ShowMessageActivity.KEY_TITLE, customMessage.title);
+            intent.putExtra(ShowMessageActivity.KEY_MESSAGE, customMessage.message);
+            intent.putExtra(ShowMessageActivity.KEY_EXTRA, customMessage.extra);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0x00, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             //
             final NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             //适配安卓8.0的消息渠道
