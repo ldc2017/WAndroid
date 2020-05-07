@@ -17,3 +17,4 @@
 /app/release/WAndroid_release_V0.0.51_20200419024453689.apk
 /app/release/
 /app/
+*.keystore
