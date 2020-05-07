@@ -18,3 +18,4 @@
 /app/release/
 /app/
 *.keystore
+/.idea
