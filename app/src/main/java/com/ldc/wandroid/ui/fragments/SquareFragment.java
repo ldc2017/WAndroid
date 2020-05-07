@@ -31,6 +31,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
+@Deprecated
 public class SquareFragment extends BaseFragment<FragmentSquareBinding, SquarePresenter> implements SquareContract.V {
 
 
