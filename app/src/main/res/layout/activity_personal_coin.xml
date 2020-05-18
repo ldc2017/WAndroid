@@ -31,7 +31,7 @@
                     android:id="@+id/appbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_250"
-                    android:background="@color/color_00574b"
+                    android:background="@color/main_bg_color_2"
                     android:fitsSystemWindows="true">
 
                     <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -63,7 +63,7 @@
                     android:layout_height="@dimen/dp_200"
                     android:layout_below="@+id/topBar"
                     android:layout_marginTop="@dimen/dp_50"
-                    android:background="@color/color_00574b">
+                    android:background="@color/main_bg_color_2">
 
                     <TextView
                         android:id="@+id/tv_coin"

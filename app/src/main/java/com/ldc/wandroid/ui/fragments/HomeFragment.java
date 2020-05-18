@@ -303,8 +303,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePresente
         mBinding.banner.setDelayTime(5000);
         mBinding.banner.setAdapter(new HomeBannerAdapter(datas));
         mBinding.banner.setIndicator(new CircleIndicator(getActivity()));
-        mBinding.banner.setIndicatorSelectedColorRes(R.color.color_008577);
-        mBinding.banner.setIndicatorNormalColorRes(R.color.color_00574b);
+        mBinding.banner.setIndicatorSelectedColorRes(R.color.main_bg_color);
+        mBinding.banner.setIndicatorNormalColorRes(R.color.main_bg_color_2);
         mBinding.banner.setIndicatorGravity(IndicatorConfig.Direction.CENTER);
         mBinding.banner.setIndicatorSpace(BannerUtils.dp2px(20));
         mBinding.banner.setIndicatorMargins(new IndicatorConfig.Margins((int) BannerUtils.dp2px(10)));

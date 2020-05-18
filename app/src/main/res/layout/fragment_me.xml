@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_250"
             android:layout_alignParentTop="true"
-            android:background="@color/color_00574b">
+            android:background="@color/main_bg_color_2">
 
             <TextView
                 android:id="@+id/tv_rank"

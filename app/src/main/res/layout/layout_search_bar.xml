@@ -5,7 +5,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:background="@color/color_00574b"
+        android:background="@color/main_bg_color_2"
         android:focusable="true"
         android:focusableInTouchMode="true">
 

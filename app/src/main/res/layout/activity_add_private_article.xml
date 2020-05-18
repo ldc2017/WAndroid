@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="@string/str_title"
-                android:textColor="@color/color_00574b"
+                android:textColor="@color/main_bg_color_2"
                 android:textSize="@dimen/sp_16" />
 
             <EditText
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_30"
                 android:text="@string/str_article_link"
-                android:textColor="@color/color_00574b"
+                android:textColor="@color/main_bg_color_2"
                 android:textSize="@dimen/sp_16" />
 
             <EditText

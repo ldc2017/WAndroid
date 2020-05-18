@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#CCF44336</color>
     <!--    -->
-    <color name="color_008577">#008577</color>
-    <color name="color_00574b">#00574B</color>
+    <color name="main_bg_color">#008577</color>
+    <color name="main_bg_color_2">#00574B</color>
     <color name="color_cccccc">#cccccc</color>
     <color name="color_80000000">#80000000</color>
     <color name="color_ffffff">#ffffff</color>
