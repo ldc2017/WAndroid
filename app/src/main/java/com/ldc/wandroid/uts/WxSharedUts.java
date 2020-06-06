@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.ldc.wandroid.R;
-import com.ldc.wandroid.mApp;
+import com.ldc.wandroid.service.InitSDKIntentService;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -57,7 +57,7 @@ public class WxSharedUts {
             req.message = msg;
             req.scene = wxScene.getCode();
             //调用api接口，发送数据到微信
-            mApp.getWxApi().sendReq(req);
+            InitSDKIntentService.getWxApi().sendReq(req);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -82,7 +82,7 @@ public class WxSharedUts {
             req.message = msg;
             req.scene = wxScene.getCode();
 
-            mApp.getWxApi().sendReq(req);
+            InitSDKIntentService.getWxApi().sendReq(req);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -114,7 +114,7 @@ public class WxSharedUts {
             req.scene = wxScene.getCode();
 
             //调用api接口，发送数据到微信
-            mApp.getWxApi().sendReq(req);
+            InitSDKIntentService.getWxApi().sendReq(req);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -127,6 +127,6 @@ public class WxSharedUts {
     }
 
     private boolean isAvailable() {
-        return mApp.getWxApi().isWXAppInstalled();
+        return InitSDKIntentService.getWxApi().isWXAppInstalled();
     }
 }

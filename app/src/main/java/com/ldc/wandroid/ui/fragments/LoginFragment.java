@@ -19,10 +19,10 @@ import com.ldc.wandroid.contracts.LoginContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentLoginBinding;
 import com.ldc.wandroid.db.entitis.UserEntity;
-import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.presenters.LoginPresenter;
+import com.ldc.wandroid.service.InitSDKIntentService;
 import com.ldc.wandroid.ui.activitys.MainActivity;
 
 /**
@@ -169,11 +169,11 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
             return;
         }
         SPUtils.getInstance().put(cmConstants.user_info_id, String.format("%s", dt.getId()));
-        UserEntity et = mApp.getDatabase().userDao().find_by_user_id(String.format("%s", dt.getId()));
+        UserEntity et = InitSDKIntentService.getDatabase().userDao().find_by_user_id(String.format("%s", dt.getId()));
         if (null == et) {
             // 保存数据
             et = new UserEntity(dt.getId(), dt.getEmail(), dt.getUsername(), dt.getNickname(), dt.getPublicName(), dt.getType(), dt.getToken());
-            mApp.getDatabase().userDao().insert(et);
+            InitSDKIntentService.getDatabase().userDao().insert(et);
         } else {
             //更新数据
             et.id = dt.getId();
@@ -182,7 +182,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
             et.publicName = dt.getPublicName();
             et.type = dt.getType();
             et.token = dt.getToken();
-            mApp.getDatabase().userDao().update(et);
+            InitSDKIntentService.getDatabase().userDao().update(et);
         }
 
     }

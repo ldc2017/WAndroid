@@ -26,11 +26,11 @@ import com.ldc.wandroid.contracts.MeContract;
 import com.ldc.wandroid.core.BaseFragment;
 import com.ldc.wandroid.databinding.FragmentMeBinding;
 import com.ldc.wandroid.db.entitis.UserEntity;
-import com.ldc.wandroid.mApp;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.IntegralModel;
 import com.ldc.wandroid.model.MePersonalModel;
 import com.ldc.wandroid.presenters.MePresenter;
+import com.ldc.wandroid.service.InitSDKIntentService;
 import com.ldc.wandroid.ui.activitys.MyCollectActivity;
 import com.ldc.wandroid.ui.activitys.MySharedActivity;
 import com.ldc.wandroid.ui.activitys.PersonalCoinActivity;
@@ -218,7 +218,7 @@ public class MeFragment extends BaseFragment<FragmentMeBinding, MePresenter> imp
         if (TextUtils.isEmpty(user_info_id)) {
             return;
         }
-        UserEntity userEntity = mApp.getDatabase().userDao().find_by_user_id(user_info_id);
+        UserEntity userEntity = InitSDKIntentService.getDatabase().userDao().find_by_user_id(user_info_id);
         if (null == userEntity) {
             return;
         }
