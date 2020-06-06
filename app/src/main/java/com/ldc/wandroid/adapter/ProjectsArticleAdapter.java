@@ -1,5 +1,6 @@
 package com.ldc.wandroid.adapter;
 
+import android.app.AliasActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -23,8 +24,21 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
         super(R.layout.layout_item_projects_article);
     }
 
-    public void setScroll(boolean s) {
+
+    // 设置
+    final public void setScroll(boolean s) {
         isScroll = s;
+        if (!isScroll) {
+            Picasso.get().resumeTag(this);
+        } else {
+            Picasso.get().pauseTag(this);
+        }
+        update();
+    }
+
+
+    final public void update() {
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -46,19 +60,20 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                 if (!TextUtils.isEmpty(bean.getEnvelopePic())) {
                     baseViewHolder.findView(R.id.icon_pic).setVisibility(View.VISIBLE);
                     Picasso.get().load(bean.getEnvelopePic())
-                            .placeholder(R.drawable.icon_image_helper)
+                            .placeholder(R.drawable.icon_pic_lloading)
                             .tag(image_tag)
-                            .resize(100, 80)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE)
+                            .resize(100, 150)
+                            .memoryPolicy( MemoryPolicy.NO_STORE)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 } else {
                     baseViewHolder.findView(R.id.icon_pic).setVisibility(View.GONE);
                 }
             } else {
-                if (
-                        baseViewHolder.findView(R.id.icon_pic).getVisibility() == View.VISIBLE) {
+                if (baseViewHolder.findView(R.id.icon_pic).getVisibility() == View.VISIBLE) {
                     Picasso.get().load(R.drawable.icon_pic_lloading)
-                            .tag(image_tag)
+                            .centerCrop()
+                            .memoryPolicy(MemoryPolicy.NO_STORE)
+                            .resize(100, 150)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 }
 

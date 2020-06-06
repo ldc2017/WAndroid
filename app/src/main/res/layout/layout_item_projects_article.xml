@@ -54,6 +54,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/dp_5"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_image_helper"
             app:riv_border_color="@color/color_c3c3c3"
