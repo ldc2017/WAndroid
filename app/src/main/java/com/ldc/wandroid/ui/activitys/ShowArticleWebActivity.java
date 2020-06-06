@@ -179,7 +179,7 @@ public class ShowArticleWebActivity extends BaseActivity<ActivityShowArticleWebB
 
             @Override
             public void onClick(View view, int viewId) {
-                final String base_shared_desc = String.format("来自安卓玩客户端\t%s", "");
+                final String base_shared_desc = String.format("来自安卓客户端(成哥制作)\t%s", "");
                 switch (viewId) {
                     case R.id.rl_wx_session:
                         boolean successA = WxSharedUts.getInstance().wx_shared_url(activity,
