@@ -1,6 +1,7 @@
 package com.ldc.wandroid.ui.fragments;
 
 
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -63,6 +64,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginPrese
         mBinding.topBar.tvTitle.setText(getString(R.string.str_login));
         mBinding.topBar.lineMore.setVisibility(View.GONE);
         mBinding.setEvents(new Events());
+        //显示下划线
+        mBinding.tvRegister.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override

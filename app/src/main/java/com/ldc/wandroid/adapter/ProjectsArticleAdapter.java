@@ -1,6 +1,5 @@
 package com.ldc.wandroid.adapter;
 
-import android.app.AliasActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -62,8 +61,9 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                     Picasso.get().load(bean.getEnvelopePic())
                             .placeholder(R.drawable.icon_pic_lloading)
                             .tag(image_tag)
-                            .resize(100, 150)
-                            .memoryPolicy( MemoryPolicy.NO_STORE)
+                            .resize(200, 230)
+                            .centerCrop()
+                            .memoryPolicy( MemoryPolicy.NO_CACHE)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 } else {
                     baseViewHolder.findView(R.id.icon_pic).setVisibility(View.GONE);
@@ -72,8 +72,8 @@ public class ProjectsArticleAdapter extends BaseQuickAdapter<ProjectsArticleMode
                 if (baseViewHolder.findView(R.id.icon_pic).getVisibility() == View.VISIBLE) {
                     Picasso.get().load(R.drawable.icon_pic_lloading)
                             .centerCrop()
-                            .memoryPolicy(MemoryPolicy.NO_STORE)
-                            .resize(100, 150)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .resize(120, 150)
                             .into((ImageView) baseViewHolder.getView(R.id.icon_pic));
                 }
 

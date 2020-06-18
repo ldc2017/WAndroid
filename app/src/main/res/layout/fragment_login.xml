@@ -84,6 +84,7 @@
                 android:layout_marginTop="@dimen/dp_10">
 
                 <TextView
+                    android:textColor="@color/color_0091ea"
                     android:id="@+id/tv_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,10 +93,11 @@
                     android:layout_centerVertical="true"
                     android:onClick="@{(v)->events._2Register(v)}"
                     android:text="@string/str_register"
-                    android:textSize="@dimen/sp_17"
+                    android:textSize="@dimen/sp_18"
                     tools:ignore="RelativeOverlap" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_for_get"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
