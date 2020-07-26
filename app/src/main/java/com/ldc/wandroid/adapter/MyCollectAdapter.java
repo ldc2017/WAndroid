@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -45,7 +46,7 @@ public class MyCollectAdapter extends BaseQuickAdapter<MyCollectModel.DatasBean,
         if (!TextUtils.isEmpty(dt.getEnvelopePic())) {
             baseViewHolder.findView(R.id.iv_icon_pic).setVisibility(View.VISIBLE);
             Picasso.get().load(dt.getEnvelopePic())
-                    .resize(100, 100)
+                    .resize(ConvertUtils.dp2px(100), ConvertUtils.dp2px(100))
                     .centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 
                     .placeholder(R.drawable.icon_image_helper)
