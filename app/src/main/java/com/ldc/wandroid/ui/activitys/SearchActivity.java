@@ -3,7 +3,9 @@ package com.ldc.wandroid.ui.activitys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -48,7 +50,9 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
     //
     private static volatile int curr_index = 0;
     //
-    static final int refresh_dt_code = 0x000;
+    private static final int refresh_dt_code = 0x000;
+    private static final int search_code = 0x001;
+
 
     @Override
     protected boolean uiHandleMessage(Message msg) {
@@ -68,9 +72,20 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
                     search_adapter.addData(dtt);
                 }
 
-                return true;
+                return false;
+            case search_code:
+                curr_index = 0;
+                String str = mBinding.searchBar.etSearch.getText().toString();
+                mPresenter.get_search_req(curr_index, str);
+                break;
         }
         return super.uiHandleMessage(msg);
+    }
+
+    private <T> void sendMessage(int what, T t) {
+        Message message = Message.obtain(uiHandler, what);
+        message.obj = t;
+        message.sendToTarget();
     }
 
     @Override
@@ -211,6 +226,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
                 }
             }
         });
+        mBinding.searchBar.etSearch.addTextChangedListener(searchChangeListener);
 
     }
 
@@ -242,4 +258,29 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchPr
     public float getSizeInDp() {
         return cmConstants.SizeInDp;
     }
+
+
+    //搜索
+    private TextWatcher searchChangeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            uiHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    sendMessage(search_code, null);
+                }
+            }, 700);
+
+        }
+    };
 }

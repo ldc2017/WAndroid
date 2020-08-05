@@ -6,8 +6,8 @@
         android:id="@+id/layout_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
         android:elevation="@dimen/dp_10"
+        android:background="@color/color_54ffffff"
         tools:targetApi="lollipop">
 
         <androidx.core.widget.ContentLoadingProgressBar
