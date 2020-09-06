@@ -23,7 +23,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <service
             android:name=".service.InitSDKIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".ui.activitys.SystemInfoActivity" />
         <activity android:name=".ui.fragments.WeChatNumberHistoryFragment" />
