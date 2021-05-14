@@ -2,17 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        debug {
-            storeFile file('..\\android.keystore')
-            storePassword '123456'
-            keyAlias = 'android'
-            keyPassword '123456'
-        }
         release {
-            storeFile file('..\\android.keystore')
-            storePassword '123456'
+            storeFile file('D:\\androidJKS\\android.jks')
+            storePassword 'android'
             keyAlias = 'android'
-            keyPassword '123456'
+            keyPassword 'android'
         }
     }
     compileSdkVersion 29
