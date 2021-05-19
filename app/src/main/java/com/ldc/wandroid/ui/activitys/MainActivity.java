@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainPresente
     }
 
     // 选择事件
-    private BottomNavigationBar.OnTabSelectedListener onTabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
+    private final BottomNavigationBar.OnTabSelectedListener onTabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
         @Override
         public void onTabSelected(int position) {
             switch_fragment(position);

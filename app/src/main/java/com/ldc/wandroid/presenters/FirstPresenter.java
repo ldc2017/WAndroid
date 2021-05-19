@@ -5,6 +5,8 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiObserver;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -20,34 +22,18 @@ public class FirstPresenter extends BasePresenter<FirstContract.V> implements Fi
     }
 
 
-
     @Override
     public void login_req(String username, String password) {
         apiServer.login(username, password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<BaseModel<LoginInfoModel>>() {
-                    private Disposable disposable;
-
+                .compose(ApiSchedulers.io2main())
+                .subscribe(new ApiObserver<BaseModel<LoginInfoModel>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
+                    protected void onSuccess(BaseModel<LoginInfoModel> loginInfoModelBaseModel) {
+                        getView().login_resp(loginInfoModelBaseModel);
                     }
 
                     @Override
-                    public void onNext(BaseModel<LoginInfoModel> value) {
-                        getView().login_resp(value);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        release_disposable(disposable);
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        release_disposable(disposable);
+                    protected void onFailed(Throwable e) {
 
                     }
                 });
