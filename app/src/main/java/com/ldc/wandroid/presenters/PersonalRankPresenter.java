@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.PersonalRankModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -26,8 +27,7 @@ public class PersonalRankPresenter extends BasePresenter<PersonalRankContract.V>
     public void get_coin_rank_req(int index) {
         getView().show_loading("加载中···");
         apiServer.get_coin_rank(index)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<PersonalRankModel>>() {
                     Disposable disposable;
 

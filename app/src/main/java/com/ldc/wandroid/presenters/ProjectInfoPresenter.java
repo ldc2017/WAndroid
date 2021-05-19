@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.ProjectsArticleModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -26,8 +27,7 @@ public class ProjectInfoPresenter extends BasePresenter<ProjectInfoContract.V> i
     public void get_projects_article_req(int index, String cid) {
         getView().show_loading("加载中···");
         apiServer.get_projects_article(index, cid)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<ProjectsArticleModel>>() {
                     Disposable disposable;
 
@@ -57,9 +57,7 @@ public class ProjectInfoPresenter extends BasePresenter<ProjectInfoContract.V> i
 
     @Override
     public void select_collect_req(String id) {
-        apiServer.select_collect(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.select_collect(id).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<Object>>() {
                     Disposable disposable;
 
@@ -87,9 +85,7 @@ public class ProjectInfoPresenter extends BasePresenter<ProjectInfoContract.V> i
 
     @Override
     public void un_select_collect_req(String id) {
-        apiServer.un_select_collect_originId(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.un_select_collect_originId(id).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<Object>>() {
                     Disposable disposable;
 

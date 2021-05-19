@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.WeChatNumberModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import java.util.List;
@@ -27,9 +28,7 @@ public class WeChatNumberPresenter extends BasePresenter<WeChatNumberContract.V>
     @Override
     public void get_wechat_number_req() {
         getView().show_loading("请求数据···");
-        apiServer.get_wechat_number()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.get_wechat_number().compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<List<WeChatNumberModel>>>() {
                     private Disposable disposable;
 

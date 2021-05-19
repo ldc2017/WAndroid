@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.MySharedModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -24,9 +25,7 @@ public class MySharedPresenter extends BasePresenter<MySharedContract.V> impleme
     @Override
     public void get_my_shared_req(int index) {
         getView().show_loading("加载中···");
-        apiServer.get_my_shared(index)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.get_my_shared(index).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<MySharedModel>>() {
                     Disposable disposable;
 

@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.SystemModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import java.util.List;
@@ -26,9 +27,7 @@ public class SystemPresenter extends BasePresenter<SystemContract.V> implements 
     @Override
     public void get_system_req() {
         getView().show_loading("加载中");
-        apiServer.get_system()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.get_system().compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<List<SystemModel>>>() {
                     Disposable disposable;
 

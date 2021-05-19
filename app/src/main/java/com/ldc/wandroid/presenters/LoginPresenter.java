@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.LoginInfoModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -26,8 +27,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.V> implements Lo
     public void login_req(String username, String password) {
         getView().show_loading("请稍等···");
         apiServer.login(username, password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<LoginInfoModel>>() {
                     private Disposable disposable;
 

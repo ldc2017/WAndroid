@@ -4,6 +4,7 @@ import com.ldc.wandroid.contracts.AddPriateArticleContract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -22,9 +23,7 @@ public class AddSharedArticlePresenter extends BasePresenter<AddPriateArticleCon
     @Override
     public void add_private_article_req(String title, String link) {
         getView().show_loading("提交中···");
-        apiServer.user_article_add(title, link)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.user_article_add(title, link).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<Object>>() {
                     Disposable disposable;
 

@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.ProjectsModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import java.util.List;
@@ -25,9 +26,7 @@ public class ProjectTabPresenter extends BasePresenter<ProjectTabContract.V> imp
 
     @Override
     public void get_project_req() {
-        apiServer.get_projects()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.get_projects().compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<List<ProjectsModel>>>() {
                     Disposable disposable;
 

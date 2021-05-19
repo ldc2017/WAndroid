@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.RegisterInfoModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -25,9 +26,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.V> impleme
     @Override
     public void register_req(String username, String pwd, String pwd2) {
         getView().show_loading("提交数据···");
-        apiServer.register(username, pwd, pwd2)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.register(username, pwd, pwd2).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<RegisterInfoModel>>() {
                     private Disposable disposable;
 

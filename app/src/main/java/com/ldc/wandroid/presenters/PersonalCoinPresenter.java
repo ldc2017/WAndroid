@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.PersonalCoinModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -25,8 +26,7 @@ public class PersonalCoinPresenter extends BasePresenter<PersonalCoinContract.V>
     public void get_coinCount_req(int index) {
         getView().show_loading("加载中···");
         apiServer.get_coinCount(index)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<PersonalCoinModel>>() {
                     Disposable disposable;
 

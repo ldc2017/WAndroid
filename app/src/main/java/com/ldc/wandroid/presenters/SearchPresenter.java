@@ -5,6 +5,7 @@ import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.model.SearchModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -25,8 +26,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.V> implements 
     public void get_search_req(int index, String k) {
         getView().show_loading("查询中···");
         apiServer.get_search(index, k)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<SearchModel>>() {
                     Disposable disposable;
 
@@ -60,9 +60,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.V> implements 
 
     @Override
     public void select_collect_req(String id) {
-        apiServer.select_collect(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.select_collect(id).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<Object>>() {
                     Disposable disposable;
 
@@ -92,9 +90,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.V> implements 
 
     @Override
     public void un_select_collect_originId_req(String id) {
-        apiServer.un_select_collect_originId(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.un_select_collect_originId(id).compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<Object>>() {
                     Disposable disposable;
 

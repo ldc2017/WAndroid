@@ -4,6 +4,7 @@ import com.ldc.wandroid.contracts.MainContract;
 import com.ldc.wandroid.core.BasePresenter;
 import com.ldc.wandroid.model.BaseModel;
 import com.ldc.wandroid.net.Api2Request;
+import com.ldc.wandroid.net.ApiSchedulers;
 import com.ldc.wandroid.net.ApiServer;
 
 import io.reactivex.Observer;
@@ -20,8 +21,7 @@ public class MainPresenter extends BasePresenter<MainContract.V> implements Main
 
     @Override
     public void get_logout_req() {
-        apiServer.logout().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        apiServer.logout().compose(ApiSchedulers.io2main())
                 .subscribe(new Observer<BaseModel<Object>>() {
                     Disposable disposable;
 
